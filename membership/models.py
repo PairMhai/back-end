@@ -9,7 +9,7 @@ class Customer(models.Model):
     address = models.TextField()
     classes = models.ForeignKey(
         'Class',
-        on_delete = models.CASCADE
+        on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -17,4 +17,4 @@ class Customer(models.Model):
 class Class(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
-    description = models.TextField() 
+    description = models.TextField()
