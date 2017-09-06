@@ -1,2 +1,2 @@
 # Index of document
-This API using [REST architectural style](doc/REST-description.md)
+This API using [REST architectural style](REST-description.md)
