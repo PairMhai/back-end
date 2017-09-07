@@ -2,7 +2,7 @@
 This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org). 
 
 # Membership
-![test](REST-description.md)
+WIP
 
 # Alert Error
 1. I didn't implement account and admin user so `api-auth/` will not found before login.
