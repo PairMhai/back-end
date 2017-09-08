@@ -3,7 +3,7 @@
 
 # Install Guide
 1. anaconda is required to set envrionment [link](https://www.anaconda.com/download/)
-  - the command line interface (cli) is enough.
+    - the command line interface (cli) is enough.
 
 ## To install
 1. create require envrionment by `conda create --name pairmhai --file requirement_conda.txt` (first time **ONLY**)
