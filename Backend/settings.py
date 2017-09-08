@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'membership.apps.MembershipConfig',
+    'catalog.apps.CatalogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,7 +79,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
-
+AUTH_USER_MODEL = 'membership.User'
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
