@@ -1,3 +1,13 @@
+<!-- 
+To check the type you need to do like this
+## Type
+- [X] Bug
+- [ ] Security
+- [ ] Improvement
+- [ ] Enhancement
+- [ ] Other...
+-->
+
 ## Type
 - [ ] Bug
 - [ ] Security
@@ -6,7 +16,10 @@
 - [ ] Other...
 
 ## Doing Steps
-...
+1. ...
+2. ...
+3. ...
+4. ...
 
 ### Expected
 ...
@@ -15,9 +28,12 @@
 ...
 
 ## Environment
-- OS: <VERSION>
-- app: <VERSION>
-- and more all library version
+- python: VERSION
+- django: VERSION
+- django-rest: VERSION
+- OS: TYPE,VERSION
+- app: VERSION
+- other: xxxxxx
 
 ## Other comment
 ...
