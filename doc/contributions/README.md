@@ -17,10 +17,10 @@ This are some conversion to naming the new branch
 3. when you create the PR, github will provide the template to you, so please follow that template.
 
 # Commit
-[Commit-Conversion](../../.github/COMMIT_CONVENTION.md)
+[Commit-Conversion](/.github/COMMIT_CONVENTION.md)
 
 # Other
-1. Branch naming 
+1. Branch naming
 2. template
 3. example code
 4. env
