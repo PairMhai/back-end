@@ -23,5 +23,4 @@ root                     ~/anaconda3
 1. [Document link](doc/README.md)
 
 # Contribution
-1. [format](doc/contribution/README.md)
-2. [how to](doc/contribution/Howto.md)
+[Need to know](doc/contribution/README.md)
