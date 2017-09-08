@@ -12,8 +12,8 @@
 ```
 # conda environments:
 #
-pairmhai              *  /Users/kamontat/anaconda3/envs/pairmhai
-root                     /Users/kamontat/anaconda3
+pairmhai              *  ~/anaconda3/envs/pairmhai
+root                     ~/anaconda3
 ```
 4. install more needed library by `pip install -r requirements.txt`
 5. run server by `python manage.py runserver`
