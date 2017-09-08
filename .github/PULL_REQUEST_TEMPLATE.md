@@ -3,7 +3,6 @@
 - [ ] Feature
 - [ ] Code style update
 - [ ] Refactor
-- [ ] Build-related changes
 - [ ] Other, please describe:
 
 **The PR fulfills these requirements:**
