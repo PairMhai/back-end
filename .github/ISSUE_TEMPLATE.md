@@ -1,25 +1,18 @@
-<!-- 
-To check the type you need to do like this
-## Type
-- [X] Bug
-- [ ] Security
-- [ ] Improvement
-- [ ] Enhancement
-- [ ] Other...
--->
-
-## Type
+## What kind of issue? (check at least one)
 - [ ] Bug
-- [ ] Security
+- [ ] Security problem
+- [ ] Request feature
 - [ ] Improvement
 - [ ] Enhancement
-- [ ] Other...
+- [ ] Other, please describe: ...
+
+## The ISSUE fulfills these requirements:
+- [ ] nothing
 
 ## Doing Steps
 1. ...
 2. ...
 3. ...
-4. ...
 
 ### Expected
 ...
