@@ -2,15 +2,12 @@
 **Work In Progress (WIP)**
 
 # Install Guide
+1. anaconda is required to set envrionment [link](https://www.anaconda.com/download/)
+  - the command line interface (cli) is enough.
 
-## option 1 (using pip)
-1. install requirement library by `[pip|pip3] install -r requirements.txt`
-2. run server by `[python|python3] manage.py runserver`
-3. the server will run on **http://localhost:8000**
-
-## option 2 (using [conda](https://conda.io/docs/))
-1. install requirement library by `conda create --name pairmhai -c conda-forge --file requirement_conda.txt` (first time ONLY)
-2. activate by `source activate pairmhai`
+## To install
+1. create require envrionment by `conda create --name pairmhai --file requirement_conda.txt` (first time **ONLY**)
+2. activate envrionment by `source activate pairmhai`
 3. (optional) validate by run `conda info --envs` the star (`*`) should be on pairmhai name like this...
 ```
 # conda environments:
@@ -18,8 +15,9 @@
 pairmhai              *  /Users/kamontat/anaconda3/envs/pairmhai
 root                     /Users/kamontat/anaconda3
 ```
-2. run server by `[python|python3] manage.py runserver`
-3. the server will run on **http://localhost:8000**
+4. install more needed library by `pip install -r requirements.txt`
+5. run server by `python manage.py runserver`
+6. the server will run on **http://localhost:8000**
 
 # Documentation
 1. [Document link](doc/README.md)
