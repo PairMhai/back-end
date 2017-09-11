@@ -37,3 +37,6 @@ tags
 .history
 
 # End of https://www.gitignore.io/api/django,vim,visualstudiocode
+.idea
+
+**/migrations/[0-9]*.py

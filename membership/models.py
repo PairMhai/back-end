@@ -2,17 +2,22 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from payment.models import BankAccount
+
+
 # custom user that extend from django auth user
 class User(AbstractUser):
     """customer information v1"""
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    telephone = models.CharField(max_length=13)
-    address = models.TextField()
-    date_of_birth = models.DateField()
+    telephone = models.CharField(max_length=13, default="")
+    address = models.TextField(default="")
+    date_of_birth = models.DateField(null=True)
     updated_at = models.DateTimeField(auto_now=True)
+
     def __str__(self):
         return self.firstname + " " + self.lastname
+
 
 # merge django auth user to customer
 class Customer(models.Model):
@@ -25,13 +30,17 @@ class Customer(models.Model):
         'Class',
         on_delete=models.CASCADE
     )
+    bank_account = models.ManyToManyField(BankAccount)  # many to many relations
+
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.user.firstname + " " + self.user.lastname
+
 
 class Class(models.Model):
     """membership class v1"""
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.TextField()
+
     def __str__(self):
         return self.name
