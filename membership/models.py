@@ -7,9 +7,9 @@ class User(AbstractUser):
     """customer information v1"""
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
-    telephone = models.CharField(max_length=13)
-    address = models.TextField()
-    date_of_birth = models.DateField()
+    telephone = models.CharField(max_length=13, default="")
+    address = models.TextField(default="")
+    date_of_birth = models.DateField(null=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.firstname + " " + self.lastname
@@ -26,7 +26,7 @@ class Customer(models.Model):
         on_delete=models.CASCADE
     )
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.user.firstname + " " + self.user.lastname
 
 class Class(models.Model):
     """membership class v1"""
