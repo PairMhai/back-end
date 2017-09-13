@@ -2,6 +2,9 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+# Interesting library
+# https://docs.python.org/3/library/doctest.html
+
 # custom user that extend from django auth user
 class User(AbstractUser):
     """customer information v1"""
