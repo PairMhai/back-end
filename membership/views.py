@@ -9,6 +9,11 @@ class CustomerAction(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
+    def perform_create(self, serializer):
+        print("self: " + str(self.request))
+        print("serializer: " + str(serializer))
+        serializer.save(self.request.user)
+
 class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
