@@ -1,0 +1,18 @@
+- model: membership.user
+  pk: 2
+  fields:
+    password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
+    last_login: null
+    is_superuser: true
+    username: admin
+    first_name: 'Admin'
+    last_name: 'Pairmhai'
+    email: admin@pairmhai.com
+    is_staff: true
+    is_active: true
+    date_joined: 2017-09-14 14:08:20.887364+00:00
+    telephone: 088-888-8888
+    address: ''
+    date_of_birth: 2017-01-01
+    groups: []
+    user_permissions: []
