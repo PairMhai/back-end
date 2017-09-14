@@ -15,4 +15,6 @@ elif [[ $1 == "migrate" ]]; then
     $COMMAND manage.py migrate
 elif [[ $1 == "server" ]]; then
     $COMMAND manage.py runserver
+elif [[ $1 == "test" ]]; then
+    $COMMAND manage.py test
 fi
