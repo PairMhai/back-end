@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
 
+CORS_ORIGIN_WHITELIST = ( 'localhost:8080', 'localhost:8000' )
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,12 +46,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'logentry_admin',
     'rest_framework',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
+        # 'rest_framework.permissions.AllowAny',
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
@@ -57,6 +61,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
