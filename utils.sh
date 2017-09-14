@@ -17,4 +17,6 @@ elif [[ $1 == "server" ]]; then
     $COMMAND manage.py runserver
 elif [[ $1 == "test" ]]; then
     $COMMAND manage.py test
+elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" ]]; then
+    rm -rf ./test-reports/*
 fi
