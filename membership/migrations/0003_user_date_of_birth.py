@@ -9,7 +9,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('membership', '0002_auto_20170908_1415'),
+        ('membership', '0001_initial'),
     ]
 
     operations = [
