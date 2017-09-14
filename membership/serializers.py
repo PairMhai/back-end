@@ -25,10 +25,11 @@ class CustomerSerializer(serializers.ModelSerializer):
         fields = ('id', 'user')
 
     def create(self, validated_data):
+        raw_data = self.context['request'].data
         user_data = ""
         if (self.context['request'].method == "POST"):
             serializer = FullUserSerializer(
-                data=self.context['request'].data.pop('user')
+                data = raw_data.pop('user')
             )
             if (serializer.is_valid()):
                 user_data = serializer.validated_data
@@ -38,9 +39,12 @@ class CustomerSerializer(serializers.ModelSerializer):
         else:
             user_data = validated_data.pop('user')  # get user json
         user = User.objects.create(**user_data)  # create user
-        class_bronze = Class.objects.get(id=1)  # get bronze class by default
+        user_class = Class.objects.get(id=1)  # get bronze class by default
+        if ('classes' in raw_data):
+            class_id = raw_data['classes']
+            user_class = Class.objects.get(id=class_id)
         customer = Customer.objects.create(
-            user=user, classes=class_bronze)  # create customer
+            user=user, classes=user_class)  # create customer
         return customer
 
 

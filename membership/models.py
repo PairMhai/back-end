@@ -8,6 +8,9 @@ from django.contrib.auth.models import AbstractUser
 # custom user that extend from django auth user
 class User(AbstractUser):
     """customer information v1"""
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=50)
+    email = models.CharField(max_length=254)
     telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
     address = models.TextField(default="")
     date_of_birth = models.DateField(null=True)

@@ -24,9 +24,9 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
-                ('first_name', models.CharField(blank=True, max_length=30, verbose_name='first name')),
-                ('last_name', models.CharField(blank=True, max_length=30, verbose_name='last name')),
-                ('email', models.EmailField(blank=True, max_length=254, verbose_name='email address')),
+                ('first_name', models.CharField(max_length=30, verbose_name='first name')),
+                ('last_name', models.CharField(max_length=50, verbose_name='last name')),
+                ('email', models.EmailField(max_length=254, verbose_name='email address')),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 ('address', models.TextField()),
                 ('telephone', models.CharField(max_length=13)),
