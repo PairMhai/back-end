@@ -14,9 +14,9 @@ class UserTestCase(TestCase):
 
     def setUp(self):
         User.objects.create(username=self.username1,
-                            firstname=self.firstname1, lastname=self.lastname1)
+                            first_name=self.firstname1, last_name=self.lastname1)
         User.objects.create(username="test_name_2",
-                            firstname="first_name_2", lastname="last_name_2")
+                            first_name="first_name_2", last_name="last_name_2")
 
     def test_default_telephone(self):
         """Animals that can speak are correctly identified"""
@@ -26,7 +26,7 @@ class UserTestCase(TestCase):
     def test_correctly_firstname(self):
         """Animals that can speak are correctly identified"""
         user1 = User.objects.get(username=self.username1)
-        self.assertEqual(self.firstname1, user1.firstname)
+        self.assertEqual(self.firstname1, user1.first_name)
 
 if __name__ == '__main__':
     unittest.main(
