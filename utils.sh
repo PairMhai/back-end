@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
 
+COMMAND="python"
+
 if [[ $1 == "load" ]]; then
-    python manage.py loaddata $2
+    # $2 either init_class | init_admin
+    $COMMAND manage.py loaddata $2
 elif [[ $1 == "export" ]]; then
     # $2 = model to export
     # $3 = file export to
-    python manage.py dumpdata --format yaml $2 >> $3
+    $COMMAND manage.py dumpdata --format yaml $2 >> $3
+elif [[ $1 == "make" ]]; then
+    $COMMAND manage.py makemigrations
+elif [[ $1 == "migrate" ]]; then
+    $COMMAND manage.py migrate
 elif [[ $1 == "server" ]]; then
-    python manage.py runserver
+    $COMMAND manage.py runserver
 fi
