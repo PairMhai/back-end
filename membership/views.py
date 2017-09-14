@@ -1,5 +1,5 @@
 from membership.models import Customer, Class
-from membership.serializers import CustomerSerializer, ClassSerializer
+from membership.serializers import CustomerSerializer, FullCustomerSerializer, ClassSerializer
 # from django.views.decorators.csrf import csrf_exempt
 
 # from test
@@ -15,7 +15,7 @@ class CustomerAction(generics.ListCreateAPIView):
 
 class CustomerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
+    serializer_class = FullCustomerSerializer
 
 
 class ClassDetail(generics.RetrieveAPIView):

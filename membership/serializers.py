@@ -47,9 +47,15 @@ class CustomerSerializer(serializers.ModelSerializer):
             user=user, classes=user_class)  # create customer
         return customer
 
+class FullCustomerSerializer(CustomerSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Customer
+        fields = ('id', 'user', 'classes')
+
 
 class ClassSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Class
         fields = ('id', 'name', 'price', 'description')
