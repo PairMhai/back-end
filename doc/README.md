@@ -1,5 +1,8 @@
 # Index of document
-This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org). 
+This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org).
+
+# Testing guideline
+[guide](TEST_GUIDE.md)
 
 # Membership
 WIP
