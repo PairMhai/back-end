@@ -40,6 +40,7 @@ class Class(models.Model):
     """membership class v1"""
     name = models.CharField(max_length=100)
     price = models.IntegerField()
+    discount = models.DecimalField(max_digits=5, decimal_places=3)
     description = models.TextField()
 
     def __str__(self):
