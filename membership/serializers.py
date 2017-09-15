@@ -54,7 +54,6 @@ class FullCustomerSerializer(CustomerSerializer):
         model = Customer
         fields = ('id', 'user', 'classes')
 
-
 class ClassSerializer(serializers.ModelSerializer):
     class Meta:
         model = Class

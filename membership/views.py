@@ -1,6 +1,6 @@
+from rest_framework.response import Response
 from membership.models import Customer, Class
 from membership.serializers import CustomerSerializer, FullCustomerSerializer, ClassSerializer
-# from django.views.decorators.csrf import csrf_exempt
 
 # from test
 import pprint

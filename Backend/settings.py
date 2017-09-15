@@ -36,6 +36,8 @@ CORS_ORIGIN_WHITELIST = ( 'localhost:8080', 'localhost:8000' )
 # Application definition
 
 INSTALLED_APPS = [
+    'cart.apps.CartConfig',
+    'payment.apps.PaymentConfig',
     'membership.apps.MembershipConfig',
     'catalog.apps.CatalogConfig',
     'django.contrib.admin',

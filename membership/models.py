@@ -2,6 +2,8 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from payment.models import BankAccount
+
 # Interesting library
 # https://docs.python.org/3/library/doctest.html
 
@@ -17,6 +19,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.username + ": " + self.first_name + " " + self.last_name
 
+
 # merge django auth user to customer
 class Customer(models.Model):
     """customer information v1"""
@@ -28,6 +31,8 @@ class Customer(models.Model):
         'Class',
         on_delete=models.CASCADE
     )
+    bank_account = models.ManyToManyField(BankAccount)  # many to many relations
+
     def __str__(self):
         return self.user
 
@@ -36,5 +41,6 @@ class Class(models.Model):
     name = models.CharField(max_length=100)
     price = models.IntegerField()
     description = models.TextField()
+
     def __str__(self):
         return self.name
