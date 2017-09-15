@@ -16,7 +16,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'email', 'telephone', 'address', 'date_of_birth')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'date_of_birth')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -40,7 +40,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'email', 'telephone', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
 
     def clean_password(self):
         return self.initial["password"]
@@ -49,8 +49,8 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
 
-    list_display = ('firstname', 'lastname', 'email', 'is_active', 'is_staff')
-    list_filter = ('firstname', 'email', 'telephone')
+    list_display = ('first_name', 'last_name', 'email', 'is_active', 'is_staff')
+    list_filter = ('first_name', 'email', 'telephone')
     fieldsets = (
         (None,                      {'fields': ('username', 'password')}),
         ('Personal info',            {'fields': ('first_name', 'last_name', 'email')}),
@@ -63,11 +63,11 @@ class UserAdmin(BaseUserAdmin):
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {'fields': ('username', 'password1', 'password2')}),
-        ('Personal info', {'fields': ('firstname','lastname','email')}),
+        ('Personal info', {'fields': ('first_name','last_name','email')}),
         ('Addition personal info', {'fields': ('date_of_birth', 'telephone','address')})
     )
-    search_fields = ('firstname', 'telephone', 'address', 'email')
-    ordering = ('firstname', 'email')
+    search_fields = ('first_name', 'telephone', 'address', 'email')
+    ordering = ('first_name', 'email')
 
 admin.site.register(User, UserAdmin)
 

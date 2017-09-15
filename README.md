@@ -1,4 +1,4 @@
-# Pairmhai Backend
+# Pairmhai Backend [![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/dev.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend)
 **Work In Progress (WIP)**
 
 # Install Guide
