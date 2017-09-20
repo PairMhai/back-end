@@ -16,8 +16,12 @@ pairmhai              *  ~/anaconda3/envs/pairmhai
 root                     ~/anaconda3
 ```
 4. install more needed library by `pip install -r requirements.txt`
-5. run server by `python manage.py runserver`
-6. the server will run on **http://localhost:8000**
+5. load database testing data by run `./utils.sh load <database-type>`
+    - support type
+        - user
+        - class
+6. run server by `python manage.py runserver`
+7. the server will run on **http://localhost:8000**
 
 # Documentation
 1. [Document link](doc/README.md)
