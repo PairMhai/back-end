@@ -34,7 +34,7 @@ class Customer(models.Model):
     bank_account = models.ManyToManyField(BankAccount)  # many to many relations
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 
 class Class(models.Model):
     """membership class v1"""

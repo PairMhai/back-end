@@ -10,4 +10,4 @@ class BankAccount(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "{0} {0}".format(self.name, self.credit_no)
+        return "{} {}".format(self.name, self.credit_no)
