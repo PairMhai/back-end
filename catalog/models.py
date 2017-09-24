@@ -34,11 +34,16 @@ class Material(models.Model):
     def __str__(self):
         return self.name
 
+class Image(models.Model):
+    """image of the material v1"""
+    name = models.CharField(max_length=50)
+    material_id = models.ForeignKey(
+        'Material',
+        on_delete=models.CASCADE
+    )
+    # size = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.name
 
-# no need, since django already provide many to many relations
-# class MaterialPattern(models.Model):
-#     """weak of material and pattern v1"""
-#     material_id = models.ForeignKey(Material, on_delete=models.CASCADE)
-#     pattern_id = models.ForeignKey(Pattern, on_delete=models.CASCADE)
-#     created_at = models.DateTimeField(auto_now_add=True)
-#     updated_at = models.DateTimeField(auto_now=True)

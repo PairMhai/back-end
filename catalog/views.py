@@ -1,5 +1,5 @@
 from catalog.models import Material, Design, Pattern
-from catalog.serializers import MaterialSerializer, DesignSerializer, PatternSerializer
+from catalog.serializers import HardMaterialSerializer, SoftMaterialSerializer, DesignSerializer, HardPatternSerializer, SoftPatternSerializer
 # from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import generics
@@ -7,11 +7,11 @@ from rest_framework import generics
 #Create your views here.
 class MaterialList(generics.ListAPIView):
     queryset = Material.objects.all()
-    serializer_class = MaterialSerializer
+    serializer_class = SoftMaterialSerializer
 
 class MaterialDetail(generics.RetrieveAPIView):
     queryset = Material.objects.all()
-    serializer_class = MaterialSerializer
+    serializer_class = HardMaterialSerializer
 
 class DesignList(generics.ListAPIView):
     queryset = Design.objects.all()
@@ -23,8 +23,8 @@ class DesignDetail(generics.RetrieveAPIView):
 
 class PatternList(generics.ListAPIView):
     queryset = Pattern.objects.all()
-    serializer_class = PatternSerializer
+    serializer_class = SoftPatternSerializer
 
 class PatternDetail(generics.RetrieveAPIView):
     queryset = Pattern.objects.all()
-    serializer_class = PatternSerializer
+    serializer_class = HardPatternSerializer
