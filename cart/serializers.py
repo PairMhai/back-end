@@ -15,3 +15,4 @@ class TransportationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Transportation
         fields = ('id', 'type', 'price')
+
