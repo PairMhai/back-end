@@ -4,7 +4,11 @@ COMMAND="python"
 
 if [[ $1 == "load" ]]; then
     # $2 either user or class
-    $COMMAND manage.py loaddata "init_$2"
+    fixtures=($(ls **/fixtures/))
+    for fixture in ${fixtures[@]}; do
+        echo "loading $fixture"
+        $COMMAND manage.py loaddata "$fixture"
+    done
 elif [[ $1 == "export" ]]; then
     # $2 = model to export
     # $3 = file export to
