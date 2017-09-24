@@ -33,6 +33,7 @@ TEST_OUTPUT_DIR = 'test-reports'
 
 CORS_ORIGIN_WHITELIST = ( 'localhost:8080', 'localhost:8000' )
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -91,6 +92,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
 AUTH_USER_MODEL = 'membership.User'
+APPEND_SLASH=False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
