@@ -36,7 +36,7 @@ class Material(models.Model):
 
 class Image(models.Model):
     """image of the material v1"""
-    name = models.CharField(max_length=50)
+    file_name = models.CharField(max_length=50)
     material_id = models.ForeignKey(
         'Material',
         on_delete=models.CASCADE
@@ -45,5 +45,5 @@ class Image(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     def __str__(self):
-        return self.name
+        return self.file_name
 
