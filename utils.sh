@@ -23,8 +23,10 @@ elif [[ $1 == "t" ]]; then
     $COMMAND manage.py test
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
+    echo "remove database."
 elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" || $1 == "c" ]]; then
     rm -rf ./test-reports/*
+    echo "remove test-reports."
 else
   echo "
 Description: This is python utilities with django (To use this you must follow install helper in README.md)
