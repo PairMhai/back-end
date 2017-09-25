@@ -17,9 +17,9 @@ elif [[ $1 == "make" ]]; then
     $COMMAND manage.py makemigrations
 elif [[ $1 == "m" ]]; then
     $COMMAND manage.py migrate
-elif [[ $1 == "server" ]]; then
+elif [[ $1 == "s" ]]; then
     $COMMAND manage.py runserver
-elif [[ $1 == "test" ]]; then
+elif [[ $1 == "t" ]]; then
     $COMMAND manage.py test
 elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" ]]; then
     rm -rf ./test-reports/*
