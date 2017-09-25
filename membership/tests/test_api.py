@@ -1,4 +1,5 @@
 # https://docs.djangoproject.com/en/1.11/topics/testing/
+from django.contrib.messages import get_messages
 
 from django.test import TestCase
 
@@ -39,7 +40,9 @@ class ViewTestCase(TestCase):
                 "first_name": "good" + number,
                 "last_name": "user",
                 "email": "good" + number + "@user.com"
-            }
+            },
+            "password1": "asdf123fdssa",
+            "password2": "asdf123fdssa"
         }
 
         number = str(round(uniform(0, 10000), 5))
@@ -50,7 +53,9 @@ class ViewTestCase(TestCase):
                 "last_name": "user",
                 "email": "good" + number + "@user.com"
             },
-            "classes": randrange(1, 6)
+            "classes": randrange(1, 6),
+            "password1": "asdf123fdssa",
+            "password2": "asdf123fdssa"
         }
 
     def test_api_bad_request_no_first_last_email(self):
@@ -71,7 +76,9 @@ class ViewTestCase(TestCase):
             self.bad_user,
             format="json"
         )
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+        print(response.data)
+        self.assertEqual(response.data, {'detail': 'Authentication credentials were not provided.'})
+        # self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_api_autocomplete_class_in_customer(self):
         """if client don't specify class, use default bronze class."""
