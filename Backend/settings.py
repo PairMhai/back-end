@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'cart.apps.CartConfig',
     'payment.apps.PaymentConfig',
     'membership.apps.MembershipConfig',
+    'comment.apps.CommentConfig',
     'catalog.apps.CatalogConfig',
     'django.contrib.admin',
     'django.contrib.auth',
