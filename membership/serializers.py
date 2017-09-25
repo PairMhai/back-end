@@ -39,6 +39,9 @@ class CustomerSerializer(serializers.ModelSerializer):
                 return None
         else:
             user_data = validated_data.pop('user')  # get user json
+
+        if ('password1' not in raw_data or 'password2' not in raw_data):
+            raise serializers.ValidationError('password1 and password2 is required')
         pass1 = raw_data['password1']
         pass2 = raw_data['password2']
         if (pass1 != pass2):
