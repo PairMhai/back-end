@@ -16,6 +16,7 @@ class User(AbstractUser):
     telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
     address = models.TextField(default="")
     gender = models.CharField(max_length=20, default="unknown")
+    age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
     def __str__(self):
         return self.username + ": " + self.first_name + " " + self.last_name

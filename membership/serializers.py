@@ -15,7 +15,7 @@ class FullUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'address', 'date_of_birth', 'telephone', 'gender')
+                  'email', 'address', 'age', 'date_of_birth', 'telephone', 'gender')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
