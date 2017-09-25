@@ -25,7 +25,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         model = Customer
         fields = ('id', 'user')
 
-    def create(self, validated_data):
+    def save(self, request):
         raw_data = self.context['request'].data
         user_data = ""
         if (self.context['request'].method == "POST"):
@@ -38,7 +38,8 @@ class CustomerSerializer(serializers.ModelSerializer):
                 print("SERIALIZER ERRORS: ", serializer.errors)
                 return None
         else:
-            user_data = validated_data.pop('user')  # get user json
+            raise serializers.ValidationError('only post method')
+            # user_data = validated_data.pop('user')  # get user json
 
         if ('password1' not in raw_data or 'password2' not in raw_data):
             raise serializers.ValidationError('password1 and password2 is required')
@@ -54,7 +55,9 @@ class CustomerSerializer(serializers.ModelSerializer):
             user_class = Class.objects.get(id=class_id)
         customer = Customer.objects.create(
             user=user, classes=user_class)  # create customer
-        return customer
+        return user
+
+
 
 class FullCustomerSerializer(CustomerSerializer):
     user = UserSerializer()
