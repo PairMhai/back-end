@@ -1,5 +1,6 @@
 from membership.models import User, Customer, Class
 from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -14,7 +15,7 @@ class FullUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'address', 'date_of_birth', 'telephone')
+                  'email', 'address', 'date_of_birth', 'telephone', 'gender')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -38,6 +39,11 @@ class CustomerSerializer(serializers.ModelSerializer):
                 return None
         else:
             user_data = validated_data.pop('user')  # get user json
+        pass1 = raw_data['password1']
+        pass2 = raw_data['password2']
+        if (pass1 != pass2):
+            raise serializers.ValidationError('password not match')
+        user_data.update({'password': make_password(pass1)})
         user = User.objects.create(**user_data)  # create user
         user_class = Class.objects.get(id=1)  # get bronze class by default
         if ('classes' in raw_data):
