@@ -15,7 +15,7 @@ elif [[ $1 == "export" ]]; then
     $COMMAND manage.py dumpdata --format yaml $2 >> $3
 elif [[ $1 == "make" ]]; then
     $COMMAND manage.py makemigrations
-elif [[ $1 == "migrate" ]]; then
+elif [[ $1 == "m" ]]; then
     $COMMAND manage.py migrate
 elif [[ $1 == "server" ]]; then
     $COMMAND manage.py runserver
