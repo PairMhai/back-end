@@ -12,7 +12,7 @@ class User(AbstractUser):
     """customer information v1"""
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=254)
+    email = models.EmailField()
     telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
     address = models.TextField(default="")
     gender = models.CharField(max_length=20, default="unknown")
