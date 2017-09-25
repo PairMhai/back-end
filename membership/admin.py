@@ -16,7 +16,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'date_of_birth')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'date_of_birth', 'gender')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -40,7 +40,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'gender', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
 
     def clean_password(self):
         return self.initial["password"]
@@ -50,11 +50,11 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
 
     list_display = ('first_name', 'last_name', 'email', 'is_active', 'is_staff')
-    list_filter = ('first_name', 'email', 'telephone')
+    list_filter = ('first_name', 'email', 'telephone', 'gender')
     fieldsets = (
         (None,                      {'fields': ('username', 'password')}),
         ('Personal info',            {'fields': ('first_name', 'last_name', 'email')}),
-        ('Addition personal info',  {'fields': ('date_of_birth', 'telephone','address')}),
+        ('Addition personal info',  {'fields': ('date_of_birth', 'telephone','address', 'gender')}),
         ('Permissions',             {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates',         {'fields': ('last_login', 'date_joined')}),
     )

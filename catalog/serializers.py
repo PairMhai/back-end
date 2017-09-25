@@ -12,7 +12,6 @@ class HardMaterialSerializer(serializers.ModelSerializer):
         fields = ('id', 'name',
                   'quantity', 'price')
 
-
 class DesignSerializer(serializers.ModelSerializer):
     class Meta:
         model = Design
