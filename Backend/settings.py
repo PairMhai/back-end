@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
 
-CORS_ORIGIN_WHITELIST = ( 'localhost:8080', 'localhost:8000' )
+CORS_ORIGIN_WHITELIST = ( 'localhost:8080', 'localhost:8000', 'localhost:3000' )
 
 
 # Application definition
