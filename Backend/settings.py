@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'comment.apps.CommentConfig',
     'catalog.apps.CatalogConfig',
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -50,8 +51,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'logentry_admin',
     'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
     'corsheaders',
 ]
+
+# REST AUTH
+SITE_ID = 1
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -96,8 +105,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
-AUTH_USER_MODEL = 'membership.User'
-APPEND_SLASH=False
+# AUTH_USER_MODEL = 'membership.User'
+# APPEND_SLASH=False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
