@@ -166,7 +166,7 @@ class ViewTestCase(TestCase):
     # def test_api_password_encryption(self):
 
     def test_api_is_optional_param_saved(self):
-        """test if optional params is saved in the db"""
+        """test if optional params are saved in the db"""
         self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
@@ -191,4 +191,23 @@ class ViewTestCase(TestCase):
 
         self.client.logout()
 
-    # def test_api_is_required_param_saved(self):
+    def test_api_is_required_param_saved(self):
+        """test if all required params are saved"""
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        first = self.good_user.get("user").get("first_name")
+        last = self.good_user.get("user").get("last_name")
+        email = self.good_user.get("user").get("email")
+        password1 = self.good_user.get("user").get("password1")
+        password2 = self.good_user.get("user").get("password2")
+        db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
+        self.assertEqual(len(db_user), 1)
+        self.assertEqual(db_user[0].user.first_name, first)
+        self.assertEqual(db_user[0].user.last_name, last)
+        self.assertEqual(db_user[0].user.email, email)
+        self.client.logout()
