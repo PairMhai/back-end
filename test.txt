@@ -1,4 +1,0 @@
-- model: payment.bankaccount
-  pk: 1
-  fields: {name: test, credit_no: '123123123123123', ccv: '123', created_at: null,
-    updated_at: null}
