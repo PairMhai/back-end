@@ -1,0 +1,52 @@
+- model: cart.Transportation
+  pk: 1
+  fields:
+    name: thai_post_office
+    price: 150
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: cart.Transportation
+  pk: 2
+  fields:
+    name: Kerry
+    price: 250
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: cart.Transportation
+  pk: 3
+  fields:
+    name: grab_bike
+    price: 220
+- model: cart.Transportation
+  pk: 4
+  fields:
+    name: sombat_tour
+    price: 200
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: cart.Transportation
+  pk: 5
+  fields:
+    name: DHL
+    price: 250
+- model: cart.Transportation
+  pk: 6
+  fields:
+    name: Lalamove
+    price: 115
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: cart.Transportation
+  pk: 7
+  fields:
+    name: Skooter
+    price: 290
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: cart.Transportation
+  pk: 8
+  fields:
+    name: RushBike
+    price: 405
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
