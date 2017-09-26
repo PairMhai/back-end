@@ -87,7 +87,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # FIXME: disable this wil lcause error on list user api
+        # FIXME: disable this wil cause error on list user api
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication'
     )

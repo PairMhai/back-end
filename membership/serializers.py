@@ -30,7 +30,7 @@ class CustomerSerializer(serializers.ModelSerializer):
         user_data = ""
         if (self.context['request'].method == "POST"):
             serializer = FullUserSerializer(
-                data = raw_data.pop('user')
+                data=raw_data.pop('user')
             )
             if (serializer.is_valid()):
                 user_data = serializer.validated_data
@@ -42,7 +42,8 @@ class CustomerSerializer(serializers.ModelSerializer):
             # user_data = validated_data.pop('user')  # get user json
 
         if ('password1' not in raw_data or 'password2' not in raw_data):
-            raise serializers.ValidationError('password1 and password2 is required')
+            raise serializers.ValidationError(
+                'password1 and password2 is required')
         pass1 = raw_data['password1']
         pass2 = raw_data['password2']
         if (pass1 != pass2):
@@ -58,7 +59,6 @@ class CustomerSerializer(serializers.ModelSerializer):
         return user
 
 
-
 class FullCustomerSerializer(CustomerSerializer):
     user = UserSerializer()
 
@@ -66,7 +66,9 @@ class FullCustomerSerializer(CustomerSerializer):
         model = Customer
         fields = ('id', 'user', 'classes')
 
+
 class ClassSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Class
         fields = ('id', 'name', 'price', 'description')
