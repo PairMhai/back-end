@@ -12,6 +12,8 @@ from django.core.urlresolvers import reverse
 
 from random import uniform, randrange
 
+from membership.models import User, Customer, Class
+
 
 class ViewTestCase(TestCase):
     """Test suite for the api views."""
@@ -125,4 +127,19 @@ class ViewTestCase(TestCase):
             format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.client.logout()
+
+    def test_api_is_customer_info_saved(self):
+        """test if customer really stores in the db"""
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        first = self.good_user.get("user").get("first_name")
+        db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
+        self.assertEqual(len(db_user), 1)
+        self.assertEqual(db_user[0].user.first_name, first)
         self.client.logout()
