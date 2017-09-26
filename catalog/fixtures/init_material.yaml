@@ -1,0 +1,61 @@
+- model: catalog.material
+  pk: 1
+  fields:
+    name: mulberry
+    quantity: 3
+    price: 1000
+    patterns: [1]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: catalog.material
+  pk: 2
+  fields:
+    name: tasar
+    quantity: 2
+    price: 1500
+    patterns: [3]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: catalog.material
+  pk: 3
+  fields:
+    name: endi
+    quantity: 6
+    price: 2000
+    patterns: [3]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: catalog.material
+  pk: 4
+  fields:
+    name: muga
+    quantity: 12
+    price: 2000
+    patterns: [2]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: catalog.material
+  pk: 5
+  fields:
+    name: anaphe
+    quantity: 10
+    price: 2000
+    patterns: [5]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+- model: catalog.material
+  pk: 6
+  fields:
+    name: spider
+    quantity: 10
+    price: 500
+    patterns: [4]
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+
+
+
+
+
+
+
