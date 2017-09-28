@@ -3,16 +3,24 @@
 COMMAND="python"
 
 if [[ $1 == "l" ]]; then
-    # $2 either user or class
-    fixtures=($(ls **/fixtures/*.yaml))
-    for fixture in ${fixtures[@]}; do
-        echo "loading $fixture"
-        $COMMAND manage.py loaddata "$fixture"
-    done
+    # params 2 exist
+    if [ ! -x $2 ]; then
+        $COMMAND manage.py loaddata "init_$2"
+    else
+        fixtures=($(ls **/fixtures/*.yaml))
+        for fixture in ${fixtures[@]}; do
+            echo "loading $fixture"
+            $COMMAND manage.py loaddata "$fixture"
+        done
+    fi
 elif [[ $1 == "e" ]]; then
     # $2 = model to export
-    # $3 = file export to
-    $COMMAND manage.py dumpdata --format yaml $2 >> $3
+    # $3 = file export to (optional)
+    if [ -x $3 ]; then
+        $COMMAND manage.py dumpdata --format yaml $2
+    else
+        $COMMAND manage.py dumpdata --format yaml $2 >> $3
+    fi
 elif [[ $1 == "mm" ]]; then
     $COMMAND manage.py makemigrations
 elif [[ $1 == "m" ]]; then
@@ -32,9 +40,10 @@ else
 Description: This is python utilities with django (To use this you must follow install helper in README.md)
 HELP Command:
     1. l - load all fixture (test data)
-    2. e - dump currently database to file-name
+        - @params 1 - (optional) fixture name (without init_*)
+    2. e - dump currently database to file-name (if no file-name print as stout)
         - @params 1 - models to export
-        - @params 2 - file name
+        - @params 2 - (optional) file name
     3. mm - make migrations of new models
     4. m - migrate database
     5. s - run server
