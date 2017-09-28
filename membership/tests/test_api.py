@@ -163,8 +163,6 @@ class ViewTestCase(TestCase):
         self.assertEqual(db_user[0].user.first_name, first)
         self.client.logout()
 
-    # def test_api_password_encryption(self):
-
     def test_api_is_optional_param_saved(self):
         """test if optional params are saved in the db"""
         self.client.force_authenticate(user=self.admin)
