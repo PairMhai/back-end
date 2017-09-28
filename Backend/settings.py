@@ -66,14 +66,14 @@ AUTH_USER_MODEL = 'membership.User'
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Email validation by gmail
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
-# EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
-# EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
+EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
+EMAIL_PORT = 587
 # This did the trick
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "membership.serializers.CustomerSerializer"
