@@ -6,4 +6,3 @@ class CreditCardAdmin(admin.ModelAdmin):
         model = CreditCard
 
 admin.site.register(CreditCard, CreditCardAdmin)
-
