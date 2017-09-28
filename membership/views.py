@@ -25,7 +25,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
 class ClassDetail(generics.RetrieveAPIView):
     queryset = Class.objects.all()
     serializer_class = ClassSerializer
-
+    
     # example of custom response json format
     # def retrieve(self, request, *args, **kwargs):
     #     serializer = self.get_serializer(self.get_object())

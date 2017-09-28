@@ -3,6 +3,14 @@ from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
 
+class ClassSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Class
+        fields = ('id', 'name', 'price', 'description')
+        read_only = ('id', 'name', 'price', 'description')
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -21,10 +29,11 @@ class FullUserSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    classes = ClassSerializer()
 
     class Meta:
         model = Customer
-        fields = ('id', 'user')
+        fields = ('id', 'user', 'classes')
 
     def save(self, request):
         raw_data = self.context['request'].data
@@ -62,13 +71,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 class FullCustomerSerializer(CustomerSerializer):
     user = FullUserSerializer()
+
     class Meta:
         model = Customer
         fields = ('id', 'user', 'classes')
-
-
-class ClassSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Class
-        fields = ('id', 'name', 'price', 'description')

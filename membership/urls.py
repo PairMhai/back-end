@@ -8,6 +8,6 @@ urlpatterns = [
     # url(r'^$', CustomerAction.as_view(), name="membership"),
     url(r'^cust/(?P<pk>[0-9]+)$', CustomerDetail.as_view(), name="membership-cust-detail"),
     url(r'^user/(?P<pk>[0-9]+)$', UserDetail.as_view(), name="membership-user-detail"),
-    # FIXME: update it's to return class by `customer id` instead of `class id`
+    # WAITING: update it's to return class by `customer id` instead of `class id`
     url(r'^class/(?P<pk>[0-9]+)$', ClassDetail.as_view(), name="membership-class"),
 ]
