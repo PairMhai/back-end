@@ -4,9 +4,11 @@ COMMAND="python"
 
 if [[ $1 == "l" ]]; then
     # params 2 exist
-    if [ ! -x $2 ]; then
+    if [ -x "$2" ]; then
+        echo "load $2 fixture"
         $COMMAND manage.py loaddata "init_$2"
     else
+        echo "load all"
         fixtures=($(ls **/fixtures/*.yaml))
         for fixture in ${fixtures[@]}; do
             echo "loading $fixture"
