@@ -4,7 +4,7 @@ COMMAND="python"
 
 if [[ $1 == "l" ]]; then
     # $2 either user or class
-    fixtures=($(ls **/fixtures/))
+    fixtures=($(ls **/fixtures/*.yaml))
     for fixture in ${fixtures[@]}; do
         echo "loading $fixture"
         $COMMAND manage.py loaddata "$fixture"
