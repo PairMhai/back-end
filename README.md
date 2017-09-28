@@ -25,6 +25,7 @@ root                     ~/anaconda3
 
 # Documentation
 1. [Document link](doc/README.md)
+2. [utils.sh](doc/utils.md)
 
 # Contribution
 [Need to know](doc/contributions/README.md)
