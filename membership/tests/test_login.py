@@ -35,7 +35,7 @@ class LoginTestCase(TestCase):
             "password2": "asdf123fdssa"
         }
 
-    def test_user_login(self):
+    def test_user_in_db_login(self):
         """Test if user that is already in db can login"""
         self.client.force_authenticate(user=self.admin)
         response = self.client.post(
@@ -49,5 +49,15 @@ class LoginTestCase(TestCase):
         pw = self.good_user.get("password1")
         response = self.client.login(username=un, password=pw)
         self.assertEqual(response, True)
+
+        self.client.logout()
+
+    def test_user_not_in_db_login(self):
+        """Test if user that is not in db cannot login"""
+
+        un = self.good_user.get("user").get("username")
+        pw = self.good_user.get("password1")
+        response = self.client.login(username=un, password=pw)
+        self.assertEqual(response, False)
 
         self.client.logout()
