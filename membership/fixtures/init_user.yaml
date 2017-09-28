@@ -19,7 +19,7 @@
   fields:
     password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
     is_superuser: true
-    username: someuser
+    username: test_user
     first_name: 'Some'
     last_name: 'User'
     email: some@pairmhai.com

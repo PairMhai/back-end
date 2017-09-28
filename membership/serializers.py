@@ -29,11 +29,11 @@ class FullUserSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    classes = ClassSerializer()
+    # classes = ClassSerializer()
 
     class Meta:
         model = Customer
-        fields = ('id', 'user', 'classes')
+        fields = ('id', 'user') # classes
 
     def save(self, request):
         raw_data = self.context['request'].data
@@ -60,7 +60,12 @@ class CustomerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
         user = User.objects.create(**user_data)  # create user
-        user_class = Class.objects.get(id=1)  # get none class by default
+        user_class = Class.objects.get(id=1)  # get none class by defaul
+        # ser = ClassSerializer(data=dict(user_class))
+        # if (ser.is_valid()):
+        #     print(ser.validated_data)
+        # else:
+        #     print(ser.errors)
         if ('classes' in raw_data):
             class_id = raw_data['classes']
             user_class = Class.objects.get(id=class_id)

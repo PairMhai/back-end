@@ -115,6 +115,7 @@ class ViewTestCase(TestCase):
             format="json"
         )
 
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.client.logout()
 
