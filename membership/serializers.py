@@ -11,6 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class FullUserSerializer(serializers.ModelSerializer):
+    age = serializers.IntegerField(source='get_age', read_only=True)
 
     class Meta:
         model = User
@@ -35,8 +36,8 @@ class CustomerSerializer(serializers.ModelSerializer):
             if (serializer.is_valid()):
                 user_data = serializer.validated_data
             else:
-                print("SERIALIZER ERRORS: ", serializer.errors)
-                return None
+                raise serializers.ValidationError(
+                    serializer.errors)
         else:
             raise serializers.ValidationError('only post method')
             # user_data = validated_data.pop('user')  # get user json
@@ -60,8 +61,7 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class FullCustomerSerializer(CustomerSerializer):
-    user = UserSerializer()
-
+    user = FullUserSerializer()
     class Meta:
         model = Customer
         fields = ('id', 'user', 'classes')
