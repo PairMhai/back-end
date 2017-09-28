@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import membership
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,7 +32,7 @@ ALLOWED_HOSTS = []
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
 
-CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000' )
+CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
 
 
 # Application definition
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'comment.apps.CommentConfig',
     'catalog.apps.CatalogConfig',
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -50,8 +52,32 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'logentry_admin',
     'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
     'corsheaders',
 ]
+
+# REST AUTH
+SITE_ID = 1
+AUTH_USER_MODEL = 'membership.User'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+# Email validation by gmail
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_USE_TLS = True
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
+# EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
+# EMAIL_PORT = 587
+# This did the trick
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "membership.serializers.CustomerSerializer"
+}
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -61,6 +87,7 @@ REST_FRAMEWORK = {
         # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # FIXME: disable this wil cause error on list user api
         # 'rest_framework.authentication.BasicAuthentication',
         # 'rest_framework.authentication.SessionAuthentication'
     )
@@ -96,8 +123,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
-AUTH_USER_MODEL = 'membership.User'
-APPEND_SLASH=False
+# APPEND_SLASH=False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -147,3 +173,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+NOSE_ARGS = ['--nocapture',
+             '--nologcapture',]
