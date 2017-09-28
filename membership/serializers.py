@@ -60,7 +60,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
         user = User.objects.create(**user_data)  # create user
-        user_class = Class.objects.get(id=1)  # get bronze class by default
+        user_class = Class.objects.get(id=1)  # get none class by default
         if ('classes' in raw_data):
             class_id = raw_data['classes']
             user_class = Class.objects.get(id=class_id)

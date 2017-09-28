@@ -108,7 +108,12 @@ This API using [REST architectural style](REST-description.md) and API framework
             "telephone": "08X-XXX-XXXX",
             "gender": "unknown"
         },
-        "classes": 1
+        "classes": {
+            "id": 1,
+            "name": "Bronze",
+            "price": 0,
+            "description": "Discount 0% each time that purchase product."
+        }
     }
     ```
 9. ^membership/user/(?P<pk>[0-9]+)$ [name='membership-user-detail']
@@ -138,7 +143,7 @@ This API using [REST architectural style](REST-description.md) and API framework
         "id": 1,
         "name": "Bronze",
         "price": 0,
-        "description": "Discount 2% each time that purchase product."
+        "description": "Discount 0% each time that purchase product."
     }
     ```
 
