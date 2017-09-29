@@ -1,5 +1,6 @@
 # https://docs.djangoproject.com/en/1.11/topics/testing/
 from django.contrib.messages import get_messages
+from django.contrib.auth.hashers import make_password
 
 from django.test import TestCase
 
@@ -73,6 +74,24 @@ class ViewTestCase(TestCase):
             "password2": "asdf123fdss1"
         }
 
+        number = str(round(uniform(0, 10000), 5))
+        self.good_user_with_optional_params = {
+            "user": {
+                "username": "good-user" + number,
+                "first_name": "good" + number,
+                "last_name": "user",
+                "email": "good" + number + "@user.com",
+                "telephone": "081-111-1111",
+                "address": "42 Phaholyothin Road 11100",
+                "age": 31,
+                "date_of_birth": "1986-11-01",
+                "gender": "female"
+            },
+            "classes": randrange(1, 6),
+            "password1": "asdf123fdssa",
+            "password2": "asdf123fdssa"
+        }
+
     def test_api_bad_request_no_first_last_email(self):
         """firstname lastname and email are required to filled."""
         self.client.force_authenticate(user=self.admin)
@@ -143,4 +162,51 @@ class ViewTestCase(TestCase):
         db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
         self.assertEqual(len(db_user), 1)
         self.assertEqual(db_user[0].user.first_name, first)
+        self.client.logout()
+
+    def test_api_is_optional_param_saved(self):
+        """test if optional params are saved in the db"""
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user_with_optional_params,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        first = self.good_user_with_optional_params.get("user").get("first_name")
+        telephone = self.good_user_with_optional_params.get("user").get("telephone")
+        address = self.good_user_with_optional_params.get("user").get("address")
+        age = self.good_user_with_optional_params.get("user").get("age")
+        date_of_birth = self.good_user_with_optional_params.get("user").get("date_of_birth")
+        gender = self.good_user_with_optional_params.get("user").get("gender")
+        db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
+
+        self.assertEqual(len(db_user), 1)
+        self.assertEqual(db_user[0].user.telephone, telephone)
+        self.assertEqual(db_user[0].user.address, address)
+        self.assertEqual(db_user[0].user.age, age)
+        self.assertEqual(str(db_user[0].user.date_of_birth), date_of_birth)
+        self.assertEqual(db_user[0].user.gender, gender)
+
+        self.client.logout()
+
+    def test_api_is_required_param_saved(self):
+        """test if all required params are saved"""
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        first = self.good_user.get("user").get("first_name")
+        last = self.good_user.get("user").get("last_name")
+        email = self.good_user.get("user").get("email")
+        password1 = self.good_user.get("user").get("password1")
+        password2 = self.good_user.get("user").get("password2")
+        db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
+        self.assertEqual(len(db_user), 1)
+        self.assertEqual(db_user[0].user.first_name, first)
+        self.assertEqual(db_user[0].user.last_name, last)
+        self.assertEqual(db_user[0].user.email, email)
         self.client.logout()
