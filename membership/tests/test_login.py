@@ -35,8 +35,8 @@ class LoginTestCase(TestCase):
             "password2": "asdf123fdssa"
         }
 
-    def test_user_in_db_login(self):
-        """Test if user that is already in db can login"""
+    def test_tc_001(self):
+        """Test if registed user that is already in db can login"""
         self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
@@ -52,11 +52,72 @@ class LoginTestCase(TestCase):
 
         self.client.logout()
 
-    def test_user_not_in_db_login(self):
-        """Test if user that is not in db cannot login"""
+    def test_tc_002(self):
+        """Test if unregisted user cannot login"""
 
         un = self.good_user.get("user").get("username")
         pw = self.good_user.get("password1")
+        response = self.client.login(username=un, password=pw)
+        self.assertEqual(response, False)
+
+        self.client.logout()
+
+    def test_tc_003(self):
+        """Test with valid username and empty /
+        invalid password such that login must get failed"""
+
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        un = self.good_user.get("user").get("username")
+        response = self.client.login(username=un, password="")
+        self.assertEqual(response, False)
+        response = self.client.login(username=un, password="dkdkkkkd")
+        self.assertEqual(response, False)
+
+        self.client.logout()
+
+    def test_tc_004(self):
+        """Test with empty username and empty /
+        invalid password and check if login fails"""
+
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        response = self.client.login(username="", password="")
+        self.assertEqual(response, False)
+        response = self.client.login(username="", password="dkdkkkkd")
+        self.assertEqual(response, False)
+
+        self.client.logout()
+
+    def test_tc_005(self):
+        """Check if the login function handles case sensitivity"""
+
+        self.client.force_authenticate(user=self.admin)
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        un = self.good_user.get("user").get("username")
+        pw = self.good_user.get("password1")
+        un = un.upper()
+        pw = pw.upper()
+        response = self.client.login(username=un, password=pw)
+        self.assertEqual(response, False)
         response = self.client.login(username=un, password=pw)
         self.assertEqual(response, False)
 
