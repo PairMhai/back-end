@@ -20,6 +20,7 @@ class User(AbstractUser):
     gender = models.CharField(max_length=20, default="unknown")
     # age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
+    
     def get_age(self):
         import datetime
         dob = self.date_of_birth

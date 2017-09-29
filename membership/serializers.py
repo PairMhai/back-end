@@ -17,6 +17,14 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
+class HalfUserSerializer(serializers.ModelSerializer):
+    age = serializers.IntegerField(source='get_age', read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'first_name', 'last_name',
+                  'email', 'age', 'gender')
+
 
 class FullUserSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
@@ -75,7 +83,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 class FullCustomerSerializer(CustomerSerializer):
-    user = FullUserSerializer()
+    user = HalfUserSerializer()
+    classes = ClassSerializer()
 
     class Meta:
         model = Customer

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import membership
+import time
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,11 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # test runner
-TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
+# TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
+TEST_OUTPUT_VERBOSE = 2
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-' + str(round(time.time())) + '.xml'
 
 CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
-
 
 # Application definition
 
