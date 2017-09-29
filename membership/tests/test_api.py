@@ -83,7 +83,6 @@ class ViewTestCase(TestCase):
                 "email": "good" + number + "@user.com",
                 "telephone": "081-111-1111",
                 "address": "42 Phaholyothin Road 11100",
-                "age": 31,
                 "date_of_birth": "1986-11-01",
                 "gender": "female"
             },
@@ -176,7 +175,6 @@ class ViewTestCase(TestCase):
         first = self.good_user_with_optional_params.get("user").get("first_name")
         telephone = self.good_user_with_optional_params.get("user").get("telephone")
         address = self.good_user_with_optional_params.get("user").get("address")
-        age = self.good_user_with_optional_params.get("user").get("age")
         date_of_birth = self.good_user_with_optional_params.get("user").get("date_of_birth")
         gender = self.good_user_with_optional_params.get("user").get("gender")
         db_user = Customer.objects.filter(user=User.objects.filter(first_name=first))
@@ -184,7 +182,7 @@ class ViewTestCase(TestCase):
         self.assertEqual(len(db_user), 1)
         self.assertEqual(db_user[0].user.telephone, telephone)
         self.assertEqual(db_user[0].user.address, address)
-        self.assertEqual(db_user[0].user.age, age)
+        self.assertEqual(db_user[0].user.get_age(), 30)
         self.assertEqual(str(db_user[0].user.date_of_birth), date_of_birth)
         self.assertEqual(db_user[0].user.gender, gender)
 
