@@ -16,4 +16,4 @@ class CreditCard(models.Model):
     )
 
     def __str__(self):
-        return "{} {}".format(self.owner, self.credit_no)
+        return "{}".format(self.owner)
