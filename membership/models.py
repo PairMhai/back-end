@@ -8,6 +8,8 @@ from payment.models import CreditCard
 # https://docs.python.org/3/library/doctest.html
 
 # custom user that extend from django auth user
+
+
 class User(AbstractUser):
     """customer information v1"""
     first_name = models.CharField(max_length=30)
@@ -16,8 +18,16 @@ class User(AbstractUser):
     telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
     address = models.TextField(default="")
     gender = models.CharField(max_length=20, default="unknown")
-    age = models.IntegerField(default=0)
+    # age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
+    
+    def get_age(self):
+        import datetime
+        dob = self.date_of_birth
+        tod = datetime.date.today()
+        my_age = (tod.year - dob.year) - int((tod.month, tod.day) < (dob.month, dob.day))
+        return my_age
+
     def __str__(self):
         return self.username + ": " + self.first_name + " " + self.last_name
 
@@ -36,6 +46,7 @@ class Customer(models.Model):
 
     def __str__(self):
         return str(self.user)
+
 
 class Class(models.Model):
     """membership class v1"""

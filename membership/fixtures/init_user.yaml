@@ -20,8 +20,52 @@
     password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
     is_superuser: true
     username: test_user
-    first_name: 'Testing'
-    last_name: 'Users'
-    email: test@pairmhai.com
-    telephone: 088-111-1111
+    first_name: 'Some'
+    last_name: 'User'
+    email: some@pairmhai.com
+    telephone: 087-654-3210
+    date_of_birth: 2017-01-01
+- model: membership.user
+  pk: 3
+  fields:
+    password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
+    is_superuser: true
+    username: anymany
+    first_name: 'Any'
+    last_name: 'Many'
+    email: am@pairmhai.com
+    telephone: 098-111-2311
+    date_of_birth: 2017-01-01
+- model: membership.user
+  pk: 4
+  fields:
+    password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
+    is_superuser: true
+    username: who
+    first_name: 'myname'
+    last_name: 'surname'
+    email: whose@pairmhai.com
+    telephone: 098-123-4567
+    date_of_birth: 2017-01-01
+- model: membership.user
+  pk: 5
+  fields:
+    password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
+    is_superuser: true
+    username: superman
+    first_name: 'Superman'
+    last_name: 'NorthUS'
+    email: suman@pairmhai.com
+    telephone: 099-888-9999
+    date_of_birth: 2017-01-01
+- model: membership.user
+  pk: 6
+  fields:
+    password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
+    is_superuser: true
+    username: ironman
+    first_name: 'Robert'
+    last_name: 'Downey'
+    email: robert@pairmhai.com
+    telephone: 012-999-1010
     date_of_birth: 2017-01-01

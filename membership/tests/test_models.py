@@ -27,8 +27,3 @@ class UserTestCase(TestCase):
         """Animals that can speak are correctly identified"""
         user1 = User.objects.get(username=self.username1)
         self.assertEqual(self.firstname1, user1.first_name)
-
-if __name__ == '__main__':
-    unittest.main(
-        testRunner=xmlrunner.XMLTestRunner(output='test-reports'),
-        failfast=False, buffer=False, catchbreak=False)

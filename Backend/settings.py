@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import membership
+import time
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,11 +29,12 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 # test runner
-TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
+# TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
+TEST_OUTPUT_VERBOSE = 2
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-' + str(round(time.time())) + '.xml'
 
 CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
-
 
 # Application definition
 
@@ -66,14 +67,14 @@ AUTH_USER_MODEL = 'membership.User'
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Email validation by gmail
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_USE_TLS = True
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
-# EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
-# EMAIL_PORT = 587
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
+EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
+EMAIL_PORT = 587
 # This did the trick
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "membership.serializers.CustomerSerializer"
@@ -160,7 +161,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -173,6 +174,3 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-
-NOSE_ARGS = ['--nocapture',
-             '--nologcapture',]
