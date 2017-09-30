@@ -4,16 +4,16 @@ COMMAND="python"
 
 if [[ $1 == "l" ]]; then
     # params 2 exist
-    if [ -x "$2" ]; then
-        echo "load $2 fixture"
-        $COMMAND manage.py loaddata "init_$2"
-    else
+    if [ -x $2 ]; then
         echo "load all"
         fixtures=($(ls **/fixtures/*.yaml))
         for fixture in ${fixtures[@]}; do
             echo "loading $fixture"
             $COMMAND manage.py loaddata "$fixture"
         done
+    else
+        echo "load $2 fixture"
+        $COMMAND manage.py loaddata "init_$2"
     fi
 elif [[ $1 == "e" ]]; then
     # $2 = model to export
