@@ -6,7 +6,7 @@
     discount: 10
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    product: 1
+    product: [1]
 - model: catalog.material
   pk: 2
   fields:
@@ -15,7 +15,7 @@
     discount: 0
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    product: 2
+    product: [2]
 - model: catalog.material
   pk: 3
   fields:
@@ -24,7 +24,7 @@
     discount: 30
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    product: 3
+    product: [3]
 - model: catalog.material
   pk: 4
   fields:
@@ -33,4 +33,4 @@
     discount: 0
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    product: 4
+    product: [4]

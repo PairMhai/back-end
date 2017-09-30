@@ -6,7 +6,7 @@
     price: 1000
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    material: mat-1
+    material: [mat-1]
 - model: catalog.design
   pk: des-2
   fields:
@@ -15,7 +15,7 @@
     price: 1500
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    material: mat-2
+    material: [mat-2]
 - model: catalog.design
   pk: des-3
   fields:
@@ -24,7 +24,7 @@
     price: 2000
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    material: mat-3
+    material: [mat-3]
 - model: catalog.design
   pk: des-4
   fields:
@@ -33,7 +33,7 @@
     price: 2000
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    material: mat-4
+    material: [mat-4]
 - model: catalog.design
   pk: des-5
   fields:
@@ -42,4 +42,4 @@
     price: 2000
     created_at: ! '2017-01-01 00:00:00.000000'
     updated_at: ! '2017-01-01 00:00:00.000000'
-    material: mat-5
+    material: [mat-5]
