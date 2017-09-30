@@ -1,5 +1,5 @@
 - model: cart.orderinfo
-  pk:
+  pk: 1
   fields:
     quantity: 1
     order: [3]
@@ -7,7 +7,7 @@
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
-  pk:
+  pk: 2
   fields:
     quantity: 2
     order: [1]
@@ -15,7 +15,7 @@
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
-  pk:
+  pk: 3
   fields:
     quantity: 1
     order: [2]
@@ -23,7 +23,7 @@
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
-  pk:
+  pk: 4
   fields:
     quantity: 1
     order: [3]
