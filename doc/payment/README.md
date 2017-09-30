@@ -4,6 +4,7 @@
     - create new credit card
     - request method: `POST`
     - request body:
+        - **Note:** customer can be either `customer id` or `token`
     ```json
     {
         "owner": "Some User",
@@ -13,7 +14,7 @@
         "customer": 1
     }
     ```
-    - response code: 201_CREATED
+    - response code: `201_CREATED`
     - response message:
     ```json
     {
@@ -22,6 +23,6 @@
         "credit_no": "1234123412341234",
         "ccv": "123",
         "expire_date": "2022-01-01",
-        "customer": 1
+        "customer": "username: name surname"
     }
     ```
