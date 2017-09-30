@@ -8,6 +8,10 @@ class Order(models.Model):
         'membership.Customer',
         on_delete=models.CASCADE
     )
+    credit = models.ForeignKey(
+        'payment.CreditCard',
+        on_delete=models.CASCADE
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

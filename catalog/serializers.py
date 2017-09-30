@@ -9,23 +9,22 @@ class SoftMaterialSerializer(serializers.ModelSerializer):
 class HardMaterialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Material
-        fields = ('id', 'name',
-                  'quantity', 'price')
+        fields = ('id', 'name', 'quantity', 'description', 'quantity', 'price', 'color', 'image_name')
 
 class DesignSerializer(serializers.ModelSerializer):
     class Meta:
         model = Design
-        fields = ('id', 'name', 'price', 'description')
+        fields = ('id', 'name', 'description', 'price')
 
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
-        fields = ('id', 'name', 'material_id')
+        fields = ('id', 'file_name', 'design')
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        fields = ('id', 'color')
+        fields = ('id', 'design', 'material')
 
 class PromotionSerializer(serializers.ModelSerializer):
     class Meta:
