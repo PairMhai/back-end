@@ -2,6 +2,8 @@ from membership.models import User, Customer, Class
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
+from payment.serializers import CreditCardSerializer
+
 
 class ClassSerializer(serializers.ModelSerializer):
 
@@ -85,7 +87,8 @@ class CustomerSerializer(serializers.ModelSerializer):
 class FullCustomerSerializer(CustomerSerializer):
     user = HalfUserSerializer()
     classes = ClassSerializer()
+    creditcards = CreditCardSerializer(many=True)
 
     class Meta:
         model = Customer
-        fields = ('id', 'user', 'classes')
+        fields = ('id', 'user', 'classes', 'creditcards')

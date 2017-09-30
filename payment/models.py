@@ -11,6 +11,7 @@ class CreditCard(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     customer = models.ForeignKey(
         'membership.Customer',
+        related_name='creditcards',
         on_delete=models.CASCADE
     )
 
