@@ -1,45 +1,40 @@
 - model: cart.order
   pk: 1
   fields:
-    total: 1250
-    trans_id: 1
-    bank_acc_id: 2254658798
-    customer_id: 2
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    total_product: 4
+    total_price: 5400
+    customer_id: [2]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
   pk: 2
   fields:
-    total: 2250
-    trans_id: 1
-    bank_acc_id: 2234567123
-    customer_id: 2
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    total_product: 3
+    total_price: 6000
+    customer_id: [1]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
   pk: 3
   fields:
-    total: 3000
-    trans_id: 2
-    bank_acc_id: 4750216665
-    customer_id: 1
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    total_product: 1
+    total_price: 2500
+    customer_id: [4]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
   pk: 4
   fields:
-    total: 4500
-    trans_id: 2
-    bank_acc_id: 4350712335
-    customer_id: 3
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+     total_product: 2
+    total_price: 10000
+    customer_id: [3]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
   pk: 5
   fields:
-    total: 1000
-    trans_id: 3
-    bank_acc_id: 9854612357
-    customer_id: 5
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    total_product: 1
+    total_price: 8000
+    customer_id: [5]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
