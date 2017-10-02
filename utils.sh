@@ -36,6 +36,7 @@ elif [[ $1 == "t" ]]; then
         $COMMAND manage.py test $2
     fi
 elif [[ $1 == "t-ci" ]]; then
+    [ -d test-reports ] || mkdir test-reports
     $COMMAND manage.py test --debug-sql -v 3 --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
