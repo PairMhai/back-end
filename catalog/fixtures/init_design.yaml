@@ -6,7 +6,7 @@
     price: 1000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 1
+    material: 6
 - model: catalog.design
   pk: 2
   fields:
@@ -15,7 +15,7 @@
     price: 1500
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
+    material: 1
 - model: catalog.design
   pk: 3
   fields:
@@ -24,7 +24,7 @@
     price: 2000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 3
+    material: 5
 - model: catalog.design
   pk: 4
   fields:
@@ -33,13 +33,13 @@
     price: 2000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 4
+    material: 2
 - model: catalog.design
   pk: 5
   fields:
-    name: yellow_silk_dress
+    name: rosegold_silk_dress
     description: charming design with warm color
     price: 2000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 5
+    material: 3
