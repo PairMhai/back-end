@@ -2,9 +2,9 @@
   pk: fa62b78971c9618556e83a1382851c4625fe4eee
   fields:
       user: 5
-      created: ! '2017-01-01 00:00:00.000000+07:00'
+      created: '2017-01-01 00:00:00.000000+07:00'
 - model: authtoken.token
   pk: fcf4936b63d9bfa3ebe7f5cf8011517bc6fe8e15
   fields:
       user: 2
-      created: ! '2017-01-01 00:00:00.000000+07:00'
+      created: '2017-01-01 00:00:00.000000+07:00'
