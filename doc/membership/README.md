@@ -84,8 +84,8 @@
         "key": "django base-token"
     }
     ```
-8. ^membership/cust/(?P<pk>[0-9]+)$ [name='membership-cust-detail']
-    - get customer information by `customer id`
+8. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail']
+    - get customer information by `customer token`
     - request method: `GET`
     - response message:
     ```json
@@ -111,8 +111,8 @@
         }
     }
     ```
-9. ^membership/user/(?P<pk>[0-9]+)$ [name='membership-user-detail']
-    - get user information by `user id`
+9. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail']
+    - get user information by `user token`
     - request method: `GET`
     - response message:
     ```json
