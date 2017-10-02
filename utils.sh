@@ -3,17 +3,16 @@
 COMMAND="python"
 
 if [[ $1 == "l" ]]; then
-    # params 2 exist
-    if [ -x $2 ]; then
+    if [ -n "$2" ]; then
+        echo "load $2 fixture"
+        $COMMAND manage.py loaddata "init_$2"
+    else
         echo "load all"
         fixtures=($(ls **/fixtures/*.yaml))
         for fixture in ${fixtures[@]}; do
             echo "loading $fixture"
             $COMMAND manage.py loaddata "$fixture"
         done
-    else
-        echo "load $2 fixture"
-        $COMMAND manage.py loaddata "init_$2"
     fi
 elif [[ $1 == "e" ]]; then
     # $2 = model to export
@@ -45,7 +44,7 @@ elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" || $1 == 
     rm -rf ./test-reports/*
     echo "remove test-reports."
 else
-  echo "
+    echo "
 Description: This is python utilities with django (To use this you must follow install helper in README.md)
 HELP Command:
     1. l    - load all fixture (test data)
@@ -61,5 +60,5 @@ HELP Command:
     7. t-ci - test all testcase with full version of debug print
     7. r    - remove currently database
     8. c    - clear test-report
-  "
+    "
 fi
