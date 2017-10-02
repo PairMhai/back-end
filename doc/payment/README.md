@@ -1,6 +1,6 @@
 # Payment APIs list and description
 
-1. ^payment/create/$ [name='payment']
+1. ^payment/$ [name='payment-creator']
     - create new credit card
     - request method: `POST`
     - request body:
