@@ -1,6 +1,12 @@
 # Index of document
 This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org).
 
+### Path in APIs document will be like `^xx/yy/zz/(...)$ [name='name']`
+1. ^ - start path with root path e.g. localhost/xx/yy/zz
+2. & - end of path
+3. (...) - dynamic path (it can be some text)
+4. [name='...'] - name of the path (for **developer**)
+
 # Testing guideline
 [guide](TEST_GUIDE.md)
 

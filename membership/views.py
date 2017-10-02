@@ -55,7 +55,7 @@ class ImpDetailClass(generics.RetrieveAPIView):
             (self.__class__.__name__, lookup_url_kwarg)
         )
         self.lookup_field = (self.id_str)
-        print("GET", self.id_str, str(self.uid))
+        # print("GET", self.id_str, str(self.uid))
         filter_kwargs = {self.lookup_field: self.uid}
         obj = get_object_or_404(queryset, **filter_kwargs)
         # May raise a permission denied
