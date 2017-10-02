@@ -1,12 +1,12 @@
 from django.db import models
-from datetime import datetime
+import datetime
 
 
 class CreditCard(models.Model):
     credit_no = models.CharField(max_length=16,unique=True)
     ccv = models.CharField(max_length=4)
     owner = models.CharField(max_length=100)  # name of credit card
-    expire_date = models.DateField()
+    expire_date = models.DateField(default=datetime.date.today)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     customer = models.ForeignKey(

@@ -1,0 +1,36 @@
+- model: catalog.material
+  pk: 1
+  fields:
+    name: mother_day
+    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    discount: 10
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+    product: [1]
+- model: catalog.material
+  pk: 2
+  fields:
+    name: 5000_discount
+    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    discount: 0
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+    product: [2]
+- model: catalog.material
+  pk: 3
+  fields:
+    name: birthday
+    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    discount: 30
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+    product: [3]
+- model: catalog.material
+  pk: 4
+  fields:
+    name: free_design
+    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    discount: 0
+    created_at: ! '2017-01-01 00:00:00.000000'
+    updated_at: ! '2017-01-01 00:00:00.000000'
+    product: [4]
