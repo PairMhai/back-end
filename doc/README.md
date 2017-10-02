@@ -16,6 +16,9 @@ This app contain all information about user customer and staff.
 # [Payment](./payment/README.md)
 This app contain all only credit cards of customer.
 
+# [Comment](./comment/README.md)
+This app contain api for customer to comment and rate our application
+
 # Announcement
 - admin username is `admin`
 - admin password is `password123`
