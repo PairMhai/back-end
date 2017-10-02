@@ -8,10 +8,9 @@ from membership.models import Customer
 
 
 class CreditCardSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = CreditCard
-        fields = ('id', 'owner', 'credit_no', 'ccv', 'expire_date')
+        fields = ('id', 'owner', 'credit_no')
 
 
 class FullCreditCardSerializer(serializers.ModelSerializer):
