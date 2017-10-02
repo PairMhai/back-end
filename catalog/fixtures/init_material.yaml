@@ -1,5 +1,5 @@
 - model: catalog.material
-  pk: mat-1
+  pk: 1
   fields:
     name: Mulberry
     description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
@@ -7,10 +7,10 @@
     price: 1000
     color: red
     image_name: 701df87604db724b723301ecef3c6165--burgundy-color-burgundy-wine
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.material
-  pk: mat-2
+  pk: 2
   fields:
     name: Tasar
     description: Tasar silk is easy to recognize because of its copperish color. It is this color that makes it ideal for interior decor and furnishing.
@@ -18,10 +18,10 @@
     price: 1500
     color: blue
     image_name: teal-raw-silk-fabric-desicrafts_large
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.material
-  pk: mat-3
+  pk: 3
   fields:
     name: Eri
     description: Silk. Its texture can be coarse or fine, and it is mainly cream in color, although it’s not as shiny as many other types. It is also strong and quite elastic. Furthermore, it is heavier than most other types.
@@ -29,10 +29,10 @@
     price: 2000
     color: yellow
     image_name: silk-fabric-1374275
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.material
-  pk: mat-4
+  pk: 4
   fields:
     name: Muga
     description: The quantity of muga silk produced is quite small, which means that most of it is used within the areas where it is produced, such as Assam in India, where it is used to make traditional dresses.
@@ -40,10 +40,10 @@
     price: 2000
     color: black
     image_name: Hospitality_tumblr_static_black_silk_4
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.material
-  pk: mat-5
+  pk: 5
   fields:
     name: Anaphe
     description: In Africa, anaphe silk is the most common type. It is usually soft and quite lustrous. In southern and central Africa, a number of communities use anaphe silk to make velvet due to its strength and elasticity.
@@ -51,10 +51,10 @@
     price: 2000
     color: purple
     image_name: cloths xeirotechnies
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.material
-  pk: mat-6
+  pk: 6
   fields:
     name: spider
     description: Spider silk is resistant to extreme temperature and humidity.
@@ -62,5 +62,5 @@
     price: 500
     color: green
     image_name: teal-silk1
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
