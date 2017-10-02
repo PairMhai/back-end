@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Customer, Class, User
+from payment.models import CreditCard
 
 # -------------------------------------
 # custom auth user
@@ -76,9 +77,17 @@ admin.site.register(User, UserAdmin)
 # other
 # -------------------------------------
 
+class CreditCardInline(admin.TabularInline):
+    model = CreditCard
+    extra = 1
+
 class CustomerAdmin(admin.ModelAdmin):
+    readonly_fields=('id',)
+    inlines = [CreditCardInline]
+    list_filter = ('classes',)
     class Meta:
         model = Customer
+
 
 class ClassAdmin(admin.ModelAdmin):
     class Meta:

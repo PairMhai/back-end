@@ -8,3 +8,7 @@ from rest_framework import generics
 class CommentCreator(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class CommentList(generics.ListAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
