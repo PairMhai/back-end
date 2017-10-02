@@ -55,7 +55,7 @@ class ImpDetailClass(generics.RetrieveAPIView):
             (self.__class__.__name__, lookup_url_kwarg)
         )
         self.lookup_field = (self.id_str)
-        print("GET", self.id_str, str(self.uid))
+        # print("GET", self.id_str, str(self.uid))
         filter_kwargs = {self.lookup_field: self.uid}
         obj = get_object_or_404(queryset, **filter_kwargs)
         # May raise a permission denied
@@ -66,6 +66,7 @@ class ImpDetailClass(generics.RetrieveAPIView):
         try:
             token = Token.objects.get(key=kwargs['token'])
             self.uid = token.user_id
+            # Token.objects.get(key=kwargs['token']).
         except Token.DoesNotExist:
             return Response({"detail": "get individual customer must have token"}, status=status.HTTP_401_UNAUTHORIZED)
         return self.retrieve(request, *args, **kwargs)

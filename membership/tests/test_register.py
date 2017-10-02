@@ -93,7 +93,6 @@ class ViewTestCase(TestCase):
 
     def test_api_bad_request_no_first_last_email(self):
         """firstname lastname and email are required to filled."""
-        self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
             self.bad_user,
