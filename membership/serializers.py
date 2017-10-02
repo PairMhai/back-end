@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
+
 class HalfUserSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
 
@@ -39,12 +40,10 @@ class FullUserSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    token = serializers.CharField(max_length=200)
-    # classes = ClassSerializer()
 
     class Meta:
         model = Customer
-        fields = ('id', 'user', 'token') # classes
+        fields = ('id', 'user')  # classes
 
     def save(self, request):
         raw_data = self.context['request'].data
@@ -83,18 +82,23 @@ class CustomerSerializer(serializers.ModelSerializer):
         customer = Customer.objects.create(
             user=user, classes=user_class)  # create customer
         return user
-    # def get_queryset(self):
-    #     self.token = self.kwargs['token']
-    #     print(self.token)
 
-    def validate_token(self, value):
-        if (Token.objects.get(key=value).user_id != raw_data['id']):
-            raise serializers.ValidationError("you don't have permission.")
 
+# class CustomerSerializer(DefaultCustomerSerializer):
+#     token = serializers.CharField(max_length=200)
+#     # classes = ClassSerializer()
+#
+#     class Meta:
+#         model = Customer
+#         fields = ('id', 'user', 'token') # classes
+#
+#     def validate_token(self, value):
+#         if (Token.objects.get(key=value).user_id != raw_data['id']):
+#             raise serializers.ValidationError("you don't have permission.")
 
 
 class FullCustomerSerializer(CustomerSerializer):
-    user = HalfUserSerializer()
+    user = FullUserSerializer()
     classes = ClassSerializer()
     creditcards = CreditCardSerializer(many=True)
 

@@ -63,7 +63,7 @@ class LoginTestCase(TestCase):
         self.client.logout()
 
     def test_tc_003(self):
-        """Test with valid username and empty /
+        """Test with valid username and empty
         invalid password such that login must get failed"""
 
         self.client.force_authenticate(user=self.admin)
@@ -83,7 +83,7 @@ class LoginTestCase(TestCase):
         self.client.logout()
 
     def test_tc_004(self):
-        """Test with empty username and empty /
+        """Test with empty username and empty 
         invalid password and check if login fails"""
 
         self.client.force_authenticate(user=self.admin)
