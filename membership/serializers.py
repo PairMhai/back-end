@@ -39,11 +39,12 @@ class FullUserSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
     user = UserSerializer()
+    token = serializers.CharField(max_length=200)
     # classes = ClassSerializer()
 
     class Meta:
         model = Customer
-        fields = ('id', 'user') # classes
+        fields = ('id', 'user', 'token') # classes
 
     def save(self, request):
         raw_data = self.context['request'].data
@@ -82,6 +83,14 @@ class CustomerSerializer(serializers.ModelSerializer):
         customer = Customer.objects.create(
             user=user, classes=user_class)  # create customer
         return user
+    # def get_queryset(self):
+    #     self.token = self.kwargs['token']
+    #     print(self.token)
+
+    def validate_token(self, value):
+        if (Token.objects.get(key=value).user_id != raw_data['id']):
+            raise serializers.ValidationError("you don't have permission.")
+
 
 
 class FullCustomerSerializer(CustomerSerializer):
