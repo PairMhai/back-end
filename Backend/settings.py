@@ -16,6 +16,8 @@ import time
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+VERSION = "0.2.1"
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -26,7 +28,7 @@ SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['guarded-brook-49660.herokuapp.com', 'localhost:8000']
+ALLOWED_HOSTS = ['guarded-brook-49660.herokuapp.com', 'localhost']
 
 # test runner
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
