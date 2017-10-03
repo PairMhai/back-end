@@ -11,6 +11,11 @@ class MaterialSerializer(serializers.ModelSerializer):
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
+        fields = ('id', 'file_name')
+
+class FullImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
         fields = ('id', 'file_name', 'design')
 
 class DesignSerializer(serializers.ModelSerializer):
