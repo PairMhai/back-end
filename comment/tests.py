@@ -32,7 +32,7 @@ class CommentTestCase(TestCase):
     def test_list_data_from_database_api(self):
         """Test data from api and database must be equally"""
         response = self.client.get(
-            reverse('comment-list'),
+            reverse('comment'),
             format="json"
         )
         resp_data = response.data
@@ -49,7 +49,7 @@ class CommentTestCase(TestCase):
     def test_data_on_list_api(self):
         """Test column that get from list api"""
         response = self.client.get(
-            reverse('comment-list'),
+            reverse('comment'),
             format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -60,7 +60,7 @@ class CommentTestCase(TestCase):
     def test_creator_miss_email_api(self):
         """Test creator with incomplete data (email)"""
         response = self.client.post(
-            reverse('comment-creator'),
+            reverse('comment'),
             self.miss_email_comment,
             format="json"
         )
@@ -70,7 +70,7 @@ class CommentTestCase(TestCase):
     def test_creator_miss_message_api(self):
         """Test creator with incomplete data (message)"""
         response = self.client.post(
-            reverse('comment-creator'),
+            reverse('comment'),
             self.miss_message_comment,
             format="json"
         )
@@ -80,7 +80,7 @@ class CommentTestCase(TestCase):
     def test_creator_succussful_api(self):
         """Test creator must create new comment"""
         response = self.client.post(
-            reverse('comment-creator'),
+            reverse('comment'),
             self.full_comment,
             format="json"
         )
