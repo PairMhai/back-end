@@ -1,6 +1,6 @@
 # Comment APIs list and description
 
-1. ^comment/$ [name='comment']
+1. ^comment/$ [name='comment'] **(v0.2.2)**
     1. request method: `POST`
         - create new comment
         - request body:

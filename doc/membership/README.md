@@ -1,6 +1,6 @@
 # Membership APIs list and description
 
-1. ^membership/password/reset/$ [name='rest_password_reset']
+1. ^membership/password/reset/$ [name='rest_password_reset'] **(v0.2.2)**
     - reset password by email
     - request method: `POST`
     - request body:
@@ -15,7 +15,7 @@
         "detail": "Password reset e-mail has been sent."
     }
     ```
-2. ^membership/password/reset/confirm/$ [name='rest_password_reset_confirm']
+2. ^membership/password/reset/confirm/$ [name='rest_password_reset_confirm'] **(v0.2.2)**
     - reset password by email
     - request method: `POST`
     - request body:
@@ -30,7 +30,7 @@
     - response message:
     ```json
     ```
-3. ^membership/login/$ [name='rest_login']
+3. ^membership/login/$ [name='rest_login'] **(v0.2.2)**
     - login
     - request method: `POST`
     - request body:
@@ -46,7 +46,7 @@
         "key": "django base-token"
     }
     ```
-4. ^membership/logout/$ [name='rest_logout']
+4. ^membership/logout/$ [name='rest_logout'] **(v0.2.2)**
     - logout
     - request method: `POST`
     - request body: none
@@ -56,8 +56,8 @@
         "detail": "Successfully logged out."
     }
     ```
-6. ^membership/password/change/$ [name='rest_password_change']
-7. ^membership/register/
+5. ^membership/password/change/$ [name='rest_password_change'] **(vx.x.x)**
+6. ^membership/register/$ [name='rest_register'] **(v0.2.2)**
     - register new customer
     - request method: `POST`
     - request body:
@@ -84,7 +84,7 @@
         "key": "django base-token"
     }
     ```
-8. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail']
+7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v0.2.2)**
     - get customer information by `customer token`
     - request method: `GET`
     - response message:
@@ -111,7 +111,7 @@
         }
     }
     ```
-9. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail']
+8. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail'] **(v0.2.2)**
     - get user information by `user token`
     - request method: `GET`
     - response message:
@@ -129,7 +129,7 @@
         "gender": "unknown"
     }
     ```
-10. ^membership/class/(?P<pk>[0-9]+)$ [name='membership-class'] (Need to change)
+9. ^membership/class/(?P<pk>[0-9]+)$ [name='membership-class'] **(v0.2.2)**
     - get class of customer by `class id`
     - request method: `GET`
     - response message:

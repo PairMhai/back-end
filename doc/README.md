@@ -19,6 +19,9 @@ This app contain all only credit cards of customer.
 # [Comment](./comment/README.md)
 This app contain api for customer to comment and rate our application
 
+# Version
+This have 1 url `^version$ [name='version']`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
+
 # Announcement
 - admin username is `admin`
 - admin password is `password123`
