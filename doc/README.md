@@ -1,6 +1,31 @@
 # Index of document
 This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org).
 
+# Document Template
+1. API PATH [name=''] **(vx.x.x)**
+    - DESCRIPTION
+    1. **Request**
+        - method: [`POST`|`GET`|...]
+        - body: [none]
+        ```json
+        ```
+    2. **Response**
+        1. Successfully
+            - code: `2XX_XXXXX`
+            - body: [none]
+            ```json
+            ```
+        2. Client Error
+            - code: `4XX_XXXXX`
+            - body: [none]
+            ```json
+            ```
+        3. Server Error
+            - code: `5XX_XXXXX`
+            - body: [none]
+            ```json
+            ```
+
 ### Path in APIs document will be like `^xx/yy/zz/(...)$ [name='name']`
 1. ^ - start path with root path e.g. localhost/xx/yy/zz
 2. & - end of path
@@ -9,6 +34,7 @@ This API using [REST architectural style](REST-description.md) and API framework
 
 # Testing guideline
 [guide](TEST_GUIDE.md)
+
 
 # [Membership](./membership/README.md)
 This app contain all information about user customer and staff.
