@@ -75,6 +75,7 @@ class Product(models.Model):
 # move to cycle 3
 class Promotion(models.Model):
     name = models.CharField(max_length=100)
+    image_name = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
     discount = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
