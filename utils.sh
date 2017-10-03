@@ -27,12 +27,13 @@ if [[ $1 == "l" ]]; then
         $0 l token
     fi
 elif [[ $1 == "e" ]]; then
+    [ -n "$2" ] || echo "models is required" && exit 1
     # $2 = model to export
     # $3 = file export to (optional)
-    if [ -x $3 ]; then
-        $COMMAND manage.py dumpdata --format yaml $2
-    else
+    if [ -n "$3" ]; then
         $COMMAND manage.py dumpdata --format yaml $2 >> $3
+    else
+        $COMMAND manage.py dumpdata --format yaml $2
     fi
 elif [[ $1 == "mm" ]]; then
     $COMMAND manage.py makemigrations
@@ -41,11 +42,22 @@ elif [[ $1 == "m" ]]; then
 elif [[ $1 == "s" ]]; then
     $COMMAND manage.py runserver
 elif [[ $1 == "t" ]]; then
-    if [ -x $2 ]; then
-        $COMMAND manage.py test
-    else
+    if [ -n "$2" ]; then
         $COMMAND manage.py test $2
+    else
+        $COMMAND manage.py test
     fi
+elif [[ $1 == 'd' ]]; then
+    which heroku &>/dev/null
+    [ $? -ne 0 ] && echo "no heroku installed." && exit 1
+    heroku buildpacks | grep weibeld &>/dev/null
+    [ $? -ne 0 ] && heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
+    git remote show | grep heroku &>/dev/null
+    [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/guarded-brook-49660.git
+    # get branch in input or current branch
+    [ -n "$2" ] && BRANCH="$2" || BRANCH=$(git branch | grep \* | tr '*' ' ')
+    # push to master
+    git push heroku $BRANCH:master
 elif [[ $1 == "t-ci" ]]; then
     [ -d test-reports ] || mkdir test-reports
     $COMMAND manage.py test --debug-sql -v 3 --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner
