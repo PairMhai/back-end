@@ -7,12 +7,24 @@ if [[ $1 == "l" ]]; then
         echo "load $2 fixture"
         $COMMAND manage.py loaddata "init_$2"
     else
-        echo "load all"
-        fixtures=($(ls **/fixtures/*.yaml))
-        for fixture in ${fixtures[@]}; do
-            echo "loading $fixture"
-            $COMMAND manage.py loaddata "$fixture"
-        done
+        echo ">> load membership and all necessary models"
+        $0 l class
+        $0 l user
+        $0 l customer
+        $0 l creditcard
+        echo ">> load product and all necessary models"
+        $0 l material
+        $0 l design
+        $0 l images
+        $0 l product
+        $0 l promotion
+        echo ">> load mockup order and information"
+        $0 l transportation
+        $0 l order
+        $0 l orderinfo
+        echo ">> other mockup data"
+        $0 l comment
+        $0 l token
     fi
 elif [[ $1 == "e" ]]; then
     # $2 = model to export
