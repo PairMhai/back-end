@@ -19,6 +19,9 @@ This app contain all only credit cards of customer.
 # [Comment](./comment/README.md)
 This app contain api for customer to comment and rate our application
 
+# [Catalog](./catalog/README.md)
+This app contain api for catalog **add** **update** **remove** `product` and `promotion`
+
 # Version
 This have 1 url `^version$ [name='version']`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
 
