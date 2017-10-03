@@ -6,15 +6,17 @@ class MaterialSerializer(serializers.ModelSerializer):
         model = Material
         fields = ('id', 'name', 'quantity', 'description', 'quantity', 'price', 'color', 'image_name')
 
-class DesignSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Design
-        fields = ('id', 'name', 'description', 'price')
-
 class ImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Image
         fields = ('id', 'file_name', 'design')
+
+class DesignSerializer(serializers.ModelSerializer):
+    images = ImageSerializer(many=True)
+
+    class Meta:
+        model = Design
+        fields = ('id', 'name', 'description', 'price', 'images')
 
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:

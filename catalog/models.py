@@ -49,6 +49,7 @@ class Image(models.Model):
     file_name = models.CharField(max_length=100)
     design = models.ForeignKey(
         'Design',
+        related_name='images',
         on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
