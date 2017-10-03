@@ -1,2 +1,8 @@
 web: gunicorn gettingstarted.wsgi --log-file -
-web: python manage.py runserver
+web: ./utils.sh m
+web: ./utils.sh l
+web: ./utils.sh l
+web: ./utils.sh l
+web: ./utils.sh l
+web: ./utils.sh l
+web: ./utils.sh s
