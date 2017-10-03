@@ -1,45 +1,45 @@
 - model: catalog.design
-  pk: des-1
+  pk: 1
   fields:
     name: green_silk_dress
     description: natural design with a natual color
     price: 1000
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    material: [mat-1]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 1
 - model: catalog.design
-  pk: des-2
+  pk: 2
   fields:
     name: red_silk_dress
     description: luxury design with hottest color
     price: 1500
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    material: [mat-2]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 2
 - model: catalog.design
-  pk: des-3
+  pk: 3
   fields:
     name: pink_silk_dress
     description: sweet design with lovely color
     price: 2000
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    material: [mat-3]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 3
 - model: catalog.design
-  pk: des-4
+  pk: 4
   fields:
     name: blue_silk_dress
     description: atractive design with blue color
     price: 2000
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    material: [mat-4]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 4
 - model: catalog.design
-  pk: des-5
+  pk: 5
   fields:
     name: yellow_silk_dress
     description: charming design with warm color
     price: 2000
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    material: [mat-5]
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 5
