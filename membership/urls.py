@@ -2,7 +2,7 @@ from django.conf.urls import url, include
 from membership.views import CustomerDetail, UserDetail, ClassDetail  # , CustomerList
 
 urlpatterns = [
-    url(r'^django-auth', include('django.contrib.auth.urls')),
+    # url(r'^django-auth', include('django.contrib.auth.urls')),
     url(r'^', include('rest_auth.urls')),
     url(r'^register', include('rest_auth.registration.urls')),
     # security problem

@@ -1,6 +1,8 @@
 from catalog.models import Material, Design, Image, Product, Promotion
 from rest_framework import serializers
 
+
+
 class MaterialSerializer(serializers.ModelSerializer):
     class Meta:
         model = Material
