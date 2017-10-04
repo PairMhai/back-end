@@ -1,28 +1,55 @@
 - model: catalog.product
   pk: 1
   fields:
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
     design: 1
-    material: 1
+    material: null
 - model: catalog.product
   pk: 2
   fields:
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
     design: 2
-    material: 2
+    material: null
 - model: catalog.product
   pk: 3
   fields:
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
     design: 3
-    material: 3
+    material: null
 - model: catalog.product
   pk: 4
   fields:
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
     design: 4
+    material: null
+- model: catalog.product
+  pk: 5
+  fields:
+    design: 5
+    material: null
+- model: catalog.product
+  pk: 6
+  fields:
+    design: null
+    material: 1
+- model: catalog.product
+  pk: 7
+  fields:
+    design: null
+    material: 2
+- model: catalog.product
+  pk: 8
+  fields:
+    design: null
+    material: 3
+- model: catalog.product
+  pk: 9
+  fields:
+    design: null
     material: 4
+- model: catalog.product
+  pk: 10
+  fields:
+    design: null
+    material: 5
+- model: catalog.product
+  pk: 11
+  fields:
+    design: null
+    material: 6
