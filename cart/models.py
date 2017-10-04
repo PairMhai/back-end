@@ -3,7 +3,8 @@ from django.db import models
 
 class Order(models.Model):
     total_product = models.IntegerField(default=0)
-    total_price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
+    total_price = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0.00)
     customer = models.ForeignKey(
         'membership.Customer',
         on_delete=models.CASCADE
@@ -39,6 +40,7 @@ class OrderInfo(models.Model):
 
     def __str__(self):
         return "{} {}".format(self.id, self.product)
+
 
 class Transportation(models.Model):
     name = models.CharField(max_length=50)
