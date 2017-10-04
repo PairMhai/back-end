@@ -4,7 +4,8 @@
     total_product: 4
     total_price: 5400
     customer: 2
-    credit: 2
+    creditcard: 2
+    transportation: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
@@ -13,7 +14,8 @@
     total_product: 3
     total_price: 6000
     customer: 1
-    credit: 4
+    creditcard: 4
+    transportation: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
@@ -22,7 +24,8 @@
     total_product: 1
     total_price: 2500
     customer: 4
-    credit: 1
+    creditcard: 1
+    transportation: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
@@ -31,7 +34,8 @@
     total_product: 2
     total_price: 10000
     customer: 3
-    credit: 3
+    creditcard: 3
+    transportation: 4
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.order
@@ -40,6 +44,7 @@
     total_product: 1
     total_price: 8000
     customer: 3
-    credit: 1
+    creditcard: 1
+    transportation: 5
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
