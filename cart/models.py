@@ -23,6 +23,7 @@ class OrderInfo(models.Model):
     quantity = models.IntegerField(default=0)
     order = models.ForeignKey(
         'cart.Order',
+        related_name='products',
         on_delete=models.CASCADE
     )
     product = models.ForeignKey(

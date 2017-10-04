@@ -60,14 +60,14 @@ class Image(models.Model):
 
 
 class Product(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
     design = models.ForeignKey(
         'Design',
+        null=True,
         on_delete=models.CASCADE
     )
     material = models.ForeignKey(
         'Material',
+        null=True,
         on_delete=models.CASCADE
     )
 
