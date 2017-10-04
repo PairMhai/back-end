@@ -28,7 +28,7 @@ SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['guarded-brook-49660.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['guarded-brook-49660.herokuapp.com', 'localhost', '127.0.0.1']
 
 # test runner
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
