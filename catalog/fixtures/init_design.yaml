@@ -1,0 +1,45 @@
+- model: catalog.design
+  pk: 1
+  fields:
+    name: green_silk_dress
+    description: natural design with a natual color
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 6
+- model: catalog.design
+  pk: 2
+  fields:
+    name: red_silk_dress
+    description: luxury design with hottest color
+    price: 1500
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 1
+- model: catalog.design
+  pk: 3
+  fields:
+    name: pink_silk_dress
+    description: sweet design with lovely color
+    price: 2000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 5
+- model: catalog.design
+  pk: 4
+  fields:
+    name: blue_silk_dress
+    description: atractive design with blue color
+    price: 2000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 2
+- model: catalog.design
+  pk: 5
+  fields:
+    name: rosegold_silk_dress
+    description: charming design with warm color
+    price: 2000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 3

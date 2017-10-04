@@ -2,17 +2,35 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
+from payment.models import CreditCard
+
+# Interesting library
+# https://docs.python.org/3/library/doctest.html
+
 # custom user that extend from django auth user
+
+
 class User(AbstractUser):
     """customer information v1"""
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-    telephone = models.CharField(max_length=13)
-    address = models.TextField()
-    date_of_birth = models.DateField()
-    updated_at = models.DateTimeField(auto_now=True)
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField()
+    telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
+    address = models.TextField(default="")
+    gender = models.CharField(max_length=20, default="unknown")
+    # age = models.IntegerField(default=0)
+    date_of_birth = models.DateField(null=True)
+    
+    def get_age(self):
+        import datetime
+        dob = self.date_of_birth
+        tod = datetime.date.today()
+        my_age = (tod.year - dob.year) - int((tod.month, tod.day) < (dob.month, dob.day))
+        return my_age
+
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return self.username + ": " + self.first_name + " " + self.last_name
+
 
 # merge django auth user to customer
 class Customer(models.Model):
@@ -25,13 +43,17 @@ class Customer(models.Model):
         'Class',
         on_delete=models.CASCADE
     )
+
     def __str__(self):
-        return self.firstname + " " + self.lastname
+        return str(self.user)
+
 
 class Class(models.Model):
     """membership class v1"""
     name = models.CharField(max_length=100)
     price = models.IntegerField()
+    discount = models.DecimalField(max_digits=5, decimal_places=3)
     description = models.TextField()
+
     def __str__(self):
         return self.name

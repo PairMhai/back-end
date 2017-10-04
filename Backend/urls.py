@@ -16,8 +16,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from version.views import Index
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^membership/', include('membership.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^payment/', include('payment.urls')),
+    url(r'^catalog/', include('catalog.urls')),
+    url(r'^cart/', include('cart.urls')),
+    url(r'^comment/', include('comment.urls')),
+    # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^version$', Index.as_view(), name='version'),
 ]

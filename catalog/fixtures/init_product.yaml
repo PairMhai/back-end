@@ -1,0 +1,44 @@
+- model: catalog.product
+  pk: 1
+  fields:
+    design: 1
+- model: catalog.product
+  pk: 2
+  fields:
+    design: 2
+- model: catalog.product
+  pk: 3
+  fields:
+    design: 3
+- model: catalog.product
+  pk: 4
+  fields:
+    design: 4
+- model: catalog.product
+  pk: 5
+  fields:
+    design: 5
+- model: catalog.product
+  pk: 6
+  fields:
+    material: 1
+- model: catalog.product
+  pk: 7
+  fields:
+    material: 2
+- model: catalog.product
+  pk: 8
+  fields:
+    material: 3
+- model: catalog.product
+  pk: 9
+  fields:
+    material: 4
+- model: catalog.product
+  pk: 10
+  fields:
+    material: 5
+- model: catalog.product
+  pk: 11
+  fields:
+    material: 6

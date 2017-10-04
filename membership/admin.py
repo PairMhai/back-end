@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Customer, Class, User
+from payment.models import CreditCard
 
 # -------------------------------------
 # custom auth user
@@ -16,7 +17,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'email', 'telephone', 'address', 'date_of_birth')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'address', 'date_of_birth', 'gender')
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -40,7 +41,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('firstname', 'lastname', 'email', 'telephone', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
+        fields = ('first_name', 'last_name', 'email', 'telephone', 'gender', 'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
 
     def clean_password(self):
         return self.initial["password"]
@@ -49,12 +50,13 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
 
-    list_display = ('firstname', 'lastname', 'email', 'is_active', 'is_staff')
-    list_filter = ('firstname', 'email', 'telephone')
+    readonly_fields=('id',)
+    list_display = ('username', 'email', 'is_staff')
+    list_filter = ('first_name', 'email', 'telephone', 'gender')
     fieldsets = (
-        (None,                      {'fields': ('username', 'password')}),
+        (None,                      {'fields': ('id', 'username', 'password')}),
         ('Personal info',            {'fields': ('first_name', 'last_name', 'email')}),
-        ('Addition personal info',  {'fields': ('date_of_birth', 'telephone','address')}),
+        ('Addition personal info',  {'fields': ('date_of_birth', 'gender', 'telephone','address')}),
         ('Permissions',             {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important dates',         {'fields': ('last_login', 'date_joined')}),
     )
@@ -62,12 +64,12 @@ class UserAdmin(BaseUserAdmin):
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
-        (None, {'fields': ('username', 'password1', 'password2')}),
-        ('Personal info', {'fields': ('firstname','lastname','email')}),
-        ('Addition personal info', {'fields': ('date_of_birth', 'telephone','address')})
+        (None, {'fields': ('id', 'username', 'password1', 'password2')}),
+        ('Personal info', {'fields': ('first_name','last_name','email')}),
+        ('Addition personal info', {'fields': ('date_of_birth', 'gender', 'telephone','address')})
     )
-    search_fields = ('firstname', 'telephone', 'address', 'email')
-    ordering = ('firstname', 'email')
+    search_fields = ('first_name', 'telephone', 'address', 'email')
+    ordering = ('first_name', 'email')
 
 admin.site.register(User, UserAdmin)
 
@@ -75,9 +77,17 @@ admin.site.register(User, UserAdmin)
 # other
 # -------------------------------------
 
+class CreditCardInline(admin.TabularInline):
+    model = CreditCard
+    extra = 1
+
 class CustomerAdmin(admin.ModelAdmin):
+    readonly_fields=('id',)
+    inlines = [CreditCardInline]
+    list_filter = ('classes',)
     class Meta:
         model = Customer
+
 
 class ClassAdmin(admin.ModelAdmin):
     class Meta:

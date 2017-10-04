@@ -11,9 +11,21 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import time
+
+# Admin page override
+from django.contrib.admin import AdminSite
+AdminSite.site_title = 'Pairmhai'
+
+AdminSite.site_header = 'Pairmhai Administration'
+
+AdminSite.index_title = 'Administration Page'
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+VERSION = "0.9.0"
 
 
 # Quick-start development settings - unsuitable for production
@@ -25,34 +37,78 @@ SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'localhost', '127.0.0.1']
 
+# test runner
+# TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
+TEST_OUTPUT_DIR = 'test-reports'
+TEST_OUTPUT_VERBOSE = 2
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-' + str(round(time.time())) + '.xml'
+
+CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
 
 # Application definition
 
 INSTALLED_APPS = [
+    'cart.apps.CartConfig',
+    'payment.apps.PaymentConfig',
     'membership.apps.MembershipConfig',
+    'comment.apps.CommentConfig',
     'catalog.apps.CatalogConfig',
     'django.contrib.admin',
+    'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'logentry_admin',
     'rest_framework',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'rest_auth',
+    'rest_auth.registration',
+    'corsheaders',
 ]
+
+# REST AUTH
+SITE_ID = 1
+AUTH_USER_MODEL = 'membership.User'
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+# Email validation by gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
+EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
+EMAIL_PORT = 587
+# This did the trick
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "membership.serializers.CustomerSerializer"
+}
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+        # 'rest_framework.permissions.AllowAny',
+        # 'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # FIXME: disable this wil cause error on list user api
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication'
+    )
 }
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -79,7 +135,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
-AUTH_USER_MODEL = 'membership.User'
+# APPEND_SLASH=False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -116,7 +172,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Bangkok'
 
 USE_I18N = True
 
@@ -127,5 +183,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
+STATIC_ROOT= os.path.join(BASE_DIR, 'static')
 
 STATIC_URL = '/static/'

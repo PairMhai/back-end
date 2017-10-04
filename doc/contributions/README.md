@@ -1,5 +1,3 @@
-# index of contribution page
-
 # Content
 1. [Branch naming](#branch)
 2. [Commit naming](#commit)

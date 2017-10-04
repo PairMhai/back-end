@@ -1,8 +1,14 @@
-from django.conf.urls import url
-from membership.views import CustomerAction, CustomerDetail, ClassDetail
+from django.conf.urls import url, include
+from membership.views import CustomerDetail, UserDetail, ClassDetail  # , CustomerList
 
 urlpatterns = [
-    url(r'^$', CustomerAction.as_view()),
-    url(r'^id/(?P<pk>[0-9]+)$', CustomerDetail.as_view()),
-    url(r'^class/(?P<pk>[0-9]+)$', ClassDetail.as_view()),
+    # url(r'^django-auth', include('django.contrib.auth.urls')),
+    url(r'^', include('rest_auth.urls')),
+    url(r'^register', include('rest_auth.registration.urls')),
+    # security problem
+    # url(r'^custs/$', CustomerList.as_view(), name="membership-cust-list"),
+    url(r'^cust/(?P<token>\w+)$', CustomerDetail.as_view(), name="membership-cust-detail"),
+    url(r'^user/(?P<token>\w+)$', UserDetail.as_view(), name="membership-user-detail"),
+    # WAITING: update it's to return class by `customer id` instead of `class id`
+    url(r'^class/(?P<pk>[0-9]+)$', ClassDetail.as_view(), name="membership-class-detail"),
 ]

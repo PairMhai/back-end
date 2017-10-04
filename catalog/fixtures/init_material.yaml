@@ -1,0 +1,66 @@
+- model: catalog.material
+  pk: 1
+  fields:
+    name: Mulberry
+    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    quantity: 3
+    price: 1000
+    color: red
+    image_name: red.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 2
+  fields:
+    name: Tasar
+    description: Tasar silk is easy to recognize because of its copperish color. It is this color that makes it ideal for interior decor and furnishing.
+    quantity: 2
+    price: 1500
+    color: blue
+    image_name: darkblue.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 3
+  fields:
+    name: Eri
+    description: Silk. Its texture can be coarse or fine, and it is mainly cream in color, although it’s not as shiny as many other types. It is also strong and quite elastic. Furthermore, it is heavier than most other types.
+    quantity: 6
+    price: 2000
+    color: rosegold
+    image_name: rosegold.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 4
+  fields:
+    name: Muga
+    description: The quantity of muga silk produced is quite small, which means that most of it is used within the areas where it is produced, such as Assam in India, where it is used to make traditional dresses.
+    quantity: 12
+    price: 2000
+    color: black
+    image_name: black.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 5
+  fields:
+    name: Anaphe
+    description: In Africa, anaphe silk is the most common type. It is usually soft and quite lustrous. In southern and central Africa, a number of communities use anaphe silk to make velvet due to its strength and elasticity.
+    quantity: 10
+    price: 2000
+    color: pink
+    image_name: lightpink.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 6
+  fields:
+    name: Spider
+    description: Spider silk is resistant to extreme temperature and humidity.
+    quantity: 10
+    price: 500
+    color: green
+    image_name: lightgreen.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
