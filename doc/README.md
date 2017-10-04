@@ -48,6 +48,9 @@ This app contain api for customer to comment and rate our application
 # [Catalog](./catalog/README.md)
 This app contain api for catalog **add** **update** **remove** `product` and `promotion`
 
+# [Cart](./cart/README.md)
+This app contain api for `ordering` and getting `transportation`
+
 # Version
 This have 1 url `^version$ [name='version']`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
 
