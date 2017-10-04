@@ -46,6 +46,7 @@ class OrderSerializer(serializers.ModelSerializer):
         validated_data.update({'total_product': len(orders_info)})
         order = Order.objects.create(**validated_data)
         # print("order id {}".format(order))
+        # FIXME: incase order same pid (should merge to 1 row)
         for info in orders_info:
             info.update({'order': order})
             order_info = OrderInfo.objects.create(**info)
