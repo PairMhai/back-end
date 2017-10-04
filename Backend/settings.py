@@ -13,6 +13,15 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 import os
 import time
 
+# Admin page override
+from django.contrib.admin import AdminSite
+AdminSite.site_title = 'Pairmhai'
+
+AdminSite.site_header = 'Pairmhai Administration'
+
+AdminSite.index_title = 'Administration Page'
+
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
