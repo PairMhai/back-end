@@ -32,12 +32,3 @@ class PromotionList(generics.ListAPIView):
 class PromotionDetail(generics.RetrieveAPIView):
     queryset = Promotion.objects.all()
     serializer_class = PromotionSerializer
-
-
-# class PatternList(generics.ListAPIView):
-#     queryset = Pattern.objects.all()
-#     serializer_class = SoftPatternSerializer
-
-# class PatternDetail(generics.RetrieveAPIView):
-#     queryset = Pattern.objects.all()
-#     serializer_class = HardPatternSerializer
