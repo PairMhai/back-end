@@ -1,6 +1,6 @@
 # Catalog APIs list and description
 
-1. ^catalog/materials$ [name='material-list'] **(v0.2.2)**
+1. ^catalog/materials$ [name='material-list'] **(v0.2.3)**
     - List all materials
     1. **Request**
         - method: `GET`
@@ -12,6 +12,7 @@
             ```json
             [
                 {
+                    "product_id": 1,
                     "id": 1,
                     "name": "name1",
                     "quantity": 1,
@@ -21,6 +22,7 @@
                     "image_name": "name1.jpg"
                 },
                 {
+                    "product_id": 2,
                     "id": 2,
                     "name": "name2",
                     "quantity": 1,
@@ -31,7 +33,7 @@
                 }
             ]
             ```
-2. ^catalog/material/(?P<pk>[0-9]+)$ [name='material-detail'] **(v0.2.2)**
+2. ^catalog/material/(?P<pk>[0-9]+)$ [name='material-detail'] **(v0.2.3)**
     - Get individual material by `material id`
     1. **Request**
         - method: `GET`
@@ -42,6 +44,7 @@
             - body:
             ```json
             {
+                "product_id": 1,
                 "id": 1,
                 "name": "name1",
                 "quantity": 1,
@@ -51,7 +54,7 @@
                 "image_name": "name1.jpg"
             }
             ```
-3. ^catalog/designs$ [name='design-list']
+3. ^catalog/designs$ [name='design-list'] **(v0.2.3)**
     - List all designs
     1. **Request**
         - method: `GET`
@@ -63,6 +66,7 @@
             ```json
             [
                 {
+                    "product_id": 7,
                     "id": 1,
                     "name": "name1",
                     "description": "description of name1",
@@ -75,6 +79,7 @@
                     ]
                 },
                 {
+                    "product_id": 10,
                     "id": 2,
                     "name": "name2",
                     "description": "description of name2",
@@ -88,7 +93,7 @@
                 }
             ]
             ```
-4. ^catalog/design/(?P<pk>[0-9]+)$ [name='design-detail']
+4. ^catalog/design/(?P<pk>[0-9]+)$ [name='design-detail'] **(v0.2.3)**
     - Get individual design by `design id`
     1. **Request**
         - method: `GET`
@@ -99,6 +104,7 @@
             - body:
             ```json
             {
+                "product_id": 7,
                 "id": 1,
                 "name": "name1",
                 "description": "description of name1",
@@ -111,7 +117,7 @@
                 ]
             }
             ```
-5. ^catalog/promotions$ [name='promotion-list']
+5. ^catalog/promotions$ [name='promotion-list'] **(v0.2.3)**
     - List all promotions
     1. **Request**
         - method: `GET`
@@ -123,20 +129,22 @@
             ```json
             [
                 {
-                    "id": 1,
+                    "product": 1,
                     "name": "pro1",
                     "description": "something1",
-                    "discount": "10.00"
+                    "discount": "10.00",
+                    "image_name": "something1.png"
                 },
                 {
-                    "id": 2,
+                    "product": 3,
                     "name": "pro2",
                     "description": "something2",
-                    "discount": "0.00"
+                    "discount": "0.00",
+                    "image_name": "something2.png"
                 }
             ]
             ```
-6. ^catalog/promotion/(?P<pk>[0-9]+)$ [name='promotion-detail']
+6. ^catalog/promotion/(?P<pk>[0-9]+)$ [name='promotion-detail'] **(v0.2.3)**
     - Get individual promotion by `promotion id`
     1. **Request**
         - method: `GET`
@@ -147,9 +155,10 @@
             - body:
             ```json
             {
-                "id": 1,
+                "product": 1,
                 "name": "pro1",
                 "description": "something1",
-                "discount": "10.00"
+                "discount": "10.00",
+                "image_name": "something1.png"
             }
             ```
