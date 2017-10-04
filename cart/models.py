@@ -20,7 +20,7 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 
 class OrderInfo(models.Model):
@@ -38,7 +38,7 @@ class OrderInfo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.quantity
+        return "{} {}".format(self.id, self.product)
 
 class Transportation(models.Model):
     name = models.CharField(max_length=50)
@@ -48,4 +48,4 @@ class Transportation(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.type + " " + self.price
+        return "{} {}".format(self.name, self.price)
