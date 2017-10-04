@@ -61,7 +61,6 @@ class ImpDetailCustomer(generics.RetrieveAPIView):
         try:
             token = Token.objects.get(key=kwargs['token'])
             self.uid = token.user_id
-            # Token.objects.get(key=kwargs['token']).
         except Token.DoesNotExist:
             return Response({"detail": "get individual customer must have token"}, status=status.HTTP_401_UNAUTHORIZED)
         return self.retrieve(request, *args, **kwargs)
