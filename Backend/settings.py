@@ -25,7 +25,7 @@ AdminSite.index_title = 'Administration Page'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 
 
 # Quick-start development settings - unsuitable for production
