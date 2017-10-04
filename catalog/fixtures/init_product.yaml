@@ -2,54 +2,43 @@
   pk: 1
   fields:
     design: 1
-    material: null
 - model: catalog.product
   pk: 2
   fields:
     design: 2
-    material: null
 - model: catalog.product
   pk: 3
   fields:
     design: 3
-    material: null
 - model: catalog.product
   pk: 4
   fields:
     design: 4
-    material: null
 - model: catalog.product
   pk: 5
   fields:
     design: 5
-    material: null
 - model: catalog.product
   pk: 6
   fields:
-    design: null
     material: 1
 - model: catalog.product
   pk: 7
   fields:
-    design: null
     material: 2
 - model: catalog.product
   pk: 8
   fields:
-    design: null
     material: 3
 - model: catalog.product
   pk: 9
   fields:
-    design: null
     material: 4
 - model: catalog.product
   pk: 10
   fields:
-    design: null
     material: 5
 - model: catalog.product
   pk: 11
   fields:
-    design: null
     material: 6
