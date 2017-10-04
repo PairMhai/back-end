@@ -8,6 +8,7 @@ from membership.models import Customer
 
 
 class CreditCardSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = CreditCard
         fields = ('id', 'owner', 'credit_no')
@@ -40,7 +41,8 @@ class FullCreditCardSerializer(serializers.ModelSerializer):
         try:
             return Customer.objects.get(id=Token.objects.get(key=value).user_id)
         except Token.DoesNotExist:
-            if (isinstance(value, int)):
-                return Customer.objects.get(id=value)
-            else:
-                raise serializers.ValidationError("customer key accept either id or token.")
+            try:
+                return Customer.objects.get(id=int(value))
+            except:
+                raise serializers.ValidationError(
+                    "customer key accept either id or token.")
