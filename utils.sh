@@ -47,17 +47,24 @@ elif [[ $1 == "t" ]]; then
     else
         $COMMAND manage.py test
     fi
-elif [[ $1 == 'd' ]]; then
+# heroku
+elif [[ $1 == 'h' ]]; then
     which heroku &>/dev/null
     [ $? -ne 0 ] && echo "no heroku installed." && exit 1
     heroku buildpacks | grep weibeld &>/dev/null
     [ $? -ne 0 ] && heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
     git remote show | grep heroku &>/dev/null
     [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/pairmhai-api.git
-    # get branch in input or current branch
-    [ -n "$2" ] && BRANCH="$2" || BRANCH=$(git branch | grep \* | tr '*' ' ')
-    # push to master
-    git push heroku $BRANCH:master
+    # deploy
+    if [[ $2 == 'd' ]]; then
+        # get branch in input or current branch
+        [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
+        # push to master
+        git push heroku $BRANCH:master
+    # log
+    elif [[ $2 == 'l' ]]; then
+        heroku logs --tail
+    fi
 elif [[ $1 == "t-ci" ]]; then
     [ -d test-reports ] || mkdir test-reports
     $COMMAND manage.py test --debug-sql -v 3 --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner
@@ -79,10 +86,12 @@ HELP Command:
     3.  mm   - make migrations of new models
     4.  m    - migrate database
     5.  s    - run server
-    6.  d    - deploy code to heroku require heroku cli
-               - @params 1 - (optional) branch to deploy (default is current branch)
+    6.  h    - heroku short command
+               1. d - deploy code to heroku
+                      - @params 1 - (optional) branch to deploy (default is current branch)
+               2. l - logs all action in heroku container
     7.  t    - test all testcase
-               - @params 1 - (optional) module.TestCase.method is allow to spectify test
+               - @params 1 - (optional) module.testcase.method is allow to spectify test
     8.  t-ci - test all testcase with full version of debug print
     9.  r    - remove currently database
     10. c    - clear test-report
