@@ -32,5 +32,9 @@ root                     ~/anaconda3
 1. [Document link](doc/README.md)
 2. [utils.sh](doc/utils.md)
 
+# To do list
+- Implement validation of models  [link](https://docs.djangoproject.com/en/dev/ref/validators/#regexvalidator)
+- Gettext to enable translation [link](https://docs.python.org/3/library/gettext.html)
+
 # Contribution
 [Need to know](doc/contributions/README.md)
