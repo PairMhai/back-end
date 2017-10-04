@@ -25,7 +25,7 @@ root                     ~/anaconda3
 
 ## To deploy
 1. setup [buildpack](https://github.com/weibeld/heroku-buildpack-run): `heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git`
-2. add heroku remote: `git remote add heroku https://git.heroku.com/guarded-brook-49660.git`
+2. add heroku remote: `git remote add heroku https://git.heroku.com/pairmhai-api.git`
 3. run push command: `git push heroku <local-branch>:master`
 
 # Documentation

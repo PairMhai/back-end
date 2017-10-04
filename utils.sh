@@ -53,7 +53,7 @@ elif [[ $1 == 'd' ]]; then
     heroku buildpacks | grep weibeld &>/dev/null
     [ $? -ne 0 ] && heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
     git remote show | grep heroku &>/dev/null
-    [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/guarded-brook-49660.git
+    [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/pairmhai-api.git
     # get branch in input or current branch
     [ -n "$2" ] && BRANCH="$2" || BRANCH=$(git branch | grep \* | tr '*' ' ')
     # push to master
