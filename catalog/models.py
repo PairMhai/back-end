@@ -53,6 +53,7 @@ class Material(models.Model):
     def get_product_id(self):
         return Product.objects.get(material=self).id
 
+
 class Image(models.Model):
     """image of the material v1"""
     file_name = models.CharField(max_length=100)
@@ -84,6 +85,9 @@ class Product(models.Model):
 
     def __str__(self):
         return "Design {} object".format(self.design.id) if self.material == None else "Material {} object".format(self.material.id)
+
+    def get_price(self):
+        return self.design.price if self.material == None else self.material.price
 
 
 class Promotion(models.Model):
