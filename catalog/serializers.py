@@ -23,10 +23,12 @@ class FullImageSerializer(serializers.ModelSerializer):
 class DesignSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField(source='get_product_id')
     images = ImageSerializer(many=True)
+    material_name = serializers.CharField(source='get_material_name')
+    material_color = serializers.CharField(source='get_color')
 
     class Meta:
         model = Design
-        fields = ('product_id', 'id', 'name', 'description', 'price', 'images')
+        fields = ('product_id', 'id', 'name', 'description', 'price', 'images', 'material_name', 'material_color')
     def validate_product_id(self, value):
         print(value)
 
