@@ -46,6 +46,19 @@ class RegisterTestCase(TestCase):
             "expire_date": "2023-06-14"
         }
 
+        self.no_owner_creditcard = {
+            "customer": "fcf4936b63d9bfa3ebe7f5cf8011517bc6fe8e15",
+            "credit_no": "1111111111111111",
+            "ccv": "111",
+            "expire_date": "2023-06-14"
+        }
+
+        self.no_expire_date_creditcard = {
+            "customer": "fcf4936b63d9bfa3ebe7f5cf8011517bc6fe8e15",
+            "credit_no": "1111111111111111",
+            "ccv": "111",
+            "owner": "Piromsurang Rookie"
+        }
 
     def test_if_customer_able_to_create_creditcard(self):
         """test if customer is able to add the new creditcard"""
@@ -70,6 +83,24 @@ class RegisterTestCase(TestCase):
         response = self.client.post(
             reverse('payment-creator'),
             self.no_ccv_creditcard,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_if_no_owner_when_create(self):
+        """test if customer is unable to create a new creditcard with missing required params"""
+        response = self.client.post(
+            reverse('payment-creator'),
+            self.no_owner_creditcard,
+            format="json"
+        )
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_if_no_expire_date_when_create(self):
+        """test if customer is unable to create a new creditcard with missing required params"""
+        response = self.client.post(
+            reverse('payment-creator'),
+            self.no_expire_date_creditcard,
             format="json"
         )
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
