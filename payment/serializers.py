@@ -4,10 +4,11 @@ from payment.models import CreditCard
 
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
-from membership.models import Customer
+from membership.models import Customer, User
 
 
 class CreditCardSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = CreditCard
         fields = ('id', 'owner', 'credit_no')
@@ -38,9 +39,6 @@ class FullCreditCardSerializer(serializers.ModelSerializer):
 
     def validate_customer(self, value):
         try:
-            return Customer.objects.get(id=Token.objects.get(key=value).user_id)
+            return Customer.objects.get(user=User.objects.get(id=Token.objects.get(key=value).user_id))
         except Token.DoesNotExist:
-            if (isinstance(value, int)):
-                return Customer.objects.get(id=value)
-            else:
-                raise serializers.ValidationError("customer key accept either id or token.")
+            raise serializers.ValidationError("customer key must be valid token.")

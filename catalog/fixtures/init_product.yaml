@@ -1,28 +1,84 @@
-- model: catalog.material
+- model: catalog.product
   pk: 1
   fields:
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    design: [des-1]
-    material: [mat-1]
-- model: catalog.material
+    design: 1
+- model: catalog.product
   pk: 2
   fields:
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    design: [des-2]
-    material: [mat-2]
-- model: catalog.material
+    design: 2
+- model: catalog.product
   pk: 3
   fields:
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    design: [des-3]
-    material: [mat-3]
-- model: catalog.material
+    design: 3
+- model: catalog.product
   pk: 4
   fields:
-    created_at: ! '2017-01-01 00:00:00.000000'
-    updated_at: ! '2017-01-01 00:00:00.000000'
-    design: [des-4]
-    material: [mat-4]
+    design: 4
+- model: catalog.product
+  pk: 5
+  fields:
+    design: 5
+- model: catalog.product
+  pk: 6
+  fields:
+    material: 1
+- model: catalog.product
+  pk: 7
+  fields:
+    material: 2
+- model: catalog.product
+  pk: 8
+  fields:
+    material: 3
+- model: catalog.product
+  pk: 9
+  fields:
+    material: 4
+- model: catalog.product
+  pk: 10
+  fields:
+    material: 5
+- model: catalog.product
+  pk: 11
+  fields:
+    material: 6
+- model: catalog.product
+  pk: 12
+  fields:
+    design: 6
+- model: catalog.product
+  pk: 13
+  fields:
+    design: 7
+- model: catalog.product
+  pk: 14
+  fields:
+    design: 8
+- model: catalog.product
+  pk: 15
+  fields:
+    design: 9
+- model: catalog.product
+  pk: 16
+  fields:
+    design: 10
+- model: catalog.product
+  pk: 17
+  fields:
+    design: 11
+- model: catalog.product
+  pk: 18
+  fields:
+    design: 12
+- model: catalog.product
+  pk: 19
+  fields:
+    design: 13
+- model: catalog.product
+  pk: 20
+  fields:
+    design: 14
+- model: catalog.product
+  pk: 21
+  fields:
+    design: 15

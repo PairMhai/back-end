@@ -1,14 +1,21 @@
-# Description: 
+# Description:
 This is python utilities with django (To use this you must follow install helper in README.md)
 
 # HELP Command:
-1. l - load all fixture (test data)
-2. e - dump currently database to file-name
-    - @params 1 - models to export
-    - @params 2 - file name
-3. mm - make migrations of new models
-4. m - migrate database
-5. s - run server
-6. t - test model and api
-7. r - remove currently database
-8. c - clear test-report
+1.  l    - load all fixture (test data)
+           - @params 1 - (optional) fixture name (without init_*)
+2.  e    - dump currently database to file-name (if no file-name print as stout)
+           - @params 1 - models to export
+           - @params 2 - (optional) file name
+3.  mm   - make migrations of new models
+4.  m    - migrate database
+5.  s    - run server
+6.  h    - heroku short command
+           1. d - deploy code to heroku
+                  - @params 1 - (optional) branch to deploy (default is current branch)
+           2. l - logs all action in heroku container
+7.  t    - test all testcase
+           - @params 1 - (optional) module.testcase.method is allow to spectify test
+8.  t-ci - test all testcase with full version of debug print
+9.  r    - remove currently database
+10. c    - clear test-report

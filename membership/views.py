@@ -27,12 +27,7 @@ def get_object_or_404(queryset, *filter_args, **filter_kwargs):
 # ---------------------------------------
 
 
-class CustomerList(generics.ListAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-
-
-class ImpDetailClass(generics.RetrieveAPIView):
+class ImpDetailCustomer(generics.RetrieveAPIView):
     lookup_field = ('token')
 
     def get_object(self):
@@ -55,7 +50,7 @@ class ImpDetailClass(generics.RetrieveAPIView):
             (self.__class__.__name__, lookup_url_kwarg)
         )
         self.lookup_field = (self.id_str)
-        print("GET", self.id_str, str(self.uid))
+        # print("GET", self.id_str, str(self.uid))
         filter_kwargs = {self.lookup_field: self.uid}
         obj = get_object_or_404(queryset, **filter_kwargs)
         # May raise a permission denied
@@ -71,13 +66,13 @@ class ImpDetailClass(generics.RetrieveAPIView):
         return self.retrieve(request, *args, **kwargs)
 
 
-class CustomerDetail(ImpDetailClass):
+class CustomerDetail(ImpDetailCustomer):
     queryset = Customer.objects.all()
     serializer_class = FullCustomerSerializer
     id_str = 'user_id'
 
 
-class UserDetail(ImpDetailClass):
+class UserDetail(ImpDetailCustomer):
     queryset = User.objects.all()
     serializer_class = FullUserSerializer
     id_str = 'id'

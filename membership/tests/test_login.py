@@ -1,7 +1,7 @@
 from django.contrib.messages import get_messages
 from django.contrib.auth.hashers import make_password
 
-from django.test import TestCase
+from Backend.test_utils import ImpTestCase
 
 from rest_framework.test import APIClient
 from django.test import Client
@@ -13,7 +13,7 @@ from django.core.urlresolvers import reverse
 
 from random import uniform, randrange
 
-class LoginTestCase(TestCase):
+class LoginTestCase(ImpTestCase):
     fixtures = ['init_class.yaml', 'init_user.yaml']
 
     def setUp(self):
@@ -43,12 +43,13 @@ class LoginTestCase(TestCase):
             self.good_user,
             format="json"
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        self.assertResponseCode201(response)
 
         un = self.good_user.get("user").get("username")
         pw = self.good_user.get("password1")
         response = self.client.login(username=un, password=pw)
-        self.assertEqual(response, True)
+        self.assertTrue(response)
 
         self.client.logout()
 
@@ -58,12 +59,12 @@ class LoginTestCase(TestCase):
         un = self.good_user.get("user").get("username")
         pw = self.good_user.get("password1")
         response = self.client.login(username=un, password=pw)
-        self.assertEqual(response, False)
+        self.assertFalse(response)
 
         self.client.logout()
 
     def test_tc_003(self):
-        """Test with valid username and empty /
+        """Test with valid username and empty
         invalid password such that login must get failed"""
 
         self.client.force_authenticate(user=self.admin)
@@ -72,18 +73,18 @@ class LoginTestCase(TestCase):
             self.good_user,
             format="json"
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertResponseCode201(response)
 
         un = self.good_user.get("user").get("username")
         response = self.client.login(username=un, password="")
-        self.assertEqual(response, False)
+        self.assertFalse(response)
         response = self.client.login(username=un, password="dkdkkkkd")
-        self.assertEqual(response, False)
+        self.assertFalse(response)
 
         self.client.logout()
 
     def test_tc_004(self):
-        """Test with empty username and empty /
+        """Test with empty username and empty
         invalid password and check if login fails"""
 
         self.client.force_authenticate(user=self.admin)
@@ -92,12 +93,12 @@ class LoginTestCase(TestCase):
             self.good_user,
             format="json"
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertResponseCode201(response)
 
         response = self.client.login(username="", password="")
-        self.assertEqual(response, False)
+        self.assertFalse(response)
         response = self.client.login(username="", password="dkdkkkkd")
-        self.assertEqual(response, False)
+        self.assertFalse(response)
 
         self.client.logout()
 
@@ -110,15 +111,15 @@ class LoginTestCase(TestCase):
             self.good_user,
             format="json"
         )
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertResponseCode201(response)
 
         un = self.good_user.get("user").get("username")
         pw = self.good_user.get("password1")
         un = un.upper()
         pw = pw.upper()
         response = self.client.login(username=un, password=pw)
-        self.assertEqual(response, False)
+        self.assertFalse(response)
         response = self.client.login(username=un, password=pw)
-        self.assertEqual(response, False)
+        self.assertFalse(response)
 
         self.client.logout()
