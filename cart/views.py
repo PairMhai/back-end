@@ -1,11 +1,14 @@
+from membership.models import Customer
 from cart.models import Order, OrderInfo, Transportation
 from cart.serializers import TransportationSerializer, OrderSerializer
 
 from rest_framework import generics, status
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 
 from django.forms.models import model_to_dict
 
+from Backend.utils import ImpListByTokenView, get_customer_from_user_id
 
 class TransportationListView(generics.ListAPIView):
     queryset = Transportation.objects.all()
@@ -32,3 +35,14 @@ class OrderCreatorView(generics.CreateAPIView):
             'transportation': tran_serializer.validated_data,
             'created_at': order.created_at
         }, status=status.HTTP_201_CREATED, headers=headers)
+
+class HistoryView(ImpListByTokenView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+    id_str = 'customer_id'
+
+    def set_id(self, token):
+        self.uid = get_customer_from_user_id(token.user_id).id
+
+    def get_queryset(self):
+        return super(HistoryView, self).get_queryset().filter(customer_id=self.uid)
