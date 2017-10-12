@@ -1,7 +1,7 @@
 - model: payment.creditcard
   pk: 1
   fields:
-    credit_no: 1234567891234
+    credit_no: 1234543367891234
     ccv: 234
     owner: Warisara Kim
     expire_date: '2022-05-12'
@@ -11,7 +11,7 @@
 - model: payment.creditcard
   pk: 2
   fields:
-    credit_no: 9876543212345
+    credit_no: 9876511143212345
     ccv: 345
     owner: Methawee Apinary
     expire_date: '2023-06-14'
@@ -21,7 +21,7 @@
 - model: payment.creditcard
   pk: 3
   fields:
-    credit_no: 1451239999599
+    credit_no: 1451239123999599
     ccv: 599
     owner: Palita Samantha
     expire_date: '2019-01-15'
@@ -31,7 +31,7 @@
 - model: payment.creditcard
   pk: 4
   fields:
-    credit_no: 5587985641235
+    credit_no: 5587233985641235
     ccv: 235
     owner: Soraya Samuel
     expire_date: '2020-12-11'
@@ -41,7 +41,7 @@
 - model: payment.creditcard
   pk: 5
   fields:
-    credit_no: 9546587231125
+    credit_no: 9546582337231125
     ccv: 125
     owner: Thanawan Zueli
     expire_date: '2019-12-11'
