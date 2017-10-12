@@ -122,8 +122,10 @@ class CustomerGettingTestCase(ImpTestCase):
         self.assertEqual(classes['price'], self.superman.classes.price)
         # must contains payment as well
         db_credits = CreditCard.objects.filter(customer=self.superman)
-        credits = [CreditCard(**creditcards[0])]
-        self.assertCountEqual(db_credits, credits)
+        creditcards_obj = []
+        for cc in creditcards:
+            creditcards_obj.append(CreditCard(**cc))
+        self.assertCountEqual(db_credits, creditcards_obj)
 
 # ------------------------------------
 # ------------------------------------
