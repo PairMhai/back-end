@@ -39,7 +39,10 @@ class ImpDetailByTokenView(generics.RetrieveAPIView):
             'attribute on the view correctly.' %
             (self.__class__.__name__, lookup_url_kwarg)
         )
-        my_id = self.id_str or 'id'
+        if hasattr(self, 'id_str'):
+            my_id = self.id_str
+        else:
+            my_id = 'id'
         self.lookup_field = (my_id)
         filter_kwargs = {self.lookup_field: self.uid}
 
