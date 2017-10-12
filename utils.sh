@@ -87,7 +87,7 @@ HELP Command:
     4.  m    - migrate database
     5.  s    - run server
     6.  h    - heroku short command
-               1. d - deploy code to heroku
+    1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
                       - @params 1 - (optional) branch to deploy (default is current branch)
                2. l - logs all action in heroku container
     7.  t    - test all testcase
