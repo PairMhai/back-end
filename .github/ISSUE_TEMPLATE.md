@@ -1,3 +1,10 @@
+<!--  
+  select kind of issue by add X in between [ ]
+  e.g. [X] kind 1
+  add explanation of issue 
+  and add expected and actually incase you report the bug
+-->
+
 ## What kind of issue? (check at least one)
 - [ ] Bug
 - [ ] Security problem
@@ -6,13 +13,8 @@
 - [ ] Enhancement
 - [ ] Other, please describe: ...
 
-## The ISSUE fulfills these requirements:
-- [ ] nothing
-
-## Doing Steps
-1. ...
-2. ...
-3. ...
+## Explanation
+...
 
 ### Expected
 ...

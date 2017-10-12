@@ -73,3 +73,38 @@
                 - 05 - minute
                 - 06 - second
                 - 123456 - milisecond
+3. ^cart/history/(?P<token>\w+)$ [name='history-detail']
+    - get history of customer by `token`
+        1. **Request**
+            - method: `GET`
+            - body: [none]
+        2. **Response**
+            1. Successfully
+                - code: `200_OK`
+                - body:
+                ```json
+                [
+                    {
+                        "id": 2,
+                        "customer": "name",
+                        "products": [
+                            {
+                                "product": {
+                                    "id": 3,
+                                    "design": 3,
+                                    "material": null
+                                },
+                                "quantity": 1
+                            }
+                        ]
+                    }
+                ]
+                ```
+            2. Failure
+                - code: `401_UNAUTHORIZED`
+                - body:
+                ```json
+                {
+                    "detail": "get individual customer must have token"
+                }
+                ```
