@@ -27,7 +27,7 @@
     description: Silk. Its texture can be coarse or fine, and it is mainly cream in color, although it’s not as shiny as many other types. It is also strong and quite elastic. Furthermore, it is heavier than most other types.
     quantity: 6
     price: 2000
-    color: rosegold
+    color: brown
     image_name: rosegold.jpg
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'

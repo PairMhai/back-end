@@ -23,6 +23,12 @@ class Design(models.Model):
     def get_product_id(self):
         return Product.objects.get(design=self).id
 
+    def get_color(self):
+        return self.material.color
+
+    def get_material_name(self):
+        return self.material.name
+
 
 class Material(models.Model):
     """material product v1"""

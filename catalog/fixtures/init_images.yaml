@@ -1,22 +1,105 @@
 - model: catalog.image
   pk: 1
   fields:
-    file_name: lightgreen-dress.jpg
+    file_name: ash-dress.jpg
     design: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 2
   fields:
-    file_name: red-dress.jpg
+    file_name: browny-set.jpg
     design: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 3
   fields:
-    file_name: lightblue-dress.jpg
+    file_name: cherryblossom-dress.jpg
+    design: 3
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 4
+  fields:
+    file_name: darkblue-dress.jpg
     design: 4
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-
+- model: catalog.image
+  pk: 5
+  fields:
+    file_name: darkorange-dress.jpg
+    design: 5
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 6
+  fields:
+    file_name: darkpink-dress.jpg
+    design: 6
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 7
+  fields:
+    file_name: lightblue-dress.jpg
+    design: 7
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 8
+  fields:
+    file_name: lightgreen-dress.jpg
+    design: 8
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 9
+  fields:
+    file_name: lightpurple-dress.jpg
+    design: 9
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 10
+  fields:
+    file_name: pink-dress.jpg
+    design: 10
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 11
+  fields:
+    file_name: purple-dress.jpg
+    design: 11
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 12
+  fields:
+    file_name: red-dress.jpg
+    design: 12
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 13
+  fields:
+    file_name: redvelvet-dress.jpg
+    design: 13
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 14
+  fields:
+    file_name: verylightpink-dress.jpg
+    design: 14
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.image
+  pk: 15
+  fields:
+    file_name: white-blue-dress.jpg
+    design: 15
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'

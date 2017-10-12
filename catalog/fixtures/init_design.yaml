@@ -1,45 +1,135 @@
 - model: catalog.design
   pk: 1
   fields:
-    name: green_silk_dress
-    description: natural design with a natual color
-    price: 1000
+    name: Ash Dress
+    description: Modern design which is available for all occasions.
+    price: 2000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 6
+    material: 3
 - model: catalog.design
   pk: 2
   fields:
-    name: red_silk_dress
-    description: luxury design with hottest color
-    price: 1500
+    name: Browny Dress
+    description: Beautiful and elegant which could make you feel nobel.
+    price: 1000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 1
+    material: 3
 - model: catalog.design
   pk: 3
   fields:
-    name: pink_silk_dress
-    description: sweet design with lovely color
-    price: 2000
+    name: Cherry Blossom Dress
+    description: A good looking design which could make you feel delightful.
+    price: 1500
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
     material: 5
 - model: catalog.design
   pk: 4
   fields:
-    name: blue_silk_dress
-    description: atractive design with blue color
-    price: 2000
+    name: Dark Blue Dress
+    description: This design seems to cotain an entire world and reflect the origin of the universe.
+    price: 3000
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
     material: 2
 - model: catalog.design
   pk: 5
   fields:
-    name: rosegold_silk_dress
-    description: charming design with warm color
-    price: 2000
+    name: Dark Orange Dress
+    description: The feeling of sunset and warm.
+    price: 1200
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
     material: 3
+- model: catalog.design
+  pk: 6
+  fields:
+    name: Dark Pink Dress
+    description: Charming and seductive which make you feel as the butterflies swarm around the flora.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 5
+- model: catalog.design
+  pk: 7
+  fields:
+    name: Light Blue Dress
+    description: This design will make you feel like a bright and clear sky in winter.
+    price: 2500
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 6
+- model: catalog.design
+  pk: 8
+  fields:
+    name: Light Green Dress
+    description: The feeling of natural and fresh.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 6
+- model: catalog.design
+  pk: 9
+  fields:
+    name: Light Purple Dress
+    description: The design which make you feel like the crytal clear water.
+    price: 1500
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 2
+- model: catalog.design
+  pk: 10
+  fields:
+    name: Pink Dress
+    description: A good looking design which could make you feel lovely.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 5
+- model: catalog.design
+  pk: 11
+  fields:
+    name: Purple Dress
+    description: The design which make you feel mysterious.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 2
+- model: catalog.design
+  pk: 12
+  fields:
+    name: Red Dress
+    description: The design that give a feeling of fervent.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 1
+- model: catalog.design
+  pk: 13
+  fields:
+    name: Red Velvet Dress
+    description: A sweet and lovely design which will make you enjoy and happy.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 1
+- model: catalog.design
+  pk: 14
+  fields:
+    name: Light Pink Dress
+    description: A good looking design which could make you feel lovely.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 5
+- model: catalog.design
+  pk: 15
+  fields:
+    name: White And Blue Dress
+    description: A white and blue which make you feel like a clear water at the beach.
+    price: 1000
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 2
