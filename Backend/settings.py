@@ -38,7 +38,7 @@ FIXTURE_DIRS = (
 SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'localhost', '127.0.0.1']
 

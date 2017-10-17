@@ -4,6 +4,8 @@ from allauth.account.models import EmailAddress
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+
 from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
 
 
@@ -63,6 +65,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('only post method')
             # user_data = validated_data.pop('user')  # get user json
 
+        # password check
         if ('password1' not in raw_data or 'password2' not in raw_data):
             raise serializers.ValidationError(
                 'password1 and password2 is required')
@@ -71,7 +74,11 @@ class CustomerSerializer(serializers.ModelSerializer):
         if (pass1 != pass2):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
-        user = User.objects.create(**user_data)  # create user
+        try:
+            user = User(**user_data)  # create user
+            user.save()
+        except ValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
         user_class = Class.objects.get(id=1)  # get none class by defaul
         if ('classes' in raw_data):
             class_id = raw_data['classes']
