@@ -42,11 +42,18 @@ class User(AbstractUser):
 
         from django.utils.dateparse import parse_date
         from django.core.exceptions import ValidationError
-        
-        # length must be 10
-        if len(self.telephone) != 10:
-            raise ValidationError(
-                {'telephone': 'telephone in thailand must be 10 digit.'})
+
+        # assume if telephone have - will have two of them at between number 3-4 and 6-7
+        if self.telephone[3] != "-":
+            if len(self.telephone) != 10:
+                raise ValidationError(
+                    {'telephone': 'telephone in thailand must be 10 digit.'})
+            self.telephone = self.telephone[:3] + "-" + self.telephone[3:6] + "-" + self.telephone[6:]
+        else:
+            if len(self.telephone) != 12:
+                raise ValidationError(
+                    {'telephone': 'telephone in thailand must be 10 digit.'})
+
         # 0[8|9]xxxxxxxx
         if self.telephone[0] != "0" or (self.telephone[1] != "8" and self.telephone[1] != "9" and self.telephone[1] != "X"):
             raise ValidationError({'telephone': 'invalid telephone number.'})
