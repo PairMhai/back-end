@@ -14,13 +14,13 @@ class User(AbstractUser):
     """customer information v1"""
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     telephone = models.CharField(max_length=13, default="0XX-XXX-XXXX")
     address = models.TextField(default="")
     gender = models.CharField(max_length=20, default="unknown")
     # age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
-    
+
     def get_age(self):
         import datetime
         dob = self.date_of_birth

@@ -91,7 +91,7 @@
                 "detail": "New password has been saved."
             }
             ```
-6. ^membership/register/$ [name='rest_register'] **(v0.2.2)**
+6. ^membership/register/$ [name='rest_register'] **(v0.9.3)**
     - Register new customer
     1. **Request**
         - method: `POST`

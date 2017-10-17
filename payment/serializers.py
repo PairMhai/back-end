@@ -2,6 +2,7 @@ import datetime
 
 from payment.models import CreditCard
 
+from Backend.utils import DynamicFieldsModelSerializer
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from membership.models import Customer, User
@@ -19,7 +20,7 @@ class CreditCardSerializer(serializers.ModelSerializer):
 #     ccv = serializers.CharField(max_length=4)
 #     expire_date = serializers.DateField()
 
-class FullCreditCardSerializer(serializers.ModelSerializer):
+class FullCreditCardSerializer(DynamicFieldsModelSerializer):
     customer = serializers.CharField(max_length=200)
 
     class Meta:
@@ -44,6 +45,9 @@ class FullCreditCardSerializer(serializers.ModelSerializer):
 
     def validate_customer(self, value):
         try:
+            print(type(value))
+            if (isinstance(value, Customer)):
+                return value
             return Customer.objects.get(user=User.objects.get(id=Token.objects.get(key=value).user_id))
         except Token.DoesNotExist:
             raise serializers.ValidationError("customer key must be valid token.")

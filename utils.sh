@@ -25,6 +25,7 @@ if [[ $1 == "l" ]]; then
         echo ">> other mockup data"
         $0 l comment
         $0 l token
+        $0 l site
     fi
 elif [[ $1 == "e" ]]; then
     [ -n "$2" ] || echo "models is required" && exit 1

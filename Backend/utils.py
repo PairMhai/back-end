@@ -1,7 +1,6 @@
 from django.http import Http404
 
-from rest_framework import generics
-from rest_framework import status
+from rest_framework import generics, serializers, status
 from rest_framework.response import Response
 
 from rest_framework.authtoken.models import Token
@@ -104,3 +103,28 @@ class ImpListByTokenView(generics.ListAPIView):
 
     def set_id(self, token):
         self.uid = token.user_id
+
+
+class DynamicFieldsModelSerializer(serializers.ModelSerializer):
+    """
+    A ModelSerializer that takes an additional `fields` argument that
+    controls which fields should be displayed.
+    """
+
+    def __init__(self, *args, **kwargs):
+        # Don't pass the 'fields' arg up to the superclass
+        fields = kwargs.pop('fields', None)
+        exclude_fields = kwargs.pop('exclude_fields', None)
+
+        # Instantiate the superclass normally
+        super(DynamicFieldsModelSerializer, self).__init__(*args, **kwargs)
+
+        if fields is not None:
+            # Drop any fields that are not specified in the `fields` argument.
+            allowed = set(fields)
+            existing = set(self.fields.keys())
+            for field_name in existing - allowed:
+                self.fields.pop(field_name)
+        if exclude_fields is not None:
+            for field_name in exclude_fields:
+                self.fields.pop(field_name)
