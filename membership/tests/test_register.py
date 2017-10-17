@@ -81,7 +81,7 @@ class ViewTestCase(TestCase):
                 "first_name": "good" + number,
                 "last_name": "user",
                 "email": "good" + number + "@user.com",
-                "telephone": "0811111111",
+                "telephone": "081-111-1111",
                 "address": "42 Phaholyothin Road 11100",
                 "date_of_birth": "1986-11-01",
                 "gender": "female"

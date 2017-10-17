@@ -42,7 +42,7 @@ class UserTestCase(TestCase):
 
     def test_default_telephone(self):
         """test if telephone didn't given"""
-        self.assertEqual("0XXXXXXXXX", self.user2.telephone)
+        self.assertEqual("0XX-XXX-XXXX", self.user2.telephone)
 
     def test_default_address(self):
         """test if address didn't given"""
