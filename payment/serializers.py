@@ -13,6 +13,11 @@ class CreditCardSerializer(serializers.ModelSerializer):
         model = CreditCard
         fields = ('id', 'owner', 'credit_no')
 
+# class ManualCreditCardSerializer(serializers.Serializer):
+#     owner = serializers.TextField()
+#     credit_no = serializers.CharField(max_length=16)
+#     ccv = serializers.CharField(max_length=4)
+#     expire_date = serializers.DateField()
 
 class FullCreditCardSerializer(serializers.ModelSerializer):
     customer = serializers.CharField(max_length=200)
