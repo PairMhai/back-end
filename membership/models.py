@@ -22,6 +22,8 @@ class User(AbstractUser):
     date_of_birth = models.DateField(null=True)
 
     def get_age(self):
+        if self.date_of_birth is None:
+            return 0
         import datetime
         dob = self.date_of_birth
         tod = datetime.date.today()
