@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+conda info | grep pairmhai &>/dev/null
+if [ $? -ne 0 ]; then
+    source activate pairmhai
+fi
+
 COMMAND="python"
 
 if [[ $1 == "l" ]]; then
