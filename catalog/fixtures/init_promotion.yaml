@@ -13,7 +13,7 @@
   pk: 2
   fields:
     name: New Year's Day
-    image_name: promotion.png
+    image_name: promotion_new.png
     description: December 29, 2017 to January 2, 2018
     discount: 30
     status: False
@@ -24,7 +24,7 @@
   pk: 3
   fields:
     name: Songkran's Festival
-    image_name: promotion.png
+    image_name: promotion_song.png
     description: April 10-15, 2018
     discount: 25
     status: False
@@ -34,8 +34,8 @@
 - model: catalog.promotion
   pk: 4
   fields:
-   name: Mother's Day
-    image_name: promotion.png
+    name: Mother's Day
+    image_name: promotion_mother.png
     description: August 12, 2018
     discount: 5
     status: False
@@ -45,8 +45,8 @@
 - model: catalog.promotion
   pk: 5
   fields:
-   name: Halloween Day
-    image_name: promotion.png
+    name: Halloween Day
+    image_name: promotion_hallow.png
     description: October 28-31, 2017
     discount: 10
     status: False
@@ -56,8 +56,8 @@
 - model: catalog.promotion
   pk: 6
   fields:
-   name: Birthday
-    image_name: promotion.png
+    name: Birthday
+    image_name: promotion_bd.png
     description: Depend on customer
     discount: 50
     status: True
