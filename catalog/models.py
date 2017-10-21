@@ -10,6 +10,8 @@ class Design(models.Model):
     description = models.CharField(max_length=150)
     price = models.DecimalField(
         max_digits=8, decimal_places=2, default=0.00)  # max: 999,999.99
+    yard = models.DecimalField(
+        max_digits=8, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     material = models.ForeignKey(
@@ -92,9 +94,7 @@ class Promotion(models.Model):
     description = models.CharField(max_length=150)
     discount = models.DecimalField(
         max_digits=8, decimal_places=2, default=0.00)
+    status = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    product = models.ForeignKey(
-        'Product',
-        on_delete=models.CASCADE
-    )
+
