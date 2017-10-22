@@ -80,7 +80,6 @@ class Product(models.Model):
         null=True,
         on_delete=models.CASCADE
     )
-
     def __str__(self):
         return "Design {} object".format(self.design.id) if self.material == None else "Material {} object".format(self.material.id)
 
@@ -97,6 +96,7 @@ class Promotion(models.Model):
     status = models.BooleanField(default=False)
     start_date = models.DateTimeField(auto_now_add=True, null=True)
     end_date = models.DateTimeField(auto_now_add=True, null=True)
+    products = models.ManyToManyField(Product)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
