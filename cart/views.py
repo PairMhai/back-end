@@ -61,22 +61,30 @@ class OrderCalculateView(APIView):
         # }
         serializers = CalculateOrderSerializer(data=request.data)
         if (serializers.is_valid()):
-            price = 0
+            full_price = 0
             customer_discount = 0
-            final_price = 0
+            total_price = 0
+            product_event_price = 0
 
             data = serializers.validated_data
             customer = data.get('customer')
             products = data.get('products')
             for d in products:
                 p = d.get('product')
-                price += p.get_price()
-            customer_discount = price * (customer.classes.discount / 100)
-            final_price = price - customer_discount
+                # get_discount_price
+                full_price += p.get_price()
+                product_event_price += p.get_discount_price()  # should be discounted price
+            # calculate from full price
+            customer_discount = full_price * (customer.classes.discount / 100)
+            total_price = product_event_price - customer_discount
+
+            # "event_price": product_event_price, # can calculate by `event_discount`
             return Response({
-                "raw_price": price,
+                "calculate_id": 1,
+                "full_price": full_price,
                 "customer_discount": customer_discount,
-                "final_price": final_price
+                "event_discount": price - product_event_price,
+                "total_price": total_price
             })
         else:
             return Response({"detail": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)
