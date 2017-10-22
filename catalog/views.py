@@ -36,6 +36,6 @@ class PromotionList(generics.ListAPIView):
         return new_q
 
 
-class PromotionDetail(generics.RetrieveAPIView):
-    queryset = Promotion.objects.all()
-    serializer_class = PromotionSerializer
+# class PromotionDetail(generics.RetrieveAPIView):
+#     queryset = Promotion.objects.all()
+#     serializer_class = PromotionSerializer
