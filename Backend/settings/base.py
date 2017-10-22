@@ -23,7 +23,7 @@ AdminSite.index_title = 'Administration Page'
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # "0.13.0-beta.1"
 VERSION = "0.0.0"
@@ -131,6 +131,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 # APPEND_SLASH=False
 
 # Database
