@@ -1,9 +1,12 @@
 from .base import *
 
+ACCOUNT_EMAIL_REQUIRED = 'true'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # | optional
 # Email validation by gmail
 EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
 EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
+# This did the trick
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEBUG = False
 
