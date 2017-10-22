@@ -3,14 +3,16 @@ database model of django
 """
 from django.db import models
 from django.utils.timezone import datetime
+from Backend.utils import is_between_date
 
 
 class Design(models.Model):
     """design product v1"""
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=150)
-    price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=0.00)  # max: 999,999.99
+    # calculate price by material price * yard
+    # price = models.DecimalField(
+    # max_digits=8, decimal_places=2, default=0.00)  # max: 999,999.99
     yard = models.DecimalField(
         max_digits=5, decimal_places=2, default=0.00)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -32,6 +34,14 @@ class Design(models.Model):
     def get_material_name(self):
         return self.material.name
 
+    def get_price(self):
+        return self.material.price * self.yard
+
+    def get_discount_price(self):
+        price = self.get_price()
+        discount = 0 # TODO: implement discount from event
+        return price - discount
+
 
 class Material(models.Model):
     """material product v1"""
@@ -51,6 +61,9 @@ class Material(models.Model):
     def get_product_id(self):
         return Product.objects.get(material=self).id
 
+    def get_discount_price(self):
+        return self.price
+
 
 class Image(models.Model):
     """image of the material v2"""
@@ -59,7 +72,7 @@ class Image(models.Model):
         'Design',
         related_name='images',
         on_delete=models.CASCADE
-    ) # default defImage.jpg
+    )  # default defImage.jpg
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -100,3 +113,18 @@ class Promotion(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return "Pro {}".format(self.name)
+
+    def update_status(self):
+        import datetime
+
+        if self.start_date is None or self.end_date is None:
+            return self.status
+
+        today = datetime.date.today()
+        if is_between_date(self.start, self.end, today):
+            self.status = True
+        else:
+            self.status = False
+        return self.status
