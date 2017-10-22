@@ -39,7 +39,7 @@ class Design(models.Model):
 
     def get_discount_price(self):
         price = self.get_price()
-        discount = 0 # TODO: implement discount from event
+        discount = 0  # TODO: implement discount from event
         return price - discount
 
 
@@ -117,14 +117,17 @@ class Promotion(models.Model):
         return "Pro {}".format(self.name)
 
     def update_status(self):
-        import datetime
+        from django.utils.timezone import now
 
         if self.start_date is None or self.end_date is None:
             return self.status
-
-        today = datetime.date.today()
-        if is_between_date(self.start, self.end, today):
+        # django default timezone (not bangkok timezone)
+        today = now()
+        if is_between_date(self.start_date, self.end_date, today):
+            # print("update status => True")
             self.status = True
         else:
+            # print("update status => False")
             self.status = False
+        self.save()
         return self.status

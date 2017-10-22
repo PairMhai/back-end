@@ -28,6 +28,13 @@ class PromotionList(generics.ListAPIView):
     queryset = Promotion.objects.all()
     serializer_class = PromotionSerializer
 
+    def filter_queryset(self, queryset):
+        # might slow query down
+        for q in queryset:
+            s = q.update_status()
+        new_q = queryset.filter(status=True)
+        return new_q
+
 
 class PromotionDetail(generics.RetrieveAPIView):
     queryset = Promotion.objects.all()
