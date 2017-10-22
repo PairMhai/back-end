@@ -39,24 +39,24 @@ if [[ $1 == "l" ]]; then
         $COMMAND manage.py loaddata "init_$module" $setting
     else
         echo ">> load membership and all necessary models"
-        $0 l $1 class
-        $0 l $1 user
-        $0 l $1 customer
-        $0 l $1 creditcard
+        $0 l $2 class
+        $0 l $2 user
+        $0 l $2 customer
+        $0 l $2 creditcard
         echo ">> load product and all necessary models"
-        $0 l $1 material
-        $0 l $1 design
-        $0 l $1 images
-        $0 l $1 product
-        $0 l $1 promotion
+        $0 l $2 material
+        $0 l $2 design
+        $0 l $2 images
+        $0 l $2 product
+        $0 l $2 promotion
         echo ">> load mockup order and information"
-        $0 l $1 transportation
-        $0 l $1 order
-        $0 l $1 orderinfo
+        $0 l $2 transportation
+        $0 l $2 order
+        $0 l $2 orderinfo
         echo ">> other mockup data"
-        $0 l $1 comment
-        $0 l $1 token
-        $0 l $1 site
+        $0 l $2 comment
+        $0 l $2 token
+        $0 l $2 site
     fi
 elif [[ $1 == "e" ]]; then
     if setting=$(get_setting $2); then
@@ -79,6 +79,7 @@ elif [[ $1 == "mm" ]]; then
     $COMMAND manage.py makemigrations $setting
 elif [[ $1 == "m" ]]; then
     setting=$(get_setting $2)
+    # echo "$COMMAND manage.py migrate $setting"; exit 155 # dry run
     $COMMAND manage.py migrate $setting
 elif [[ $1 == "s" ]]; then
     setting=$(get_setting $2)
