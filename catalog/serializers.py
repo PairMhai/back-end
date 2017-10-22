@@ -22,11 +22,13 @@ class FullImageSerializer(serializers.ModelSerializer):
         fields = ('id', 'file_name', 'design')
 
 class DesignSerializer(serializers.ModelSerializer):
+    price = serializers.IntegerField(source='get_price')
+    discount_price = serializers.CharField(source='get_discount_price')
+
     product_id = serializers.IntegerField(source='get_product_id')
     images = ImageSerializer(many=True)
     material_name = serializers.CharField(source='get_material_name')
     material_color = serializers.CharField(source='get_color')
-    discount_price = serializers.CharField(source='get_discount_price')
 
     class Meta:
         model = Design

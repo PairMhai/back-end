@@ -26,7 +26,7 @@ def get_customer_from_user_id(uid):
 
 def is_between_date(start, end, date):
     from django.utils.dateparse import parse_date
-    
+
     if isinstance(self.start, str):
         self.start = parse_date(self.start)
     else:
@@ -42,6 +42,7 @@ def is_between_date(start, end, date):
     else:
         self.date = self.date
     # TODO: implement this.
+    return False
 
 
 class ImpDetailByTokenView(generics.RetrieveAPIView):
