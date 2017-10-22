@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-conda info | grep pairmhai &>/dev/null
-if [ $? -ne 0 ]; then
-    source activate pairmhai
+# if conda available
+if command -v conda &>/dev/null; then
+    conda info | grep pairmhai &>/dev/null
+    if [ $? -ne 0 ]; then
+        source activate pairmhai
+    fi
+else
+    echo "no conda"
 fi
+
 
 COMMAND="python"
 
