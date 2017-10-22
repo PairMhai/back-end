@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+conda info | grep pairmhai &>/dev/null
+if [ $? -ne 0 ]; then
+    source activate pairmhai
+fi
+
 COMMAND="python"
 
 if [[ $1 == "l" ]]; then
@@ -25,6 +30,7 @@ if [[ $1 == "l" ]]; then
         echo ">> other mockup data"
         $0 l comment
         $0 l token
+        $0 l site
     fi
 elif [[ $1 == "e" ]]; then
     [ -n "$2" ] || echo "models is required" && exit 1
@@ -87,7 +93,7 @@ HELP Command:
     4.  m    - migrate database
     5.  s    - run server
     6.  h    - heroku short command
-               1. d - deploy code to heroku
+    1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
                       - @params 1 - (optional) branch to deploy (default is current branch)
                2. l - logs all action in heroku container
     7.  t    - test all testcase

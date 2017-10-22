@@ -26,6 +26,7 @@ class Order(models.Model):
 
 class OrderInfo(models.Model):
     quantity = models.IntegerField(default=0)
+    remarks = models.TextField(max_length=100, default=0)
     order = models.ForeignKey(
         'cart.Order',
         related_name='products',

@@ -1,40 +1,60 @@
 - model: catalog.promotion
   pk: 1
   fields:
-    name: mother_day
-    image_name: mother_day_promotion.png
-    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
+    name: National Teacher's Day
+    image_name: promotion.png
     discount: 10
+    status: False
+    start_date: '2018-01-10 00:00:00.000000+07:00'
+    end_date: '2018-01-16 00:00:00.000000+07:00'
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    product: 1
+
 - model: catalog.promotion
   pk: 2
   fields:
-    name: 5000_discount
-    image_name: 20_discount_promotion.png
-    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
-    discount: 20
+    name: New Year's Day
+    image_name: promotion_new.png
+    discount: 30
+    status: False
+    start_date: '2017-12-29 00:00:00.000000+07:00'
+    end_date: '2018-01-02 00:00:00.000000+07:00'
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    product: 2
+
 - model: catalog.promotion
   pk: 3
   fields:
-    name: birthday
-    image_name: birthday_promotion.png
-    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
-    discount: 30
+    name: Songkran's Festival
+    image_name: promotion_song.png
+    discount: 25
+    status: False
+    start_date: '2018-04-10 00:00:00.000000+07:00'
+    end_date: '2018-04-15 00:00:00.000000+07:00'
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    product: 3
+
 - model: catalog.promotion
   pk: 4
   fields:
-    name: free_design
-    image_name: free_design_promotion.png
-    description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
-    discount: 0
+    name: Mother's Day
+    image_name: promotion_mother.png
+    discount: 5
+    status: False
+    start_date: '2018-08-12 00:00:00.000000+07:00'
+    end_date: '2018-08-12 00:00:00.000000+07:00'
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    product: 4
+
+- model: catalog.promotion
+  pk: 5
+  fields:
+    name: Halloween Day
+    image_name: promotion_hallow.png
+    discount: 10
+    status: False
+    start_date: '2017-10-28 00:00:00.000000+07:00'
+    end_date: '2017-10-31 00:00:00.000000+07:00'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+
