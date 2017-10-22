@@ -97,6 +97,7 @@ class Promotion(models.Model):
     start_date = models.DateTimeField(auto_now_add=True, null=True)
     end_date = models.DateTimeField(auto_now_add=True, null=True)
     description = models.CharField(max_length=150, default=0)
+    products = models.ManyToManyField(Product)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
