@@ -2,10 +2,9 @@
 
 # if conda available
 if command -v conda &>/dev/null; then
-    conda info | grep pairmhai &>/dev/null
-    if [ $? -ne 0 ]; then
+    conda info | grep pairmhai &>/dev/null ||\
+        # shellcheck disable=SC1091
         source activate pairmhai
-    fi
 else
     echo "no conda"
 fi
@@ -53,26 +52,35 @@ elif [[ $1 == "m" ]]; then
     $COMMAND manage.py migrate
 elif [[ $1 == "s" ]]; then
     $COMMAND manage.py runserver
+elif [[ $1 == "c" ]]; then
+    # cause error
+    if ! output=$(python manage.py makemigrations --check 2>&1); then
+        # merge error
+        if grep merge <<< "$output" &>/dev/null; then
+            echo y | $COMMAND manage.py makemigrations --merge &&\
+                echo "database need to merge. COMPLETE!"
+        fi
+    fi
 elif [[ $1 == "t" ]]; then
     if [ -n "$2" ]; then
-        $COMMAND manage.py test $2
+        $COMMAND manage.py test "$2"
     else
         $COMMAND manage.py test
     fi
 # heroku
 elif [[ $1 == 'h' ]]; then
-    which heroku &>/dev/null
-    [ $? -ne 0 ] && echo "no heroku installed." && exit 1
-    heroku buildpacks | grep weibeld &>/dev/null
-    [ $? -ne 0 ] && heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
-    git remote show | grep heroku &>/dev/null
-    [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/pairmhai-api.git
+    which heroku &>/dev/null &&\
+        echo "no heroku installed." && exit 1
+    heroku buildpacks | grep weibeld &>/dev/null &&\
+        heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
+    git remote show | grep heroku &>/dev/null &&\
+        git remote add heroku https://git.heroku.com/pairmhai-api.git
     # deploy
     if [[ $2 == 'd' ]]; then
         # get branch in input or current branch
         [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
         # push to master
-        git push heroku $BRANCH:master
+        git push heroku "$BRANCH":master
     # log
     elif [[ $2 == 'l' ]]; then
         heroku logs --tail
@@ -83,7 +91,7 @@ elif [[ $1 == "t-ci" ]]; then
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
     echo "remove database."
-elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" || $1 == "c" ]]; then
+elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" ]]; then
     rm -rf ./test-reports/*
     echo "remove test-reports."
 else
@@ -99,13 +107,14 @@ HELP Command:
     4.  m    - migrate database
     5.  s    - run server
     6.  h    - heroku short command
-    1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
+               1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
                       - @params 1 - (optional) branch to deploy (default is current branch)
                2. l - logs all action in heroku container
     7.  t    - test all testcase
                - @params 1 - (optional) module.testcase.method is allow to spectify test
     8.  t-ci - test all testcase with full version of debug print
-    9.  r    - remove currently database
-    10. c    - clear test-report
+    9.  c    - check database problem
+    10. r    - remove currently database
+    11. ctr  - clear test-report
     "
 fi
