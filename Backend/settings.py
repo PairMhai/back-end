@@ -25,8 +25,11 @@ AdminSite.index_title = 'Administration Page'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-VERSION = "0.9.0"
+VERSION = "0.10.1"
 
+FIXTURE_DIRS = (
+    BASE_DIR + '/Backend/fixtures/',
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -35,7 +38,7 @@ VERSION = "0.9.0"
 SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'localhost', '127.0.0.1']
 

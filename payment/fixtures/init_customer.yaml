@@ -9,17 +9,17 @@
       user: 3
       classes: 3
 - model: membership.customer
-  pk: 3
+  pk: 2
   fields:
       user: 4
       classes: 1
 - model: membership.customer
-  pk: 4
+  pk: 3
   fields:
       user: 5
       classes: 4
 - model: membership.customer
-  pk: 5
+  pk: 4
   fields:
       user: 6
       classes: 5

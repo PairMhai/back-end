@@ -1,4 +1,4 @@
-from django.test import TestCase
+from Backend.test_utils import ImpTestCase
 
 from rest_framework.test import APIClient
 
@@ -15,7 +15,7 @@ from payment.models import CreditCard
 def to_date(date_str):
     return datetime.strptime(date_str, "%Y-%m-%d").date()
 
-class UserGettingTestCase(TestCase):
+class UserGettingTestCase(ImpTestCase):
     fixtures = ['init_class.yaml', 'init_user.yaml', 'init_token.yaml']
 
     def setUp(self):
@@ -33,7 +33,7 @@ class UserGettingTestCase(TestCase):
             format="json"
         )
         resp_data = response.data
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
 
         self.assertEqual(resp_data.get('id'), self.test_user.id)
         self.assertEqual(resp_data.get('first_name'), self.test_user.first_name)
@@ -47,7 +47,7 @@ class UserGettingTestCase(TestCase):
             format="json"
         )
         resp_data = response.data
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
 
         self.assertEqual(resp_data.get('id'), self.superman.id)
         self.assertEqual(resp_data.get('first_name'), self.superman.first_name)
@@ -57,7 +57,7 @@ class UserGettingTestCase(TestCase):
 # ------------------------------------
 # ------------------------------------
 
-class CustomerGettingTestCase(TestCase):
+class CustomerGettingTestCase(ImpTestCase):
     fixtures = ['init_class.yaml', 'init_user.yaml', 'init_customer.yaml', 'init_creditcard.yaml', 'init_token.yaml']
 
     def setUp(self):
@@ -79,7 +79,7 @@ class CustomerGettingTestCase(TestCase):
         classes = resp_data.get('classes')
         creditcards = resp_data.get('creditcards')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
         self.assertEqual(user['username'], self.test_user.user.username)
         self.assertEqual(user['first_name'], self.test_user.user.first_name)
         self.assertEqual(user['last_name'], self.test_user.user.last_name)
@@ -108,7 +108,7 @@ class CustomerGettingTestCase(TestCase):
         classes = resp_data.get('classes')
         creditcards = resp_data.get('creditcards')
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
         self.assertEqual(user['username'], self.superman.user.username)
         self.assertEqual(user['first_name'], self.superman.user.first_name)
         self.assertEqual(user['last_name'], self.superman.user.last_name)
@@ -122,13 +122,15 @@ class CustomerGettingTestCase(TestCase):
         self.assertEqual(classes['price'], self.superman.classes.price)
         # must contains payment as well
         db_credits = CreditCard.objects.filter(customer=self.superman)
-        credits = [CreditCard(**creditcards[0])]
-        self.assertCountEqual(db_credits, credits)
+        creditcards_obj = []
+        for cc in creditcards:
+            creditcards_obj.append(CreditCard(**cc))
+        self.assertCountEqual(db_credits, creditcards_obj)
 
 # ------------------------------------
 # ------------------------------------
 
-class ClassGettingTestCase(TestCase):
+class ClassGettingTestCase(ImpTestCase):
     fixtures = ['init_class.yaml']
 
     def setUp(self):
@@ -145,7 +147,7 @@ class ClassGettingTestCase(TestCase):
         )
         resp_data = response.data
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
 
         self.assertEqual(resp_data.get('id'), self.none.id)
         self.assertEqual(resp_data.get('name'), self.none.name)
@@ -159,7 +161,7 @@ class ClassGettingTestCase(TestCase):
         )
         resp_data = response.data
 
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertResponseCode200(response)
 
         self.assertEqual(resp_data.get('id'), self.diamond.id)
         self.assertEqual(resp_data.get('name'), self.diamond.name)

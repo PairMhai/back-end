@@ -1,8 +1,12 @@
 from membership.models import User, Customer, Class
+from payment.models import CreditCard
+from allauth.account.models import EmailAddress
 from rest_framework import serializers
 from django.contrib.auth.hashers import make_password
 
-from payment.serializers import CreditCardSerializer
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+
+from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
 
 
 class ClassSerializer(serializers.ModelSerializer):
@@ -61,6 +65,7 @@ class CustomerSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError('only post method')
             # user_data = validated_data.pop('user')  # get user json
 
+        # password check
         if ('password1' not in raw_data or 'password2' not in raw_data):
             raise serializers.ValidationError(
                 'password1 and password2 is required')
@@ -69,20 +74,31 @@ class CustomerSerializer(serializers.ModelSerializer):
         if (pass1 != pass2):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
-        user = User.objects.create(**user_data)  # create user
+        try:
+            user = User(**user_data)  # create user
+            user.save()
+        except ValidationError as e:
+            raise serializers.ValidationError(e.message_dict)
         user_class = Class.objects.get(id=1)  # get none class by defaul
-        # ser = ClassSerializer(data=dict(user_class))
-        # if (ser.is_valid()):
-        #     print(ser.validated_data)
-        # else:
-        #     print(ser.errors)
         if ('classes' in raw_data):
             class_id = raw_data['classes']
             user_class = Class.objects.get(id=class_id)
+        # customer
         customer = Customer.objects.create(
             user=user, classes=user_class)  # create customer
+        # credit card
+        if ('credit_cards' in raw_data):
+            cc_json = raw_data['credit_cards']
+            for cc in cc_json:
+                # cc.update({'customer': customer})
+                s = FullCreditCardSerializer(data=cc, exclude_fields=['customer'])
+                if (s.is_valid()):
+                    data = s.validated_data
+                    data.update({'customer': customer})
+                    CreditCard.objects.create(**data)
+                else:
+                    raise serializers.ValidationError(s.errors)
         return user
-
 
 # class CustomerSerializer(DefaultCustomerSerializer):
 #     token = serializers.CharField(max_length=200)

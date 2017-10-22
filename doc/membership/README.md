@@ -91,8 +91,9 @@
                 "detail": "New password has been saved."
             }
             ```
-6. ^membership/register/$ [name='rest_register'] **(v0.2.2)**
-    - Register new customer
+6. ^membership/register/$ [name='rest_register'] **(v0.10.1)**
+    - Register new customer, **This api will sent email to imput email-address.**
+    - and To confirm user email please click on the link that send together with email
     1. **Request**
         - method: `POST`
         - body:
@@ -111,9 +112,23 @@
             "password1": "password123",
             "password2": "password123",
             "classes": 3
+            "credit_cards": [
+                {
+                   "owner": "Some User-1",
+                   "credit_no": "1234123412341234",
+                   "ccv": "123",
+                   "expire_date": "2022-01-01"
+               },
+               {
+                  "owner": "Some User-2",
+                  "credit_no": "1231231231231231",
+                  "ccv": "321",
+                  "expire_date": "2023-12-12"
+              },
+            ]
         }
         ```
-        - optional field: **telephone**, **address**, **date_of_birth**, **gender**, **classes**
+        - optional field: **telephone**, **address**, **date_of_birth**, **gender**, **classes**, **credit_cards**
     2. **Response**
         1. Successfully
             - code: `200_OK`

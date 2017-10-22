@@ -20,6 +20,18 @@ class OrderInfoSerializer(serializers.ModelSerializer):
         fields = ('product', 'pid', 'quantity')
 
 
+class CalculateOrderSerializer(serializers.Serializer):
+    customer = serializers.CharField(max_length=200)
+    products = OrderInfoSerializer(many=True)
+
+    def validate_customer(self, value):
+        try:
+            return Customer.objects.get(id=Token.objects.get(key=value).user_id)
+        except Token.DoesNotExist:
+            raise serializers.ValidationError(
+                "customer key accept either id or token.")
+
+
 class OrderSerializer(serializers.ModelSerializer):
     customer = serializers.CharField(max_length=200)
     creditcard = serializers.PrimaryKeyRelatedField(
@@ -61,6 +73,7 @@ class OrderSerializer(serializers.ModelSerializer):
         # print("final price:", order.total_price)
         order.save()
         return order
+
 
 class TransportationSerializer(serializers.ModelSerializer):
 
