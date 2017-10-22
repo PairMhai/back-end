@@ -1,6 +1,8 @@
 from catalog.models import Material, Design, Promotion
 from catalog.serializers import MaterialSerializer, DesignSerializer, PromotionSerializer
 
+from Backend.utils import update_all_status_promotions
+
 from rest_framework import generics
 
 
@@ -29,11 +31,7 @@ class PromotionList(generics.ListAPIView):
     serializer_class = PromotionSerializer
 
     def filter_queryset(self, queryset):
-        # might slow query down
-        for q in queryset:
-            s = q.update_status()
-        new_q = queryset.filter(status=True)
-        return new_q
+        return update_all_status_promotions(queryset)
 
 
 # class PromotionDetail(generics.RetrieveAPIView):

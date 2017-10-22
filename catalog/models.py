@@ -116,6 +116,11 @@ class Promotion(models.Model):
     def __str__(self):
         return "Pro {}".format(self.name)
 
+    def change_status(self, new_status):
+        self.status = new_status
+        self.save()
+        return self.status
+
     def update_status(self):
         from django.utils.timezone import now
 

@@ -26,6 +26,14 @@ def get_customer_from_user_id(uid):
     return Customer.objects.get(user_id=uid)
 
 
+def update_all_status_promotions(list_of_promotion):
+    from django.utils.timezone import now
+    sets = list_of_promotion.filter(start_date__lt=now(), end_date__gt=now())
+    for q in sets:
+        q.change_status(True)
+    return sets.filter(status=True)
+
+
 def is_between_date(start, end, current):
     from django.utils.dateparse import parse_date
 
