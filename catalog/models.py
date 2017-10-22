@@ -3,7 +3,7 @@ database model of django
 """
 from django.db import models
 from django.utils.timezone import datetime
-from Backend.utils import is_between_date
+from Backend.utils import is_between_date, update_all_status_promotions
 
 
 class Design(models.Model):
@@ -38,9 +38,15 @@ class Design(models.Model):
         return self.material.price * self.yard
 
     def get_discount_price(self):
+        sets = self.get_associate_promotion()
         price = self.get_price()
-        discount = 0  # TODO: implement discount from event
+        discount = 0
+        for pro in sets:
+            discount = price * (pro.discount / 100)
         return price - discount
+
+    def get_associate_promotion(self):
+        return update_all_status_promotions(Promotion.objects.all())
 
 
 class Material(models.Model):
@@ -62,7 +68,14 @@ class Material(models.Model):
         return Product.objects.get(material=self).id
 
     def get_discount_price(self):
-        return self.price
+        sets = self.get_associate_promotion()
+        discount = 0
+        for pro in sets:
+            discount = self.price * (pro.discount / 100)
+        return self.price - discount
+
+    def get_associate_promotion(self):
+        return update_all_status_promotions(Promotion.objects.all())
 
 
 class Image(models.Model):
@@ -98,7 +111,10 @@ class Product(models.Model):
         return "Design {} object".format(self.design.id) if self.material == None else "Material {} object".format(self.material.id)
 
     def get_price(self):
-        return self.design.price if self.material == None else self.material.price
+        return self.design.get_price() if self.material == None else self.material.price
+
+    def get_discount_price(self):
+        return self.design.get_discount_price() if self.material == None else self.material.get_discount_price()
 
 
 class Promotion(models.Model):
