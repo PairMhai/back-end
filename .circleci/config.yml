@@ -41,8 +41,11 @@ jobs:
           name: create report folder
           command: |
             [ -d test-reports ] || mkdir test-reports/
-
-      # run tests!
+      - run:
+          name: checking database setting 
+          command: |
+            . venv/bin/activate
+            ./utils.sh c
       - run:
           name: run tests
           command: |
