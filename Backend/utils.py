@@ -24,6 +24,25 @@ def get_object_or_404(queryset, *filter_args, **filter_kwargs):
 def get_customer_from_user_id(uid):
     return Customer.objects.get(user_id=uid)
 
+def is_between_date(start, end, date):
+    from django.utils.dateparse import parse_date
+    
+    if isinstance(self.start, str):
+        self.start = parse_date(self.start)
+    else:
+        self.start = self.start
+
+    if isinstance(self.end, str):
+        self.end = parse_date(self.end)
+    else:
+        self.end = self.end
+
+    if isinstance(self.date, str):
+        self.date = parse_date(self.date)
+    else:
+        self.date = self.date
+    # TODO: implement this.
+
 
 class ImpDetailByTokenView(generics.RetrieveAPIView):
     lookup_field = ('token')
