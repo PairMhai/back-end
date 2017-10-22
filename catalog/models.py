@@ -2,7 +2,6 @@
 database model of django
 """
 from django.db import models
-from django.utils.timezone import datetime
 
 
 class Design(models.Model):
@@ -97,6 +96,7 @@ class Promotion(models.Model):
     status = models.BooleanField(default=False)
     start_date = models.DateTimeField(auto_now_add=True, null=True)
     end_date = models.DateTimeField(auto_now_add=True, null=True)
+    description = models.CharField(max_length=150, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
