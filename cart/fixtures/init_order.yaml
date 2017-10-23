@@ -2,7 +2,7 @@
   pk: 1
   fields:
     total_product: 4
-    total_price: 5400
+    final_price: 5400
     customer: 2
     creditcard: 2
     transportation: 1
@@ -12,7 +12,7 @@
   pk: 2
   fields:
     total_product: 3
-    total_price: 6000
+    final_price: 6000
     customer: 1
     creditcard: 4
     transportation: 2
@@ -22,7 +22,7 @@
   pk: 3
   fields:
     total_product: 1
-    total_price: 2500
+    final_price: 2500
     customer: 4
     creditcard: 1
     transportation: 3
@@ -32,7 +32,7 @@
   pk: 4
   fields:
     total_product: 2
-    total_price: 10000
+    final_price: 10000
     customer: 3
     creditcard: 3
     transportation: 1
@@ -42,7 +42,7 @@
   pk: 5
   fields:
     total_product: 1
-    total_price: 8000
+    final_price: 8000
     customer: 3
     creditcard: 1
     transportation: 2

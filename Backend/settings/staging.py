@@ -1,5 +1,7 @@
 from .base import *
 
+VERSION = "0.13.0-test.1"
+
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Email validation by gmail
 EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
