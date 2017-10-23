@@ -1,3 +1,4 @@
-./utils.sh c # check database
-./utils.sh m # migration database
-./utils.sh l # load fixture
+./utils.sh co production # check database
+./utils.sh c production # check database
+./utils.sh m production # migration database
+./utils.sh l production # load fixture

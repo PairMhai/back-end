@@ -94,6 +94,10 @@ elif [[ $1 == "c" ]]; then
                 echo "database need to merge. COMPLETE!"
         fi
     fi
+elif [[ $1 == "co" ]]; then
+    setting=$(get_setting $2)
+    # cause error
+    $COMMAND manage.py collectstatic $setting
 elif [[ $1 == "t" ]]; then
     if setting=$(get_setting $2); then
         model="$3"
@@ -114,6 +118,10 @@ elif [[ $1 == 'h' ]]; then
         heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
     git remote show | grep heroku &>/dev/null ||\
         git remote add heroku https://git.heroku.com/pairmhai-api.git
+
+    # disable auto collect static
+    heroku config:set DISABLE_COLLECTSTATIC=1
+
     # deploy
     if [[ $2 == 'd' ]]; then
         # get branch in input or current branch
@@ -158,7 +166,8 @@ HELP Command:
                - @params 1 - (optional) module.testcase.method is allow to spectify test
     8.  t-ci - test all testcase with full version of debug print
     9.  c    - check database problem
-    10. r    - remove currently database
-    11. ctr  - clear test-report
+    10  co   - collect static file
+    11. r    - remove currently database
+    12. ctr  - clear test-report
     "
 fi
