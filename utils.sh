@@ -9,61 +9,99 @@ else
     echo "no conda"
 fi
 
-
 COMMAND="python"
 
+SETTING_OPTION="--settings=Backend.settings."
+
+get_setting() {
+    if [[ "$1" == "d" || "$1" == "dev" ||  "$1" == "develop" ]]; then
+        echo "${SETTING_OPTION}develop"
+    elif [[ "$1" == "s" || "$1" == "stage" ||  "$1" == "staging" ]]; then
+        echo "${SETTING_OPTION}staging"
+    elif [[ "$1" == "p" || "$1" == "prod" ||  "$1" == "production" ]]; then
+        echo "${SETTING_OPTION}production"
+    else
+        echo "${SETTING_OPTION}develop"
+        return 1
+    fi
+    return 0
+}
+
 if [[ $1 == "l" ]]; then
-    if [ -n "$2" ]; then
-        echo "load $2 fixture"
-        $COMMAND manage.py loaddata "init_$2"
+    if setting=$(get_setting $2); then
+        module="$3"
+    else
+        module="$2"
+    fi
+    if [ -n "$module" ]; then
+        echo "load $module fixture"
+        # echo "$COMMAND manage.py loaddata "init_$module" $s" # dry run
+        $COMMAND manage.py loaddata "init_$module" $setting
     else
         echo ">> load membership and all necessary models"
-        $0 l class
-        $0 l user
-        $0 l customer
-        $0 l creditcard
+        $0 l $2 class
+        $0 l $2 user
+        $0 l $2 customer
+        $0 l $2 creditcard
         echo ">> load product and all necessary models"
-        $0 l material
-        $0 l design
-        $0 l images
-        $0 l product
-        $0 l promotion
+        $0 l $2 material
+        $0 l $2 design
+        $0 l $2 images
+        $0 l $2 product
+        $0 l $2 promotion
         echo ">> load mockup order and information"
-        $0 l transportation
-        $0 l order
-        $0 l orderinfo
+        $0 l $2 transportation
+        $0 l $2 order
+        $0 l $2 orderinfo
         echo ">> other mockup data"
-        $0 l comment
-        $0 l token
-        $0 l site
+        $0 l $2 comment
+        $0 l $2 token
+        $0 l $2 site
     fi
 elif [[ $1 == "e" ]]; then
-    [ -n "$2" ] || echo "models is required" && exit 1
+    if setting=$(get_setting $2); then
+        model="$3"
+        file="$4"
+    else
+        model="$2"
+        file="$3"
+    fi
+    [ -n "$model" ] || echo "models is required" && exit 1
     # $2 = model to export
     # $3 = file export to (optional)
-    if [ -n "$3" ]; then
-        $COMMAND manage.py dumpdata --format yaml $2 >> $3
+    if [ -n "$file" ]; then
+        $COMMAND manage.py dumpdata --format yaml $model $setting >> $file
     else
-        $COMMAND manage.py dumpdata --format yaml $2
+        $COMMAND manage.py dumpdata --format yaml $model $setting
     fi
 elif [[ $1 == "mm" ]]; then
-    $COMMAND manage.py makemigrations
+    setting=$(get_setting $2)
+    $COMMAND manage.py makemigrations $setting
 elif [[ $1 == "m" ]]; then
-    $COMMAND manage.py migrate
+    setting=$(get_setting $2)
+    # echo "$COMMAND manage.py migrate $setting"; exit 155 # dry run
+    $COMMAND manage.py migrate $setting
 elif [[ $1 == "s" ]]; then
-    $COMMAND manage.py runserver
+    setting=$(get_setting $2)
+    $COMMAND manage.py runserver $setting
 elif [[ $1 == "c" ]]; then
+    setting=$(get_setting $2)
     # cause error
-    if ! output=$(python manage.py makemigrations --check 2>&1); then
+    if ! output=$(python manage.py makemigrations --check "$setting" 2>&1); then
         # merge error
         if grep merge <<< "$output" &>/dev/null; then
-            echo y | $COMMAND manage.py makemigrations --merge &&\
+            echo y | $COMMAND manage.py makemigrations --merge "$setting" &&\
                 echo "database need to merge. COMPLETE!"
         fi
     fi
 elif [[ $1 == "t" ]]; then
-    if [ -n "$2" ]; then
-        $COMMAND manage.py test "$2"
+    if setting=$(get_setting $2); then
+        model="$3"
+    else
+        model="$2"
+    fi
+    if [ -n "$model" ]; then
+        $COMMAND manage.py test "$model"
     else
         $COMMAND manage.py test
     fi
@@ -87,7 +125,7 @@ elif [[ $1 == 'h' ]]; then
     fi
 elif [[ $1 == "t-ci" ]]; then
     [ -d test-reports ] || mkdir test-reports
-    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback
+    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}production"
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
     echo "remove database."
@@ -97,6 +135,11 @@ elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" ]]; then
 else
     echo "
 Description: This is python utilities with django (To use this you must follow install helper in README.md)
+Global parameter: second parameter you can pass environment to the script (default=develop)
+                  and if you pass next parameter will shift automatically in script (don't worry)
+    - d | dev | develop
+    - s | stage | staging
+    - p | prod | production
 HELP Command:
     1.  l    - load all fixture (test data)
                - @params 1 - (optional) fixture name (without init_*)

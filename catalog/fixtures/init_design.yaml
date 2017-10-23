@@ -3,7 +3,7 @@
   fields:
     name: Ash Dress
     description: Modern design which is available for all occasions.
-    price: 2000
+    # price: 2000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -13,7 +13,7 @@
   fields:
     name: Browny Dress
     description: Beautiful and elegant which could make you feel nobel.
-    price: 1000
+    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -23,7 +23,7 @@
   fields:
     name: Cherry Blossom Dress
     description: A good looking design which could make you feel delightful.
-    price: 1500
+    # price: 1500
     yard: 1.5
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -33,7 +33,7 @@
   fields:
     name: Dark Blue Dress
     description: This design seems to cotain an entire world and reflect the origin of the universe.
-    price: 3000
+    # price: 3000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -43,7 +43,7 @@
   fields:
     name: Dark Orange Dress
     description: The feeling of sunset and warm.
-    price: 1200
+    # price: 1200
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -53,7 +53,7 @@
   fields:
     name: Dark Pink Dress
     description: Charming and seductive which make you feel as the butterflies swarm around the flora.
-    price: 1000
+    # price: 1000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -63,7 +63,7 @@
   fields:
     name: Light Blue Dress
     description: This design will make you feel like a bright and clear sky in winter.
-    price: 2500
+    # price: 2500
     yard: 2.5
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -73,7 +73,7 @@
   fields:
     name: Light Green Dress
     description: The feeling of natural and fresh.
-    price: 1000
+    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -83,7 +83,7 @@
   fields:
     name: Light Purple Dress
     description: The design which make you feel like the crytal clear water.
-    price: 1500
+    # price: 1500
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -93,7 +93,7 @@
   fields:
     name: Pink Dress
     description: A good looking design which could make you feel lovely.
-    price: 1000
+    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -103,7 +103,7 @@
   fields:
     name: Purple Dress
     description: The design which make you feel mysterious.
-    price: 1000
+    # price: 1000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -113,7 +113,7 @@
   fields:
     name: Red Dress
     description: The design that give a feeling of fervent.
-    price: 1000
+    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -123,7 +123,7 @@
   fields:
     name: Red Velvet Dress
     description: A sweet and lovely design which will make you enjoy and happy.
-    price: 1000
+    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -133,7 +133,7 @@
   fields:
     name: Light Pink Dress
     description: A good looking design which could make you feel lovely.
-    price: 1000
+    # price: 1000
     yard: 2.5
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -143,7 +143,7 @@
   fields:
     name: White And Blue Dress
     description: A white and blue which make you feel like a clear water at the beach.
-    price: 1000
+    # price: 1000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
