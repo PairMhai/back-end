@@ -1,6 +1,6 @@
 from membership.models import Customer
 from cart.models import Order, OrderInfo, Transportation
-from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, CalculateOrderSerializer
+from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, HistorySerializer, CalculateOrderSerializer
 
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -143,7 +143,7 @@ class OrderCalculateView(APIView):
 
 class HistoryView(ImpListByTokenView):
     queryset = Order.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = HistorySerializer
     id_str = 'customer_id'
 
     def set_id(self, token):

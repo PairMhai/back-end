@@ -63,6 +63,11 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('uuid', 'creditcard', 'transportation')
 
+class HistorySerializer(serializers.ModelSerializer):
+    products = OrderInfoSerializer(many=True)
+    class Meta:
+        model = Order
+        fields = ('id', 'products')
 
 class TransportationSerializer(serializers.ModelSerializer):
 
