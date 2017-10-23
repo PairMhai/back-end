@@ -125,7 +125,7 @@ elif [[ $1 == 'h' ]]; then
     fi
 elif [[ $1 == "t-ci" ]]; then
     [ -d test-reports ] || mkdir test-reports
-    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}production"
+    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
     echo "remove database."
