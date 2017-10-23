@@ -107,8 +107,9 @@ elif [[ $1 == "t" ]]; then
     fi
 # heroku
 elif [[ $1 == 'h' ]]; then
-    which heroku &>/dev/null &&\
-        echo "no heroku installed." && exit 1
+    ! command -v heroku &>/dev/null &&\
+        echo "no heroku installed." &&\
+        exit 1
     heroku buildpacks | grep weibeld &>/dev/null &&\
         heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
     git remote show | grep heroku &>/dev/null &&\
