@@ -11,7 +11,6 @@ from django.forms.models import model_to_dict
 
 from Backend.utils import ImpListByTokenView, get_customer_from_user_id
 
-
 class TransportationListView(generics.ListAPIView):
     queryset = Transportation.objects.all()
     serializer_class = TransportationSerializer
