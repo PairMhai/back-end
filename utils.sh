@@ -110,16 +110,16 @@ elif [[ $1 == 'h' ]]; then
     ! command -v heroku &>/dev/null &&\
         echo "no heroku installed." &&\
         exit 1
-    heroku buildpacks | grep weibeld &>/dev/null &&\
+    heroku buildpacks | grep weibeld &>/dev/null ||\
         heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
-    git remote show | grep heroku &>/dev/null &&\
+    git remote show | grep heroku &>/dev/null ||\
         git remote add heroku https://git.heroku.com/pairmhai-api.git
     # deploy
     if [[ $2 == 'd' ]]; then
         # get branch in input or current branch
         [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
         # push to master
-        git push heroku "$BRANCH":master
+        git push heroku "${BRANCH// /}":master
     # log
     elif [[ $2 == 'l' ]]; then
         heroku logs --tail
