@@ -134,7 +134,6 @@
                     }
                 ]
             }
-<<<<<<< HEAD
         ]
         ```
     2. Failure
@@ -146,64 +145,4 @@
         }
         ```
 =======
-            ```
-        2. **Response**
-            1. Successfully
-                - code: `201_CREATED`
-                - body:
-                ```json
-                {
-                    "id": 1,
-                    "total_price": 0.00,
-                    "total_product": 1,
-                    "transportation": {
-                        "name": "trans 1",
-                        "description": "descp 1",
-                        "price": 0.00
-                    },
-                    "created_at": "0001-02-03T04:05:06.123456Z"
-                }
-                ```
-                - 0001 - year
-                - 02 - month
-                - 03 - day
-                - 04 - hour
-                - 05 - minute
-                - 06 - second
-                - 123456 - milisecond
-3. ^cart/history/(?P<token>\w+)$ [name='history-detail']
-    - get history of customer by `token`
-        1. **Request**
-            - method: `GET`
-            - body: [none]
-        2. **Response**
-            1. Successfully
-                - code: `200_OK`
-                - body:
-                ```json
-                [
-                    {
-                        "id": 2,
-                        "customer": "name",
-                        "products": [
-                            {
-                                "product": {
-                                    "id": 3,
-                                    "design": 3,
-                                    "material": null
-                                },
-                                "quantity": 1
-                            }
-                        ]
-                    }
-                ]
-                ```
-            2. Failure
-                - code: `401_UNAUTHORIZED`
-                - body:
-                ```json
-                {
-                    "detail": "get individual customer must have token"
-                }
-                ```
->>>>>>> feature/history-v1
+>>>>>>> master
