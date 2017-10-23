@@ -120,7 +120,7 @@ elif [[ $1 == 'h' ]]; then
         git remote add heroku https://git.heroku.com/pairmhai-api.git
 
     # disable auto collect static
-    heroku config:set DISABLE_COLLECTSTATIC=1
+    # heroku config:set DISABLE_COLLECTSTATIC=1
 
     # deploy
     if [[ $2 == 'd' ]]; then
