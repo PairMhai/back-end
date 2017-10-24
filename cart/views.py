@@ -1,4 +1,5 @@
 from membership.models import Customer
+from catalog.models import Product
 from cart.models import Order, OrderInfo, Transportation
 from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, HistorySerializer, CalculateOrderSerializer
 
@@ -17,6 +18,7 @@ class TransportationListView(generics.ListAPIView):
 
 
 class OrderCreatorView(generics.CreateAPIView):
+    ## real decrease quantity of the products
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -69,7 +71,7 @@ class OrderCreatorView(generics.CreateAPIView):
 
 
 class OrderCalculateView(APIView):
-
+    ## check if the stocks enough, if not return errors
     def post(self, request, format=None):
         from django.core.cache import cache
         import uuid
@@ -90,6 +92,12 @@ class OrderCalculateView(APIView):
             for d in products:
                 p = d.get('product')
                 q = d.get('quantity')
+                a = p.get_object()
+                if isinstance(a, Design):
+
+                else:
+
+
                 if (p.id in products_id):
                     products_id[p.id] += q
                 else:
