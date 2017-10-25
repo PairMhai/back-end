@@ -44,6 +44,11 @@ class OrderCreatorView(generics.CreateAPIView):
                 "quantity": quantity
             })
         # print(products)
+        for d in products:
+            p = d.get('product')
+            q = d.get('quantity')
+            a = p.get_object()
+            a['quantity'] = a.quantity - q
         data = {
             "customer": order_calculation.get('customer_id'),
             "products": products,
