@@ -71,7 +71,7 @@ class OrderCreatorView(generics.CreateAPIView):
 
 
 class OrderCalculateView(APIView):
-    ## check if the stocks enough, if not return errors
+
     def post(self, request, format=None):
         from django.core.cache import cache
         import uuid
@@ -88,15 +88,21 @@ class OrderCalculateView(APIView):
             products = data.get('products')
             # dict={1:2, 4,1} PRODUCT_ID:QUANTITY
             products_id = dict()
+            error_products = []
 
             for d in products:
                 p = d.get('product')
                 q = d.get('quantity')
                 a = p.get_object()
                 if isinstance(a, Design):
-
+                    yard = a.get('yard')
+                    total_yard = yard*q
+                    mat = a.get('material')
+                    if total_yard > mat.quantity:
+                        error_products.append(p)
                 else:
-
+                    if q > a.quantity:
+                        error_products.append(p)
 
                 if (p.id in products_id):
                     products_id[p.id] += q
@@ -111,6 +117,12 @@ class OrderCalculateView(APIView):
             if (total_price < 0):
                 total_price = 0
             # "event_price": product_event_price, # can calculate by `event_discount`
+
+            if error_products.count() > 0:
+                detail = str(error_products) + " doesn't have enough stocks."
+                return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
+
+
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
