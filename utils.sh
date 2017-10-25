@@ -105,9 +105,9 @@ elif [[ $1 == "t" ]]; then
         model="$2"
     fi
     if [ -n "$model" ]; then
-        $COMMAND manage.py test "$model"
+        $COMMAND manage.py test $setting "$model"
     else
-        $COMMAND manage.py test
+        $COMMAND manage.py test $setting
     fi
 # heroku
 elif [[ $1 == 'h' ]]; then
