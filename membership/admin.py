@@ -20,7 +20,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'telephone',
+        fields = ('first_name', 'last_name', 'telephone',
                   'address', 'date_of_birth', 'gender')
 
     def clean_password2(self):
@@ -46,7 +46,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'email', 'telephone', 'gender',
+        fields = ('first_name', 'last_name', 'telephone', 'gender',
                   'address', 'password', 'date_of_birth', 'is_active', 'is_staff')
 
     def clean_password(self):
@@ -63,14 +63,14 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
 
     readonly_fields = ('id',)
-    list_display = ('username', 'email', 'is_staff')
-    list_filter = ('first_name', 'email', 'telephone', 'gender')
+    list_display = ('username', 'is_staff')
+    list_filter = ('first_name', 'telephone', 'gender')
     inlines = [EmailInline]
     fieldsets = (
         (None,                      {
          'fields': ('id', 'username', 'password')}),
         ('Personal info',            {
-         'fields': ('first_name', 'last_name', 'email')}),
+         'fields': ('first_name', 'last_name')}),
         ('Addition personal info',  {
          'fields': ('date_of_birth', 'gender', 'telephone', 'address')}),
         ('Permissions',             {'fields': (
@@ -82,12 +82,12 @@ class UserAdmin(BaseUserAdmin):
     # overrides get_fieldsets to use this attribute when creating a user.
     add_fieldsets = (
         (None, {'fields': ('id', 'username', 'password1', 'password2')}),
-        ('Personal info', {'fields': ('first_name', 'last_name', 'email')}),
+        ('Personal info', {'fields': ('first_name', 'last_name')}),
         ('Addition personal info', {
          'fields': ('date_of_birth', 'gender', 'telephone', 'address')})
     )
-    search_fields = ('first_name', 'telephone', 'address', 'email')
-    ordering = ('first_name', 'email')
+    search_fields = ('first_name', 'telephone', 'address')
+    ordering = ('first_name', )
 
 admin.site.register(User, UserAdmin)
 
