@@ -17,46 +17,34 @@ class ClassSerializer(serializers.ModelSerializer):
         read_only = ('id', 'name', 'price', 'description')
 
 
-class ReadEmailSerializer(serializers.ModelSerializer):
+class EmailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = EmailAddress
         fields = ('email', 'primary', 'verified')
 
-class WriteEmailSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = EmailAddress
-        fields = ('email')
-
-    def create(self, validated_data):
-        print("hello")
-
 
 class UserSerializer(serializers.ModelSerializer):
-    email = ReadEmailSerializer(many=True, read_only=True)
+    email_address = serializers.EmailField(source="get_email_str", read_only=True)
     email = serializers.EmailField(write_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email')
+        fields = ('id', 'username', 'first_name',
+                  'last_name', 'email', 'email_address')
 
 
 class HalfUserSerializer(UserSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
 
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'age', 'gender')
+    class Meta(UserSerializer.Meta):
+        fields = UserSerializer.Meta.fields + ('age', 'gender')
 
 
 class FullUserSerializer(HalfUserSerializer):
 
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'address', 'age', 'date_of_birth', 'telephone', 'gender')
+    class Meta(HalfUserSerializer.Meta):
+        fields = HalfUserSerializer.Meta.fields + ('address', 'date_of_birth', 'telephone')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -119,7 +107,7 @@ class CustomerSerializer(serializers.ModelSerializer):
                     CreditCard.objects.create(**data)
                 else:
                     raise serializers.ValidationError(s.errors)
-        return user
+        return user  # customer
 
 # class CustomerSerializer(DefaultCustomerSerializer):
 #     token = serializers.CharField(max_length=200)
