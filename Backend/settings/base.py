@@ -38,7 +38,7 @@ FIXTURE_DIRS = (
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 
-ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'ngrok.io', '.ngrok.io', 'localhost', '127.0.0.1']
 
 # test runner
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
