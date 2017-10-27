@@ -17,9 +17,9 @@ class User(AbstractUser):
     """customer information v1"""
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+    # email = models.EmailField(unique=True)
     telephone = models.CharField(max_length=13, default="0XXXXXXXXX")
-    address = models.TextField(default="")
+    address = models.TextField(default="unknown")
     gender = models.CharField(max_length=20, default="unknown")
     # age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
@@ -36,6 +36,10 @@ class User(AbstractUser):
         my_age = (tod.year - dob.year) - \
             int((tod.month, tod.day) < (dob.month, dob.day))
         return my_age
+
+    def get_email(self):
+        from allauth.account.models import EmailAddress
+        return EmailAddress.objects.filter(user_id=self.id, primary=True)[0]
 
     def clean(self):
         super(User, self).clean()

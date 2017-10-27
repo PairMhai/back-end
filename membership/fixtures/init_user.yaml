@@ -6,12 +6,12 @@
     username: admin
     first_name: 'Admin'
     last_name: 'Pairmhai'
-    email: admin@pairmhai.com
+    telephone: 088-888-8888
     is_staff: true
     is_active: true
-    telephone: 088-888-8888
-    address: ''
-    date_of_birth: 2017-01-01
+    address: 'pairmhai'
+    gender: 'male'
+    date_of_birth: 1996-11-08
     groups: []
     user_permissions: []
 - model: membership.user
@@ -19,31 +19,37 @@
   fields:
     password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
     username: test_user
-    first_name: 'Some'
+    first_name: 'Test'
     last_name: 'User'
-    email: some@pairmhai.com
     telephone: 087-654-3210
-    date_of_birth: 2017-01-01
+    is_active: true
+    address: 'test country'
+    gender: 'female'
+    date_of_birth: 1919-09-18
 - model: membership.user
   pk: 3
   fields:
     password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
-    username: anymany
-    first_name: 'Any'
-    last_name: 'Many'
-    email: am@pairmhai.com
-    telephone: 098-111-2311
-    date_of_birth: 2017-01-01
+    username: invalid_user
+    first_name: 'No-Email'
+    last_name: 'Wrong-tel.'
+    telephone: 032-999-1010
+    is_active: true
+    address: ''
+    gender: 'male'
+    date_of_birth: 1998-07-29
 - model: membership.user
   pk: 4
   fields:
     password: pbkdf2_sha256$36000$BwOAN4WrII1L$1wxQ3Ar05dHDUM4wafeQgkt91C4jnBtFQMMVW/8OBFI=
-    username: who
-    first_name: 'myname'
-    last_name: 'surname'
-    email: whose@pairmhai.com
-    telephone: 098-123-4567
-    date_of_birth: 2017-01-01
+    username: staff
+    first_name: 'Staff'
+    last_name: 'Pairmhai'
+    telephone: 099-888-9999
+    is_staff: true
+    is_active: true
+    gender: 'female'
+    date_of_birth: 2000-04-05
 - model: membership.user
   pk: 5
   fields:
@@ -51,9 +57,10 @@
     username: superman
     first_name: 'Superman'
     last_name: 'NorthUS'
-    email: suman@pairmhai.com
-    telephone: 099-888-9999
-    date_of_birth: 2017-01-01
+    telephone: 099-099-1996
+    is_active: true
+    gender: 'male'
+    date_of_birth: 1400-01-23
 - model: membership.user
   pk: 6
   fields:
@@ -61,6 +68,7 @@
     username: ironman
     first_name: 'Robert'
     last_name: 'Downey'
-    email: robert@pairmhai.com
-    telephone: 012-999-1010
-    date_of_birth: 2017-01-01
+    telephone: 081-456-2455
+    is_active: true
+    gender: 'male'
+    date_of_birth: 1996-12-01
