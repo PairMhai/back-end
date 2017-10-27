@@ -25,20 +25,29 @@ class UserTestCase(TestCase):
         self.wrong_gender = "wrong"
 
     def setUp(self):
+        from allauth.account.models import EmailAddress
         self.user1 = User.objects.create(username=self.username1,
                                          first_name=self.firstname1,
                                          last_name=self.lastname1,
-                                         email=self.email1,
                                          date_of_birth=self.date_of_birth1,
                                          address=self.address1,
                                          telephone=self.telephone1,
                                          gender=self.male)
+        # create email for user 1
+        EmailAddress.objects.create(
+            user_id=self.user1.id, email=self.email1, primary=True)
 
         self.user2 = User.objects.create(username="test_name_2",
                                          first_name="first_name_2",
                                          last_name="last_name_2",
-                                         email="email2@hotmail.com",
                                          gender=self.wrong_gender)
+        # create email for user 1
+        EmailAddress.objects.create(
+            user_id=self.user2.id, email="email2-1@hotmail.com", primary=True)
+        EmailAddress.objects.create(
+            user_id=self.user2.id, email="email2-2@hotmail.com", primary=False)
+        EmailAddress.objects.create(
+            user_id=self.user2.id, email="email2-3@hotmail.com", primary=False)
 
     def test_default_telephone(self):
         """test if telephone didn't given"""
@@ -46,10 +55,19 @@ class UserTestCase(TestCase):
 
     def test_default_address(self):
         """test if address didn't given"""
-        self.assertEqual("", self.user2.address)
+        self.assertEqual("unknown", self.user2.address)
 
     def test_gender_validation(self):
+        """test default gender"""
         self.assertEqual("unknown", self.user2.gender)
+
+    def test_email_exist(self):
+        """test get_email method"""
+        self.assertEqual(self.email1, self.user1.get_email().email)
+
+    def test_multiple_email_size(self):
+        """test get_emails method"""
+        self.assertEqual(3, len(self.user2.get_emails()))
 
     # TODO: move this to customer model testing
     # for customer
