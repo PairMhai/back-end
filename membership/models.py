@@ -44,6 +44,13 @@ class User(AbstractUser):
             return ""
         return emails[0]
 
+    def get_email_str(self):
+        email = self.get_email()
+        if isinstance(email, str):
+            return email
+        else:
+            return email.email
+
     def set_email(self, email):
         from allauth.account.models import EmailAddress
         old_primary = EmailAddress.objects.get_primary(self)
