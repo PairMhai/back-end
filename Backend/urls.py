@@ -16,7 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from version.views import Index
+from version.views import Index as V_Index
+from landingpage.views import Index as L_Index
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -26,5 +27,6 @@ urlpatterns = [
     url(r'^cart/', include('cart.urls')),
     url(r'^comment/', include('comment.urls')),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^version$', Index.as_view(), name='version'),
+    url(r'^version$', V_Index.as_view(), name='version'),
+    url(r'^$', L_Index.as_view(), name='landing-page'),
 ]
