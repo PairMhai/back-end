@@ -39,7 +39,21 @@ class User(AbstractUser):
 
     def get_email(self):
         from allauth.account.models import EmailAddress
-        return EmailAddress.objects.filter(user_id=self.id, primary=True)[0]
+        emails = EmailAddress.objects.filter(user_id=self.id, primary=True)
+        if emails is None or 0 == len(emails) or len(emails) > 1:
+            return ""
+        return emails[0]
+
+    def set_email(self, email):
+        from allauth.account.models import EmailAddress
+        old_primary = EmailAddress.objects.get_primary(self)
+        e = EmailAddress.objects.create(user_id=self.id, email=email)
+        if old_primary is None:
+            e.set_as_primary()
+
+    def get_emails(self):
+        from allauth.account.models import EmailAddress
+        return EmailAddress.objects.filter(user_id=self.id)
 
     def clean(self):
         super(User, self).clean()
