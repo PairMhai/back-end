@@ -17,17 +17,33 @@ class ClassSerializer(serializers.ModelSerializer):
         read_only = ('id', 'name', 'price', 'description')
 
 
+class ReadEmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmailAddress
+        fields = ('email', 'primary', 'verified')
+
+class WriteEmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmailAddress
+        fields = ('email')
+
+    def create(self, validated_data):
+        print("hello")
+
+
 class UserSerializer(serializers.ModelSerializer):
-    email = serializers.EmailField(source='get_email')
+    email = ReadEmailSerializer(many=True, read_only=True)
+    email = serializers.EmailField(write_only=True)
 
     class Meta:
         model = User
         fields = ('id', 'username', 'first_name', 'last_name', 'email')
 
 
-class HalfUserSerializer(serializers.ModelSerializer):
+class HalfUserSerializer(UserSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
-    email = serializers.EmailField(source='get_email')
 
     class Meta:
         model = User
@@ -35,9 +51,7 @@ class HalfUserSerializer(serializers.ModelSerializer):
                   'email', 'age', 'gender')
 
 
-class FullUserSerializer(serializers.ModelSerializer):
-    age = serializers.IntegerField(source='get_age', read_only=True)
-    email = serializers.EmailField(source='get_email')
+class FullUserSerializer(HalfUserSerializer):
 
     class Meta:
         model = User
@@ -77,11 +91,14 @@ class CustomerSerializer(serializers.ModelSerializer):
         if (pass1 != pass2):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
+
         try:
             user = User(**user_data)  # create user
             user.save()
+            user.set_email(user_data.get('email'))
         except ValidationError as e:
             raise serializers.ValidationError(e.message_dict)
+
         user_class = Class.objects.get(id=1)  # get none class by defaul
         if ('classes' in raw_data):
             class_id = raw_data['classes']
@@ -94,7 +111,8 @@ class CustomerSerializer(serializers.ModelSerializer):
             cc_json = raw_data['credit_cards']
             for cc in cc_json:
                 # cc.update({'customer': customer})
-                s = FullCreditCardSerializer(data=cc, exclude_fields=['customer'])
+                s = FullCreditCardSerializer(
+                    data=cc, exclude_fields=['customer'])
                 if (s.is_valid()):
                     data = s.validated_data
                     data.update({'customer': customer})
