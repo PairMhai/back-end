@@ -13,13 +13,12 @@ from django.core.urlresolvers import reverse
 
 from random import uniform, randrange
 
+
 class LoginTestCase(ImpTestCase):
     fixtures = ['init_class.yaml', 'init_user.yaml']
 
     def setUp(self):
-
-        self.admin = User.objects.get(username='admin')
-        self.test_user = User.objects.get(username='test_user')
+        # self.admin = User.objects.get(username='admin')
 
         self.client = APIClient()
 
@@ -37,7 +36,7 @@ class LoginTestCase(ImpTestCase):
 
     def test_tc_001(self):
         """Test if registed user that is already in db can login"""
-        self.client.force_authenticate(user=self.admin)
+        # self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
             self.good_user,
@@ -51,7 +50,7 @@ class LoginTestCase(ImpTestCase):
         response = self.client.login(username=un, password=pw)
         self.assertTrue(response)
 
-        self.client.logout()
+        # self.client.logout()
 
     def test_tc_002(self):
         """Test if unregisted user cannot login"""
@@ -67,7 +66,7 @@ class LoginTestCase(ImpTestCase):
         """Test with valid username and empty
         invalid password such that login must get failed"""
 
-        self.client.force_authenticate(user=self.admin)
+        # self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
             self.good_user,
@@ -81,13 +80,13 @@ class LoginTestCase(ImpTestCase):
         response = self.client.login(username=un, password="dkdkkkkd")
         self.assertFalse(response)
 
-        self.client.logout()
+        # self.client.logout()
 
     def test_tc_004(self):
         """Test with empty username and empty
         invalid password and check if login fails"""
 
-        self.client.force_authenticate(user=self.admin)
+        # self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
             self.good_user,
@@ -100,12 +99,12 @@ class LoginTestCase(ImpTestCase):
         response = self.client.login(username="", password="dkdkkkkd")
         self.assertFalse(response)
 
-        self.client.logout()
+        # self.client.logout()
 
     def test_tc_005(self):
         """Check if the login function handles case sensitivity"""
 
-        self.client.force_authenticate(user=self.admin)
+        # self.client.force_authenticate(user=self.admin)
         response = self.client.post(
             reverse('rest_register'),
             self.good_user,
@@ -122,4 +121,19 @@ class LoginTestCase(ImpTestCase):
         response = self.client.login(username=un, password=pw)
         self.assertFalse(response)
 
-        self.client.logout()
+        # self.client.logout()
+    def test_tc_006(self):
+        """test user email should saved"""
+        response = self.client.post(
+            reverse('rest_register'),
+            self.good_user,
+            format="json"
+        )
+        self.assertResponseCode201(response)
+        # json
+        json_user = self.good_user.get("user")
+        json_user_email = json_user.get('email')
+
+        # created
+        user = response.context.get('user')
+        self.assertEqual(json_user_email, user.get_email().email)
