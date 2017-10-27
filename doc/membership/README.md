@@ -91,8 +91,9 @@
                 "detail": "New password has been saved."
             }
             ```
-6. ^membership/register/$ [name='rest_register'] **(v0.2.2)**
-    - Register new customer
+6. ^membership/register/$ [name='rest_register'] **(v0.10.1)**
+    - Register new customer, **This api will sent email to imput email-address.**
+    - and To confirm user email please click on the link that send together with email
     1. **Request**
         - method: `POST`
         - body:
@@ -111,9 +112,23 @@
             "password1": "password123",
             "password2": "password123",
             "classes": 3
+            "credit_cards": [
+                {
+                   "owner": "Some User-1",
+                   "credit_no": "1234123412341234",
+                   "ccv": "123",
+                   "expire_date": "2022-01-01"
+               },
+               {
+                  "owner": "Some User-2",
+                  "credit_no": "1231231231231231",
+                  "ccv": "321",
+                  "expire_date": "2023-12-12"
+              },
+            ]
         }
         ```
-        - optional field: **telephone**, **address**, **date_of_birth**, **gender**, **classes**
+        - optional field: **telephone**, **address**, **date_of_birth**, **gender**, **classes**, **credit_cards**
     2. **Response**
         1. Successfully
             - code: `200_OK`
@@ -123,7 +138,7 @@
                 "key": "django base-token"
             }
             ```
-7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v0.2.2)**
+7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v1.0.1)**
     - Get customer information by `customer token`
     1. **Request**
         - method: `GET`
@@ -140,7 +155,7 @@
                     "username": "name",
                     "first_name": "first",
                     "last_name": "last",
-                    "email": "someone@pairmhai.com",
+                    "email_address": "someone@pairmhai.com",
                     "address": "place",
                     "age": 99,
                     "date_of_birth": "yyyy-mm-dd",
@@ -155,7 +170,7 @@
                 }
             }
             ```
-8. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail'] **(v0.2.2)**
+8. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail'] **(v1.0.1)**
     - Get user information by `user token`
     1. **Request**
         - method: `GET`
@@ -166,16 +181,16 @@
             - body:
             ```json
             {
-                "id": 1,
-                "username": "name",
-                "first_name": "first",
-                "last_name": "last",
-                "email": "someone@pairmhai.com",
-                "address": "place",
-                "age": 99,
-                "date_of_birth": "yyyy-mm-dd",
-                "telephone": "08X-XXX-XXXX",
-                "gender": "unknown"
+                "id": 2,
+                "username": "test_user",
+                "first_name": "Test",
+                "last_name": "User",
+                "email_address": "test@pairmhai.com",
+                "age": 98,
+                "gender": "female",
+                "address": "test countr",
+                "date_of_birth": "1919-09-18",
+                "telephone": "087-654-3210"
             }
             ```
 9. ^membership/class/(?P<pk>[0-9]+)$ [name='membership-class'] **(v0.2.2)**

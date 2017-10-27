@@ -23,10 +23,14 @@ AdminSite.index_title = 'Administration Page'
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-VERSION = "0.9.1"
+# "0.13.0-beta.1"
+VERSION = "0.0.0"
 
+FIXTURE_DIRS = (
+    BASE_DIR + '/Backend/fixtures/',
+)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -34,10 +38,7 @@ VERSION = "0.9.1"
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'ngrok.io', '.ngrok.io', 'localhost', '127.0.0.1']
 
 # test runner
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
@@ -75,17 +76,12 @@ INSTALLED_APPS = [
 # REST AUTH
 SITE_ID = 1
 AUTH_USER_MODEL = 'membership.User'
+
 ACCOUNT_EMAIL_REQUIRED = False
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-# Email validation by gmail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
-EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
 EMAIL_PORT = 587
-# This did the trick
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 REST_AUTH_REGISTER_SERIALIZERS = {
     "REGISTER_SERIALIZER": "membership.serializers.CustomerSerializer"
@@ -135,18 +131,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'Backend.wsgi.application'
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "default"
 # APPEND_SLASH=False
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators

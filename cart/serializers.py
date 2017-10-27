@@ -20,18 +20,9 @@ class OrderInfoSerializer(serializers.ModelSerializer):
         fields = ('product', 'pid', 'quantity')
 
 
-class OrderSerializer(serializers.ModelSerializer):
+class CalculateOrderSerializer(serializers.Serializer):
     customer = serializers.CharField(max_length=200)
-    creditcard = serializers.PrimaryKeyRelatedField(
-        queryset=CreditCard.objects.all(), write_only=True)
-    transportation = serializers.PrimaryKeyRelatedField(
-        queryset=Transportation.objects.all(), write_only=True)
     products = OrderInfoSerializer(many=True)
-
-    class Meta:
-        model = Order
-        fields = ('id', 'customer', 'creditcard',
-                  'transportation', 'products')
 
     def validate_customer(self, value):
         try:
@@ -40,27 +31,43 @@ class OrderSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 "customer key accept either id or token.")
 
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+    products = OrderInfoSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ('products', 'total_product', 'final_price',
+                  'customer', 'creditcard', 'transportation')
+
     def create(self, validated_data):
         orders_info = validated_data.pop('products')
-        validated_data.update({'total_price': 0})
         validated_data.update({'total_product': len(orders_info)})
         order = Order.objects.create(**validated_data)
-        # print("order id {}".format(order))
-        # FIXME: incase order same pid (should merge to 1 row)
         for info in orders_info:
             info.update({'order': order})
-            order_info = OrderInfo.objects.create(**info)
-            order.total_price += order_info.product.get_price()
-        # print("summary product price:", order.total_price)
-        # print("transportation price:", order.transportation.price)
-        order.total_price += order.transportation.price
-        # print("total price:", order.total_price)
-        discount = order.total_price * (order.customer.classes.discount / 100)
-        # print("discount:", discount)
-        order.total_price -= discount
-        # print("final price:", order.total_price)
+            OrderInfo.objects.create(**info)
+        order.final_price += order.transportation.price
         order.save()
         return order
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    uuid = serializers.CharField(max_length=100)
+    creditcard = serializers.PrimaryKeyRelatedField(
+        queryset=CreditCard.objects.all(), write_only=True)
+    transportation = serializers.PrimaryKeyRelatedField(
+        queryset=Transportation.objects.all(), write_only=True)
+
+    class Meta:
+        model = Order
+        fields = ('uuid', 'creditcard', 'transportation')
+
+class HistorySerializer(serializers.ModelSerializer):
+    products = OrderInfoSerializer(many=True)
+    class Meta:
+        model = Order
+        fields = ('id', 'products')
 
 class TransportationSerializer(serializers.ModelSerializer):
 

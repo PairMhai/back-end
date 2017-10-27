@@ -3,7 +3,7 @@ from django.db import models
 
 class Order(models.Model):
     total_product = models.IntegerField(default=0)
-    total_price = models.DecimalField(
+    final_price = models.DecimalField(
         max_digits=8, decimal_places=2, default=0.00)
     customer = models.ForeignKey(
         'membership.Customer',
@@ -26,6 +26,7 @@ class Order(models.Model):
 
 class OrderInfo(models.Model):
     quantity = models.IntegerField(default=0)
+    remarks = models.TextField(max_length=100, default=0)
     order = models.ForeignKey(
         'cart.Order',
         related_name='products',

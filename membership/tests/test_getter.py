@@ -16,7 +16,7 @@ def to_date(date_str):
     return datetime.strptime(date_str, "%Y-%m-%d").date()
 
 class UserGettingTestCase(ImpTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml', 'init_token.yaml']
+    fixtures = ['init_class.yaml', 'init_user.yaml', 'init_email.yaml', 'init_token.yaml']
 
     def setUp(self):
         self.test_user = User.objects.get(username='test_user')
@@ -37,7 +37,7 @@ class UserGettingTestCase(ImpTestCase):
 
         self.assertEqual(resp_data.get('id'), self.test_user.id)
         self.assertEqual(resp_data.get('first_name'), self.test_user.first_name)
-        self.assertEqual(resp_data.get('email'), self.test_user.email)
+        self.assertEqual(resp_data.get('email_address'), self.test_user.get_email_str())
         self.assertEqual(resp_data.get('telephone'), self.test_user.telephone)
 
     def test_get_complete_data_of_superman(self):
@@ -51,7 +51,8 @@ class UserGettingTestCase(ImpTestCase):
 
         self.assertEqual(resp_data.get('id'), self.superman.id)
         self.assertEqual(resp_data.get('first_name'), self.superman.first_name)
-        self.assertEqual(resp_data.get('email'), self.superman.email)
+        self.assertEqual(resp_data.get('email_address'), self.superman.get_email_str())
+        self.assertEqual(2, len(self.superman.get_emails())) # superman have 2 email
         self.assertEqual(resp_data.get('telephone'), self.superman.telephone)
 
 # ------------------------------------
@@ -122,8 +123,10 @@ class CustomerGettingTestCase(ImpTestCase):
         self.assertEqual(classes['price'], self.superman.classes.price)
         # must contains payment as well
         db_credits = CreditCard.objects.filter(customer=self.superman)
-        credits = [CreditCard(**creditcards[0])]
-        self.assertCountEqual(db_credits, credits)
+        creditcards_obj = []
+        for cc in creditcards:
+            creditcards_obj.append(CreditCard(**cc))
+        self.assertCountEqual(db_credits, creditcards_obj)
 
 # ------------------------------------
 # ------------------------------------
