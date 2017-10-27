@@ -18,6 +18,7 @@ class ClassSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='get_email')
 
     class Meta:
         model = User
@@ -26,6 +27,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class HalfUserSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
+    email = serializers.EmailField(source='get_email')
 
     class Meta:
         model = User
@@ -35,6 +37,7 @@ class HalfUserSerializer(serializers.ModelSerializer):
 
 class FullUserSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
+    email = serializers.EmailField(source='get_email')
 
     class Meta:
         model = User
