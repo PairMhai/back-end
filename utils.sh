@@ -13,6 +13,19 @@ COMMAND="python"
 
 SETTING_OPTION="--settings=Backend.settings."
 
+### EXTRA FEATURE!
+#### format ./utils.sh r,mm,m,l [develop|production]
+if [[ $1 =~ "," ]]; then
+    IFS=',' read -r -a arr <<< "$1"
+    shift
+    for i in "${arr[@]}"; do
+        echo "run $i -->"
+        $0 $i $@
+        echo "--> END!"
+    done
+    exit $?
+fi
+
 get_setting() {
     if [[ "$1" == "d" || "$1" == "dev" ||  "$1" == "develop" ]]; then
         echo "${SETTING_OPTION}develop"
@@ -41,6 +54,7 @@ if [[ $1 == "l" ]]; then
         echo ">> load membership and all necessary models"
         $0 l $2 class
         $0 l $2 user
+        $0 l $2 email
         $0 l $2 customer
         $0 l $2 creditcard
         echo ">> load product and all necessary models"
