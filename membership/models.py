@@ -5,8 +5,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
-from payment.models import CreditCard
-
 # Interesting library
 # https://docs.python.org/3/library/doctest.html
 
