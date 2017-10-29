@@ -6,7 +6,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from payment.models import CreditCard
-
 # Interesting library
 # https://docs.python.org/3/library/doctest.html
 
@@ -112,6 +111,12 @@ class Customer(models.Model):
         'Class',
         on_delete=models.CASCADE
     )
+
+    def get_credit_cards(self):
+        return CreditCard.objects.filter(customer=self)
+
+    def get_credit_card(self, index):
+        return self.get_credit_cards()[index]
 
     def __str__(self):
         return str(self.user)

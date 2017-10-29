@@ -111,7 +111,7 @@
             },
             "password1": "password123",
             "password2": "password123",
-            "classes": 3
+            "classes": 3,
             "credit_cards": [
                 {
                    "owner": "Some User-1",
