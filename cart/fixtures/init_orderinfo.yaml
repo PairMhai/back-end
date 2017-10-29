@@ -4,6 +4,7 @@
     quantity: 1
     order: 3
     product: 4
+    remarks: size
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
@@ -12,6 +13,7 @@
     quantity: 2
     order: 1
     product: 4
+    remarks: size
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
@@ -20,6 +22,7 @@
     quantity: 1
     order: 2
     product: 3
+    remarks: size
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: cart.orderinfo
@@ -28,5 +31,6 @@
     quantity: 1
     order: 3
     product: 3
+    remarks: size
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
