@@ -7,6 +7,7 @@
     status: False
     start_date: '2018-01-10 00:00:00.000000+07:00'
     end_date: '2018-01-16 00:00:00.000000+07:00'
+    description:  National Teacher's promotion begin on January 10 to 16
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
@@ -19,6 +20,7 @@
     status: False
     start_date: '2017-12-29 00:00:00.000000+07:00'
     end_date: '2018-01-02 00:00:00.000000+07:00'
+    description:  New Year's promotion begin on December 29, the last day is January 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
@@ -31,6 +33,7 @@
     status: False
     start_date: '2018-04-10 00:00:00.000000+07:00'
     end_date: '2018-04-15 00:00:00.000000+07:00'
+    description:  Songkran's promotion begin on April 10, the last day is April 15
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
@@ -43,6 +46,7 @@
     status: False
     start_date: '2018-08-12 00:00:00.000000+07:00'
     end_date: '2018-08-12 00:00:00.000000+07:00'
+    description:  Mother's Day promotion is August 12
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
@@ -55,6 +59,18 @@
     status: False
     start_date: '2017-10-28 00:00:00.000000+07:00'
     end_date: '2017-10-31 00:00:00.000000+07:00'
+    description:  Halloween's promotion begin on October 28, the last day is October 31
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
+- model: catalog.promotion
+  pk: 6
+  fields:
+    name: Test Promotion
+    image_name: test_promotion.png
+    discount: 87.654
+    status: False
+    start_date: '2017-01-01 00:00:00.000000+07:00'
+    end_date: '2017-10-25 00:00:00.000000+07:00'
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'

@@ -138,7 +138,7 @@
                 "key": "django base-token"
             }
             ```
-7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v0.2.2)**
+7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v1.0.1)**
     - Get customer information by `customer token`
     1. **Request**
         - method: `GET`
@@ -155,7 +155,7 @@
                     "username": "name",
                     "first_name": "first",
                     "last_name": "last",
-                    "email": "someone@pairmhai.com",
+                    "email_address": "someone@pairmhai.com",
                     "address": "place",
                     "age": 99,
                     "date_of_birth": "yyyy-mm-dd",
@@ -170,7 +170,7 @@
                 }
             }
             ```
-8. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail'] **(v0.2.2)**
+8. ^membership/user/(?P<token>\w+)$ [name='membership-user-detail'] **(v1.0.1)**
     - Get user information by `user token`
     1. **Request**
         - method: `GET`
@@ -181,16 +181,16 @@
             - body:
             ```json
             {
-                "id": 1,
-                "username": "name",
-                "first_name": "first",
-                "last_name": "last",
-                "email": "someone@pairmhai.com",
-                "address": "place",
-                "age": 99,
-                "date_of_birth": "yyyy-mm-dd",
-                "telephone": "08X-XXX-XXXX",
-                "gender": "unknown"
+                "id": 2,
+                "username": "test_user",
+                "first_name": "Test",
+                "last_name": "User",
+                "email_address": "test@pairmhai.com",
+                "age": 98,
+                "gender": "female",
+                "address": "test countr",
+                "date_of_birth": "1919-09-18",
+                "telephone": "087-654-3210"
             }
             ```
 9. ^membership/class/(?P<pk>[0-9]+)$ [name='membership-class'] **(v0.2.2)**

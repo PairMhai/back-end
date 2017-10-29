@@ -7,5 +7,5 @@ urlpatterns = [
     url(r'^designs$', DesignList.as_view(), name='design-list'),
     url(r'^design/(?P<pk>[0-9]+)$', DesignDetail.as_view(), name='design-detail'),
     url(r'^promotions$', PromotionList.as_view(), name='promotion-list'),
-    url(r'^promotion/(?P<pk>[0-9]+)$', PromotionDetail.as_view(), name='promotion-detail'),
+    # url(r'^promotion/(?P<pk>[0-9]+)$', PromotionDetail.as_view(), name='promotion-detail'),
 ]

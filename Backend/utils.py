@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from membership.models import Customer
 
+from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.shortcuts import get_object_or_404 as _get_object_or_404
 
@@ -23,6 +24,37 @@ def get_object_or_404(queryset, *filter_args, **filter_kwargs):
 
 def get_customer_from_user_id(uid):
     return Customer.objects.get(user_id=uid)
+
+
+def update_all_status_promotions(list_of_promotion):
+    from django.utils.timezone import now
+    sets = list_of_promotion.filter(start_date__lt=now(), end_date__gt=now())
+    for q in sets:
+        q.change_status(True)
+    return sets.filter(status=True)
+
+
+def is_between_date(start, end, current):
+    from django.utils.dateparse import parse_date
+
+    if isinstance(start, str):
+        start = parse_date(start)
+    else:
+        start = start
+
+    if isinstance(end, str):
+        end = parse_date(end)
+    else:
+        end = end
+
+    if isinstance(current, str):
+        current = parse_date(current)
+    else:
+        current = current
+
+    if start < current < end:
+        return True
+    return False
 
 
 class ImpDetailByTokenView(generics.RetrieveAPIView):
@@ -128,3 +160,52 @@ class DynamicFieldsModelSerializer(serializers.ModelSerializer):
         if exclude_fields is not None:
             for field_name in exclude_fields:
                 self.fields.pop(field_name)
+
+
+class ThaiDateTimeField(serializers.DateTimeField):
+
+    def to_representation(self, value):
+        import pytz
+
+        tz = pytz.timezone('Asia/Bangkok')
+        value = timezone.localtime(value, timezone=tz)
+        return super(ThaiDateTimeField, self).to_representation(value)
+
+
+class ImpGithub():
+    github = None
+
+    def __init__(self, user):
+        self.user = user
+
+    def get_github(self):
+        from github import Github
+
+        if self.github is None:
+            if (self.user == "kamontat"):
+                self.github = Github("kamontat", "")
+            elif (self.user == "bubblebitoey"):
+                self.github = Github("bubblebitoey", "")
+            else:
+                self.github = Github()
+        return self.github
+
+    def get_pairmhai(self):
+        return self.get_github().get_organization("pairmhai")  # return Organization
+
+    def get_backend(self):
+        return self.get_pairmhai().get_repo("Backend")  # return Repository
+
+    def get_rate_limiting(self):
+        remain, limit = self.get_github().rate_limiting
+        from datetime import datetime
+
+        timestamp = self.get_github().rate_limiting_resettime
+        date_time = datetime.fromtimestamp(timestamp)
+        real_time = datetime.strftime(date_time, '%d/%m/%Y %H:%M:%S:%f')
+
+        return {
+            "rate_remaining": remain,
+            "rate_limiting": limit,
+            "rate_reset_time": real_time
+        }
