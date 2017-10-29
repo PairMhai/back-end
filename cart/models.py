@@ -17,6 +17,7 @@ class Order(models.Model):
         'Transportation',
         on_delete=models.CASCADE
     )
+    address = models.TextField(max_length=150, default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
