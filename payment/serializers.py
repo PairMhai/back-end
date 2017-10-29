@@ -45,7 +45,6 @@ class FullCreditCardSerializer(DynamicFieldsModelSerializer):
 
     def validate_customer(self, value):
         try:
-            print(type(value))
             if (isinstance(value, Customer)):
                 return value
             return Customer.objects.get(user=User.objects.get(id=Token.objects.get(key=value).user_id))

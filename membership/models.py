@@ -6,7 +6,6 @@ from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
 from payment.models import CreditCard
-
 # Interesting library
 # https://docs.python.org/3/library/doctest.html
 
@@ -17,9 +16,9 @@ class User(AbstractUser):
     """customer information v1"""
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=50)
-    email = models.EmailField(unique=True)
+    # email = models.EmailField(unique=True)
     telephone = models.CharField(max_length=13, default="0XXXXXXXXX")
-    address = models.TextField(default="")
+    address = models.TextField(default="unknown")
     gender = models.CharField(max_length=20, default="unknown")
     # age = models.IntegerField(default=0)
     date_of_birth = models.DateField(null=True)
@@ -36,6 +35,31 @@ class User(AbstractUser):
         my_age = (tod.year - dob.year) - \
             int((tod.month, tod.day) < (dob.month, dob.day))
         return my_age
+
+    def get_email(self):
+        from allauth.account.models import EmailAddress
+        emails = EmailAddress.objects.filter(user_id=self.id, primary=True)
+        if emails is None or 0 == len(emails) or len(emails) > 1:
+            return ""
+        return emails[0]
+
+    def get_email_str(self):
+        email = self.get_email()
+        if isinstance(email, str):
+            return email
+        else:
+            return email.email
+
+    def set_email(self, email):
+        from allauth.account.models import EmailAddress
+        old_primary = EmailAddress.objects.get_primary(self)
+        e = EmailAddress.objects.create(user_id=self.id, email=email)
+        if old_primary is None:
+            e.set_as_primary()
+
+    def get_emails(self):
+        from allauth.account.models import EmailAddress
+        return EmailAddress.objects.filter(user_id=self.id)
 
     def clean(self):
         super(User, self).clean()
@@ -87,6 +111,12 @@ class Customer(models.Model):
         'Class',
         on_delete=models.CASCADE
     )
+
+    def get_credit_cards(self):
+        return CreditCard.objects.filter(customer=self)
+
+    def get_credit_card(self, index):
+        return self.get_credit_cards()[index]
 
     def __str__(self):
         return str(self.user)

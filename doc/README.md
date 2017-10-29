@@ -2,29 +2,32 @@
 This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org).
 
 # Document Template
-1. API PATH [name=''] **(vx.x.x)**
-    - DESCRIPTION
-    1. **Request**
-        - method: [`POST`|`GET`|...]
+```markdown
+### Name **(vx.x.x)**
+- Path: API PATH
+- Desciption: DESCRIPTION
+1. **Request**
+    - method: [`POST`|`GET`|...]
+    - body: [none]
+    ```json
+    ```
+2. **Response**
+    1. Successfully
+        - code: `2XX_XXXXX`
         - body: [none]
         ```json
         ```
-    2. **Response**
-        1. Successfully
-            - code: `2XX_XXXXX`
-            - body: [none]
-            ```json
-            ```
-        2. Client Error
-            - code: `4XX_XXXXX`
-            - body: [none]
-            ```json
-            ```
-        3. Server Error
-            - code: `5XX_XXXXX`
-            - body: [none]
-            ```json
-            ```
+    2. Client Error
+        - code: `4XX_XXXXX`
+        - body: [none]
+        ```json
+        ```
+    3. Server Error
+        - code: `5XX_XXXXX`
+        - body: [none]
+        ```json
+        ```
+```
 
 ### Path in APIs document will be like `^xx/yy/zz/(...)$ [name='name']`
 1. ^ - start path with root path e.g. localhost/xx/yy/zz

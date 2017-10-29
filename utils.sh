@@ -1,105 +1,229 @@
 #!/usr/bin/env bash
 
-conda info | grep pairmhai &>/dev/null
-if [ $? -ne 0 ]; then
-    source activate pairmhai
+# setup project
+if [[ $1 == "setup" ]]; then
+    ! command -v conda &>/dev/null && echo "conda required to setup project!" && exit 1
+
+    echo ">> install conda dependencies."
+    conda create --name pairmhai --file requirements_conda.txt
+
+    echo ">> install dependencies."
+    pip install -r requirements.txt
+
+    exit 0
+fi
+
+# if conda available
+if command -v conda &>/dev/null; then
+    conda info | grep pairmhai &>/dev/null ||\
+        # shellcheck disable=SC1091
+        source activate pairmhai
+else
+    echo "no conda"
 fi
 
 COMMAND="python"
 
+SETTING_OPTION="--settings=Backend.settings."
+
+### EXTRA FEATURE!
+#### format ./utils.sh r,mm,m,l [develop|production]
+if [[ $1 =~ "," ]]; then
+    IFS=',' read -r -a arr <<< "$1"
+    shift
+    for i in "${arr[@]}"; do
+        echo "run $i -->"
+        $0 $i $@
+        echo "--> END!"
+    done
+    exit $?
+fi
+
+get_setting() {
+    if [[ "$1" == "d" || "$1" == "dev" ||  "$1" == "develop" ]]; then
+        echo "${SETTING_OPTION}develop"
+    elif [[ "$1" == "s" || "$1" == "stage" ||  "$1" == "staging" ]]; then
+        echo "${SETTING_OPTION}staging"
+    elif [[ "$1" == "p" || "$1" == "prod" ||  "$1" == "production" ]]; then
+        echo "${SETTING_OPTION}production"
+    else
+        echo "${SETTING_OPTION}develop"
+        return 1
+    fi
+    return 0
+}
+
 if [[ $1 == "l" ]]; then
-    if [ -n "$2" ]; then
-        echo "load $2 fixture"
-        $COMMAND manage.py loaddata "init_$2"
+    if setting=$(get_setting $2); then
+        module="$3"
+    else
+        module="$2"
+    fi
+    if [ -n "$module" ]; then
+        echo "load $module fixture"
+        # echo "$COMMAND manage.py loaddata "init_$module" $s" # dry run
+        $COMMAND manage.py loaddata "init_$module" $setting
     else
         echo ">> load membership and all necessary models"
-        $0 l class
-        $0 l user
-        $0 l customer
-        $0 l creditcard
+        $0 l $2 class
+        $0 l $2 user
+        $0 l $2 email
+        $0 l $2 customer
+        $0 l $2 creditcard
         echo ">> load product and all necessary models"
-        $0 l material
-        $0 l design
-        $0 l images
-        $0 l product
-        $0 l promotion
+        $0 l $2 material
+        $0 l $2 design
+        $0 l $2 images
+        $0 l $2 product
+        $0 l $2 promotion
         echo ">> load mockup order and information"
-        $0 l transportation
-        $0 l order
-        $0 l orderinfo
+        $0 l $2 transportation
+        $0 l $2 order
+        $0 l $2 orderinfo
         echo ">> other mockup data"
-        $0 l comment
-        $0 l token
-        $0 l site
+        $0 l $2 comment
+        $0 l $2 token
+        $0 l $2 site
     fi
 elif [[ $1 == "e" ]]; then
-    [ -n "$2" ] || echo "models is required" && exit 1
+    if setting=$(get_setting $2); then
+        model="$3"
+        file="$4"
+    else
+        model="$2"
+        file="$3"
+    fi
+    [ -n "$model" ] || echo "models is required" && exit 1
     # $2 = model to export
     # $3 = file export to (optional)
-    if [ -n "$3" ]; then
-        $COMMAND manage.py dumpdata --format yaml $2 >> $3
+    if [ -n "$file" ]; then
+        $COMMAND manage.py dumpdata --format yaml $model $setting >> $file
     else
-        $COMMAND manage.py dumpdata --format yaml $2
+        $COMMAND manage.py dumpdata --format yaml $model $setting
     fi
 elif [[ $1 == "mm" ]]; then
-    $COMMAND manage.py makemigrations
+    setting=$(get_setting $2)
+    $COMMAND manage.py makemigrations $setting
 elif [[ $1 == "m" ]]; then
-    $COMMAND manage.py migrate
+    setting=$(get_setting $2)
+    # echo "$COMMAND manage.py migrate $setting"; exit 155 # dry run
+    $COMMAND manage.py migrate $setting
 elif [[ $1 == "s" ]]; then
-    $COMMAND manage.py runserver
-elif [[ $1 == "t" ]]; then
-    if [ -n "$2" ]; then
-        $COMMAND manage.py test $2
+    setting=$(get_setting $2)
+    if setting=$(get_setting $2); then
+        port="$3"
     else
-        $COMMAND manage.py test
+        port="$2"
+    fi
+    $COMMAND manage.py runserver $setting $port
+elif [[ $1 == "c" ]]; then
+    setting=$(get_setting $2)
+    # cause error
+    if ! output=$(python manage.py makemigrations --check "$setting" 2>&1); then
+        # merge error
+        if grep merge <<< "$output" &>/dev/null; then
+            echo y | $COMMAND manage.py makemigrations --merge "$setting" &&\
+                echo "database need to merge. COMPLETE!"
+        fi
+    fi
+elif [[ $1 == "co" ]]; then
+    setting=$(get_setting $2)
+    # cause error
+    $COMMAND manage.py collectstatic $setting
+elif [[ $1 == "t" ]]; then
+    if setting=$(get_setting $2); then
+        model="$3"
+    else
+        model="$2"
+    fi
+    if [ -n "$model" ]; then
+        $COMMAND manage.py test $setting "$model"
+    else
+        $COMMAND manage.py test $setting
     fi
 # heroku
 elif [[ $1 == 'h' ]]; then
-    which heroku &>/dev/null
-    [ $? -ne 0 ] && echo "no heroku installed." && exit 1
-    heroku buildpacks | grep weibeld &>/dev/null
-    [ $? -ne 0 ] && heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
-    git remote show | grep heroku &>/dev/null
-    [ $? -ne 0 ] && git remote add heroku https://git.heroku.com/pairmhai-api.git
+    ! command -v heroku &>/dev/null &&\
+        echo "no heroku installed." &&\
+        exit 1
+    heroku buildpacks | grep weibeld &>/dev/null ||\
+        heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
+    git remote show | grep heroku &>/dev/null ||\
+        git remote add heroku https://git.heroku.com/pairmhai-api.git
+
+    # disable auto collect static
+    # heroku config:set DISABLE_COLLECTSTATIC=1
+
     # deploy
     if [[ $2 == 'd' ]]; then
         # get branch in input or current branch
         [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
         # push to master
-        git push heroku $BRANCH:master
+        git push heroku "${BRANCH// /}":master
     # log
     elif [[ $2 == 'l' ]]; then
         heroku logs --tail
     fi
 elif [[ $1 == "t-ci" ]]; then
     [ -d test-reports ] || mkdir test-reports
-    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback
+    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
 elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
     rm -rf db.sqlite3
     echo "remove database."
-elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "ctr" || $1 == "c" ]]; then
+elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "delete" ]]; then
     rm -rf ./test-reports/*
     echo "remove test-reports."
 else
     echo "
-Description: This is python utilities with django (To use this you must follow install helper in README.md)
-HELP Command:
-    1.  l    - load all fixture (test data)
-               - @params 1 - (optional) fixture name (without init_*)
-    2.  e    - dump currently database to file-name (if no file-name print as stout)
-               - @params 1 - models to export
-               - @params 2 - (optional) file name
-    3.  mm   - make migrations of new models
-    4.  m    - migrate database
-    5.  s    - run server
-    6.  h    - heroku short command
-    1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
-                      - @params 1 - (optional) branch to deploy (default is current branch)
-               2. l - logs all action in heroku container
-    7.  t    - test all testcase
-               - @params 1 - (optional) module.testcase.method is allow to spectify test
-    8.  t-ci - test all testcase with full version of debug print
-    9.  r    - remove currently database
-    10. c    - clear test-report
+Description:
+    This is python utilities with django (To use this you must follow install helper in README.md)
+
+Global parameter:
+    'First Parameter' you can pass environment to the script (default=develop)
+    and if you pass next parameter will shift automatically in script (don't worry)
+    - d | dev | develop
+    - s | stage | staging
+    - p | prod | production
+
+Feature:
+1. support multiple command separate by "," like '. l,mm,m develop'
+
+Help Command:
+    # Setting
+        1. setup   - setup project after you download new project down.
+
+    # Develop
+        1. s       - run server (default port 8000)
+                     - @params 1 - (optional) port number
+
+    # Deploy
+        1. h       - heroku short command
+                     1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
+                          - @params 1 - (optional) branch to deploy (default is current branch)
+                     2. l - logs all action in heroku container
+        2. co      - collect static file
+
+    # Database
+        1. c       - check database problem
+        2. mm      - make migrations of new models
+        3. m       - migrate database
+        4. l       - load all fixture (test data)
+                     - @params 1 - (optional) fixture name (without init_*)
+        5. e       - dump currently database to file-name (if no file-name print as 'stout')
+                     - @params 1 - models to export
+                     - @params 2 - (optional) file name
+        6. r       - remove currently database
+
+    # Testing
+        1. t       - test all testcase
+                     - @params 1 - (optional) module.testcase.method is allow to spectify test
+        2. t-ci    - test all testcase with full debug printing
+        3. delete  - clear test-report
+
+Example Usage:
+1. './utils.sh s production 1234' - run server production on port 1234
+2. './utils.sh h d' - deploy current branch to heroku
+3. './utils.sh t membership.tests.test_login' - test all testcase in 'test_login' file
+4. './utils.sh r,m,l production' - remove current database -> migrate new -> load fixture (all done by production environment)
     "
 fi
