@@ -1,26 +1,31 @@
 <!--  
-  select kind of issue by add X in between [ ]
-  e.g. [X] kind 1
-  add explanation of issue 
-  and add expected and actually incase you report the bug
+  1. select kind of issue by uncomment.
+  2.
 -->
 
-## What kind of issue? (check at least one)
-- [ ] Bug
-- [ ] Security problem
-- [ ] Request feature
-- [ ] Improvement
-- [ ] Enhancement
-- [ ] Other, please describe: ...
+## What kind of issue? (uncomment at least one)
+<!-- - [X] Bug -->
+<!-- - [X] Security problem -->
+<!-- - [X] Request feature -->
+<!-- - [X] Improvement -->
+<!-- - [X] Enhancement -->
+<!-- - [X] Other, please describe: ... -->
 
 ## Explanation
-...
+<!-- tell more about it. -->
+
+
+<!-- delete this line if is a `bug`
 
 ### Expected
-...
+1. ...
+2. ...
 
 ### Actually happening
-...
+1. ...
+2. ...
+
+delete this line if is a `bug` -->
 
 ## Environment
 - python: VERSION
@@ -30,5 +35,7 @@
 - app: VERSION
 - other: xxxxxx
 
+<!--
 ## Other comment
-...
+tell more or delete it.
+-->
