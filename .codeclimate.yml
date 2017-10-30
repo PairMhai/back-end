@@ -1,4 +1,8 @@
 engines:
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
   fixme:
     enabled: true
     config:
@@ -22,6 +26,8 @@ engines:
 ratings:
   paths:
     - "**.py"
+    - "**.md"
+    - "**.sh"
 
 exclude_paths:
   - "**/__init__.py"
