@@ -235,20 +235,20 @@ summary_code() {
 # parameter section
 # ---------------------------------
 
-[[ $1 == "l" ]]     && load            && exit 0
-[[ $1 == "e" ]]     && export_database && exit 0
-[[ $1 == "mm" ]]    && make_migrate    && exit 0
-[[ $1 == "m" ]]     && migrate         && exit 0
-[[ $1 == "s" ]]     && run_server      && exit 0
-[[ $1 == "c" ]]     && check           && exit 0
-[[ $1 == "co" ]]    && collect         && exit 0
-[[ $1 == "cov" ]]   && coverage_py     && exit 0
-[[ $1 == "t" ]]     && test_py         && exit 0
-[[ $1 == "t-ci" ]]  && test_ci         && exit 0
-[[ $1 == "h" ]]     && heroku_imp      && exit 0
-[[ $1 == "r" ]]     && remove_db       && exit 0
-[[ $1 == "d" ]]     && remove_all      && exit 0
-[[ $1 == "sum" ]]   && summary_code    && exit 0
+[[ $1 == "l" ]]     && load $@            && exit 0
+[[ $1 == "e" ]]     && export_database $@ && exit 0
+[[ $1 == "mm" ]]    && make_migrate $@    && exit 0
+[[ $1 == "m" ]]     && migrate $@         && exit 0
+[[ $1 == "s" ]]     && run_server $@      && exit 0
+[[ $1 == "c" ]]     && check $@           && exit 0
+[[ $1 == "co" ]]    && collect $@         && exit 0
+[[ $1 == "cov" ]]   && coverage_py $@     && exit 0
+[[ $1 == "t" ]]     && test_py $@         && exit 0
+[[ $1 == "t-ci" ]]  && test_ci $@         && exit 0
+[[ $1 == "h" ]]     && heroku_imp $@      && exit 0
+[[ $1 == "r" ]]     && remove_db $@       && exit 0
+[[ $1 == "d" ]]     && remove_all $@      && exit 0
+[[ $1 == "sum" ]]   && summary_code $@    && exit 0
 
 
 echo "
