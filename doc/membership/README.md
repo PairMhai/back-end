@@ -91,7 +91,7 @@
                 "detail": "New password has been saved."
             }
             ```
-6. ^membership/register/$ [name='rest_register'] **(v0.10.1)**
+6. ^membership/register/$ [name='rest_register'] **(v1.0.2)**
     - Register new customer, **This api will sent email to imput email-address.**
     - and To confirm user email please click on the link that send together with email
     1. **Request**
@@ -135,7 +135,7 @@
             - body:
             ```json
             {
-                "key": "django base-token"
+                "detail": "Verification e-mail sent."
             }
             ```
 7. ^membership/cust/(?P<token>\w+)$ [name='membership-cust-detail'] **(v1.0.1)**
