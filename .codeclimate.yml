@@ -22,3 +22,6 @@ engines:
 ratings:
   paths:
     - "**.py"
+
+exclude_paths:
+  - "**/__init__.py"
