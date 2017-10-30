@@ -184,6 +184,8 @@ test_ci() {
     [ -d test-reports ] || mkdir test-reports
 
     coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
+    # coverage report
+    coverage xml
 }
 
 heroku_deploy() {
@@ -221,7 +223,7 @@ remove_all() {
     rm -rf ./static/*
 
     [ -f .coverage ] && echo "remove coverage."
-    rm -rf .coverage
+    rm -rf *coverage*
 }
 
 summary_code() {

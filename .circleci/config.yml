@@ -5,6 +5,8 @@
 version: 2
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: b57a879605f01bc1cb5be3e4512ce08d5355f0803d2a1ce006b6d260feab96a2
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
@@ -14,9 +16,7 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
-
     steps:
       - checkout
       # Download and cache dependencies
@@ -26,6 +26,13 @@ jobs:
           - dependencies-caches-{{ arch }}
           - dependencies-caches
 
+      - run: 
+          name: install code-climate reporter
+          command: |
+            [ ! -f ./cc-test-reporter ] && curl -o ./cc-test-reporter -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+            chmod +x ./cc-test-reporter
+            ./cc-test-reporter --version > test-reporter.version.txt
+      
       - run:
           name: install dependencies
           command: |
@@ -37,6 +44,7 @@ jobs:
           key: dependencies-caches-{{ arch }}-{{ checksum "requirements.txt" }}
           paths:
             - ./venv
+            - ./cc-test-reporter
 
       - run:
           name: create report folder
@@ -51,13 +59,27 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            ./cc-test-reporter before-build
             ./utils.sh t-ci
+            ./cc-test-reporter after-build -t coverage.py --exit-code $? 
 
       - run:
-          name: run coverage
+          name: run coverage (codecov)
           command: |
             . venv/bin/activate
             codecov
+            
+      - run: 
+          name: collect artifacts
+          command: |
+            ./cc-test-reporter format-coverage -t coverage.py
+            # ./cc-test-reporter upload-coverage
+
+      - store_artifacts:
+          path: coverage/
+
+      - store_artifacts:
+          path: test-reporter.version.txt
 
       - store_test_results:
           path: test-reports
