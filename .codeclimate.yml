@@ -9,7 +9,7 @@ engines:
   radon: 
     enabled: true
     config: 
-      python_version: 3
+      threshold: "C"
   pep8:
     enabled: true
   duplication:
