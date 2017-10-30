@@ -72,7 +72,7 @@ jobs:
       - run: 
           name: collect artifacts
           command: |
-            ./cc-test-reporter format-coverage -t coverage.py coverage/codeclimate.result.json
+            ./cc-test-reporter format-coverage -t coverage.py
             ./cc-test-reporter upload-coverage
 
       - store_artifacts:
