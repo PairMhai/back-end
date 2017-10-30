@@ -1,16 +1,12 @@
-# git-summary > summary-code/information.txt
-# Mon Oct  2 16:52:40 +07 2017
+# Mon Oct 30 17:23:38 +07 2017
 
  project  : Backend
- repo age : 8 weeks
- active   : 20 days
- commits  : 202
- files    : 132
- authors  :
-   146	kamontat                       72.3%
-    27	Kamontat Chantrachirathumrong  13.4%
-    14	Piromsurang Rungserichai       6.9%
-     9	=                              4.5%
-     3	emmytyro9                      1.5%
-     2	Methawee A. ♡                  1.0%
-     1	Methawee Apinainarong          0.5%
+ repo age : 3 months
+ active   : 37 days
+ commits  : 464
+ files    : 187
+ authors  : 
+   410	Kamontat Chantrachirathumrong  88.36%
+    25	Piromsurang Rungserichai       5.38%
+    25	Methawee A. ♡                  5.38%
+     4	emmytyro9                      0.86%

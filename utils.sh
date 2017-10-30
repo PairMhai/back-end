@@ -173,6 +173,9 @@ elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
 elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "delete" ]]; then
     rm -rf ./test-reports/*
     echo "remove test-reports."
+elif [[ $1 == "summary" ]]; then
+    echo "# $(date)" > ./summary-code/information.txt
+    git-summary >> ./summary-code/information.txt
 else
     echo "
 Description:
