@@ -56,6 +56,7 @@ jobs:
       - run:
           name: run coverage
           command: |
+            . venv/bin/activate
             codecov
 
       - store_test_results:
