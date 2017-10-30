@@ -28,7 +28,6 @@ class OrderInfoDetailSerializer(serializers.ModelSerializer):
         model = OrderInfo
         fields = ('product', 'pid', 'quantity')
 
-
 class CalculateOrderSerializer(serializers.Serializer):
     customer = serializers.CharField(max_length=200)
     products = OrderInfoSerializer(many=True)
