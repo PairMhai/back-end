@@ -1,5 +1,22 @@
-# Pairmhai Backend [![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/dev.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend)
-**Work In Progress (WIP)**
+# Pairmhai Backend [![Tag](https://img.shields.io/github/tag/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/tags) [![Release](https://img.shields.io/github/release/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/releases/latest) [![License](https://img.shields.io/github/license/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/blob/master/LICENSE)
+
+## Badges 
+|Type      |Environment|badges|
+|----------|-----------|------|
+|Test      |Develop    |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/dev.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/dev)|
+|          |Production |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/master.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/master)|
+|Dependency|Develop    |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/dev.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=dev)|
+|          |Production |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/master.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=master)|
+
+
+# Table of Contents
+- [Install Guide](#install-guide)
+    - [To install](#to-install)
+    - [To deploy](#to-deploy)
+- [Documentation](#documentation)
+- [To do list](#to-do-list)
+- [Contribution](#contribution)
+
 
 # Install Guide
 1. anaconda is required to set envrionment [link](https://www.anaconda.com/download/)

@@ -5,11 +5,20 @@ from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
 
 from allauth.account.models import EmailAddress
 
-from rest_framework import serializers
+from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
+from rest_auth.serializers import LoginSerializer as DefaultLoginSerializer
 
+from rest_framework import serializers, exceptions
+from rest_framework.exceptions import ValidationError
+
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.hashers import make_password
+from django.conf import settings
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+from django.utils.translation import ugettext_lazy as _
 from django.db.utils import IntegrityError
+
+UserModel = get_user_model()
 
 
 class ClassSerializer(serializers.ModelSerializer):
@@ -116,18 +125,6 @@ class CustomerSerializer(serializers.ModelSerializer):
                     raise serializers.ValidationError(s.errors)
         return user  # customer
 
-# class CustomerSerializer(DefaultCustomerSerializer):
-#     token = serializers.CharField(max_length=200)
-#     # classes = ClassSerializer()
-#
-#     class Meta:
-#         model = Customer
-#         fields = ('id', 'user', 'token') # classes
-#
-#     def validate_token(self, value):
-#         if (Token.objects.get(key=value).user_id != raw_data['id']):
-#             raise serializers.ValidationError("you don't have permission.")
-
 
 class FullCustomerSerializer(CustomerSerializer):
     user = FullUserSerializer()
@@ -137,3 +134,65 @@ class FullCustomerSerializer(CustomerSerializer):
     class Meta:
         model = Customer
         fields = ('id', 'user', 'classes', 'creditcards')
+
+
+class LoginSerializer(DefaultLoginSerializer):
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        email = attrs.get('email')
+        password = attrs.get('password')
+
+        user = None
+
+        if 'allauth' in settings.INSTALLED_APPS:
+            from allauth.account import app_settings
+
+            # Authentication through email
+            if app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.EMAIL:
+                user = self._validate_email(email, password)
+
+            # Authentication through username
+            if app_settings.AUTHENTICATION_METHOD == app_settings.AuthenticationMethod.USERNAME:
+                user = self._validate_username(username, password)
+
+            # Authentication through either username or email
+            else:
+                user = self._validate_username_email(username, email, password)
+
+        else:
+            # Authentication without using allauth
+            if email:
+                try:
+                    username = UserModel.objects.get(
+                        email__iexact=email).get_username()
+                except UserModel.DoesNotExist:
+                    pass
+
+            if username:
+                user = self._validate_username_email(username, '', password)
+
+        # Did we get back an active user?
+        if user:
+            if not user.is_active:
+                msg = _('User account is disabled.')
+                raise exceptions.ValidationError(msg)
+        else:
+            msg = _('Unable to log in with provided credentials.')
+            raise exceptions.ValidationError(msg)
+
+        # If required, is the email verified?
+        if 'rest_auth.registration' in settings.INSTALLED_APPS:
+            from allauth.account import app_settings
+            from allauth.account.models import EmailAddress
+
+            if app_settings.EMAIL_VERIFICATION == app_settings.EmailVerificationMethod.MANDATORY:
+                # EmailAddress new implementation
+                email = EmailAddress.objects.filter(
+                    user_id=user.id, verified=True, primary=True)
+                if len(email) == 0:
+                    raise serializers.ValidationError(
+                        _('E-mail is not verified.'))
+
+        attrs['user'] = user
+        return attrs
