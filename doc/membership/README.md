@@ -112,7 +112,7 @@
         }
         ```
 
-### Rest Register **(v0.10.1)**
+### Rest Register **(v1.1.0)**
 - Path: ^membership/register/$
 - Description: register new customer, **This api will sent email to imput email-address.**
     - and To confirm user email please click on the link that send together with email
@@ -157,7 +157,7 @@
         - body:
         ```json
         {
-            "key": "django base-token"
+            "detail": "Verification e-mail sent."
         }
         ```
 
@@ -186,35 +186,26 @@
                 "telephone": "08X-XXX-XXXX",
                 "gender": "unknown"
             },
-            "password1": "password123",
-            "password2": "password123",
-            "classes": 3,
-            "credit_cards": [
+            "classes": {
+                "id": 1,
+                "name": "Bronze",
+                "price": 0,
+                "description": "Discount 0% each time that purchase product."
+            },
+            "creditcards": [
                 {
-                   "owner": "Some User-1",
-                   "credit_no": "1234123412341234",
-                   "ccv": "123",
-                   "expire_date": "2022-01-01"
-               },
-               {
-                  "owner": "Some User-2",
-                  "credit_no": "1231231231231231",
-                  "ccv": "321",
-                  "expire_date": "2023-12-12"
-              },
+                    "id": 1,
+                    "owner": "someone-1",
+                    "credit_no": "1234543367891234"
+                },
+                {
+                    "id": 4,
+                    "owner": "someone-2",
+                    "credit_no": "9876987698769876"
+                }
             ]
         }
         ```
-        - optional field: **telephone**, **address**, **date_of_birth**, **gender**, **classes**, **credit_cards**
-    2. **Response**
-        1. Successfully
-            - code: `200_OK`
-            - body:
-            ```json
-            {
-                "detail": "Verification e-mail sent."
-            }
-            ```
 
 ### Membership User Detail **(v1.0.1)**
 - Path: ^membership/user/(?P<token>\w+)$
