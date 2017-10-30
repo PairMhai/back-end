@@ -10,7 +10,7 @@ class PromotionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Promotion
-        fields = ('name', 'image_name', 'status', 'start', 'end')  # , 'id'
+        fields = ('name', 'description', 'discount', 'image_name', 'status', 'start', 'end')  # , 'id'
 
 
 class ImageSerializer(serializers.ModelSerializer):

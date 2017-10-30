@@ -15,9 +15,9 @@ class ModelsTestCase(TestCase):
 
 
     def setUp(self):
-        self.design = Design.objects.get(pk="1")
-        self.images = Image.objects.get(pk="1")
-        self.material = Material.objects.get(pk="1")
+        self.design = Design.objects.get(pk=1)
+        self.images = Image.objects.get(pk=1)
+        self.material = Material.objects.get(pk=1)
 
     def test_name_of_design_match_with_images(self):
         """test if the image's name is in correct format"""
@@ -34,5 +34,13 @@ class ModelsTestCase(TestCase):
     def test_quantity_material_not_zero(self):
         """test if the quantity of the material is not less than zero"""
         self.assertTrue(self.material.quantity >= 0)
-
     
+    def test_design_must_have_product_id(self):
+        designs = Design.objects.all()
+        for d in designs:
+            self.assertIsNotNone(Product.objects.get(design=d))
+
+    def test_material_must_have_product_id(self):
+        materials = Material.objects.all()
+        for m in materials:
+            self.assertIsNotNone(Product.objects.get(material=m))
