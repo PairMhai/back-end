@@ -11,7 +11,7 @@
       verified: true
       primary: true
       user_id: 2
-      email: test@pairmhai.com
+      email: pairmhai.test@gmail.com
 - model: account.emailaddress
   pk: 3
   fields:

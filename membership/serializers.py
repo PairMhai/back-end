@@ -1,12 +1,15 @@
 from membership.models import User, Customer, Class
+
 from payment.models import CreditCard
-from allauth.account.models import EmailAddress
-from rest_framework import serializers
-from django.contrib.auth.hashers import make_password
-
-from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
-
 from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
+
+from allauth.account.models import EmailAddress
+
+from rest_framework import serializers
+
+from django.contrib.auth.hashers import make_password
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+from django.db.utils import IntegrityError
 
 
 class ClassSerializer(serializers.ModelSerializer):
@@ -25,7 +28,8 @@ class EmailSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    email_address = serializers.EmailField(source="get_email_str", read_only=True)
+    email_address = serializers.EmailField(
+        source="get_email_str", read_only=True)
     email = serializers.EmailField(write_only=True)
 
     class Meta:
@@ -44,7 +48,8 @@ class HalfUserSerializer(UserSerializer):
 class FullUserSerializer(HalfUserSerializer):
 
     class Meta(HalfUserSerializer.Meta):
-        fields = HalfUserSerializer.Meta.fields + ('address', 'date_of_birth', 'telephone')
+        fields = HalfUserSerializer.Meta.fields + \
+            ('address', 'date_of_birth', 'telephone')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -86,6 +91,8 @@ class CustomerSerializer(serializers.ModelSerializer):
             user.set_email(user_data.get('email'))
         except ValidationError as e:
             raise serializers.ValidationError(e.message_dict)
+        except IntegrityError as e:
+            raise serializers.ValidationError(e)
 
         user_class = Class.objects.get(id=1)  # get none class by defaul
         if ('classes' in raw_data):

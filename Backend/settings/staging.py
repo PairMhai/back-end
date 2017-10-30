@@ -1,15 +1,16 @@
 from .base import *
 
-VERSION = "1.0.0-test.1"
+VERSION = "1.1.1-test.1"
 
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_REQUIRED = 'true'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # | optional
 # Email validation by gmail
 EMAIL_HOST_USER = 'pairmhai.wsp@gmail.com'
 EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
 # This did the trick
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-DEBUG = False
+DEBUG = True
 
 DATABASES = {
     'default': {
