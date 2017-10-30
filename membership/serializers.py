@@ -1,5 +1,8 @@
 from membership.models import User, Customer, Class
+
 from payment.models import CreditCard
+from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
+
 from allauth.account.models import EmailAddress
 
 from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
