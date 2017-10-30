@@ -73,7 +73,7 @@ jobs:
           name: collect artifacts
           command: |
             ./cc-test-reporter format-coverage -t coverage.py
-            # ./cc-test-reporter upload-coverage
+            ./cc-test-reporter upload-coverage
 
       - store_artifacts:
           path: coverage/
