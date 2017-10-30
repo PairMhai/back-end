@@ -5,18 +5,19 @@
 version: 2
 jobs:
   build:
+    environment:
+      CC_TEST_REPORTER_ID: b57a879605f01bc1cb5be3e4512ce08d5355f0803d2a1ce006b6d260feab96a2
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
       - image: circleci/python:3.6.1
       - image: redis:3.2.11
+      - image: notnoopci/php:7.1.5-browsers
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-
     working_directory: ~/repo
-
     steps:
       - checkout
       # Download and cache dependencies
@@ -26,6 +27,19 @@ jobs:
           - dependencies-caches-{{ arch }}
           - dependencies-caches
 
+      - run: 
+          name: code-climate setup
+          command: |
+            sudo pecl channel-update pecl.php.net
+            sudo pecl install xdebug && sudo docker-php-ext-enable xdebug
+
+      - run: 
+          name: install code-climate reporter
+          command: |
+            curl -o ./cc-test-reporter -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+            chmod +x ./cc-test-reporter
+            sudo mkdir -p $CIRCLE_TEST_REPORTS/phpunit
+      
       - run:
           name: install dependencies
           command: |
@@ -37,6 +51,7 @@ jobs:
           key: dependencies-caches-{{ arch }}-{{ checksum "requirements.txt" }}
           paths:
             - ./venv
+            - ./cc-test-reporter
 
       - run:
           name: create report folder
@@ -54,10 +69,27 @@ jobs:
             ./utils.sh t-ci
 
       - run:
-          name: run coverage
+          name: run coverage (codecov)
           command: |
             . venv/bin/activate
             codecov
+
+      - run:
+          name: run coverage (code-climate)
+          command: |
+            . venv/bin/activate
+            ./cc-test-reporter before-build
+            sudo vendor/bin/phpunit --coverage-clover clover.xml
+            ./cc-test-reporter after-build -t clover --exit-code $?
+
+      - run: 
+          name: collect artifacts
+          command: |
+            ./cc-test-reporter format-coverage -t coveragepy coverage/codeclimate.result.json
+            ./cc-test-reporter upload-coverage
+
+      - store_artifacts:
+          path: coverage/
 
       - store_test_results:
           path: test-reports
