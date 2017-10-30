@@ -7,6 +7,8 @@
 |          |Production |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/master.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/master)|
 |Dependency|Develop    |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/dev.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=dev)|
 |          |Production |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/master.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=master)|
+|Coverage  |Develop    |[![Codecov](https://img.shields.io/codecov/c/github/Pairmhai/Backend/dev.svg?style=flat-square)](https://codecov.io/gh/PairMhai/Backend/branch/dev)|
+|Coverage  |Production |[![Codecov](https://img.shields.io/codecov/c/github/Pairmhai/Backend/master.svg?style=flat-square)](https://codecov.io/gh/PairMhai/Backend/branch/master)|
 
 
 # Table of Contents
