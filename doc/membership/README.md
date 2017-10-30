@@ -1,5 +1,16 @@
 # Membership APIs list and description
 
+## Table of Contents
+- [Rest Password Reset **(v1.0.1)**](#rest-password-reset-v101)
+- [Rest Password Reset Confirm **(v1.0.1)**](#rest-password-reset-confirm-v101)
+- [Rest Login **(v1.0.1)**](#rest-login-v101)
+- [Rest Logout **(v0.2.2)**](#rest-logout-v022)
+- [Rest Password Change **(v1.0.1)**](#rest-password-change-v101)
+- [Rest Register **(v1.1.0)**](#rest-register-v110)
+- [Membership Customer Detail **(v1.0.1)**](#membership-customer-detail-v101)
+- [Membership User Detail **(v1.0.1)**](#membership-user-detail-v101)
+- [Membership Class **(v0.2.2)**](#membership-class-v022)
+
 ### Rest Password Reset **(v1.0.1)**
 - Path: ^membership/password/reset/$
 - Description: reset password by email
@@ -101,7 +112,7 @@
         }
         ```
 
-### Rest Register **(v0.10.1)**
+### Rest Register **(v1.1.0)**
 - Path: ^membership/register/$
 - Description: register new customer, **This api will sent email to imput email-address.**
     - and To confirm user email please click on the link that send together with email
@@ -146,7 +157,7 @@
         - body:
         ```json
         {
-            "key": "django base-token"
+            "detail": "Verification e-mail sent."
         }
         ```
 
