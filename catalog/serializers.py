@@ -38,7 +38,7 @@ class MiniMaterialSerializer(serializers.ModelSerializer):
                   'description', 'color',
                   'image_name')
 
-
+        
 class MiniDesignSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField(source='get_product_id')
     images = ImageSerializer(many=True)
@@ -49,7 +49,7 @@ class MiniDesignSerializer(serializers.ModelSerializer):
         fields = ('product_id', 'id', 'name', 'description', 'material',
                   'images')
 
-
+        
 class ListMaterialSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField(source='get_product_id')
     discounted_price = serializers.CharField(source='get_discount_price')

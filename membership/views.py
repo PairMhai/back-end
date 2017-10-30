@@ -38,7 +38,6 @@ class ConfirmEmailView(APIView):
         else:
             return Response({"email": email.email})
 
-
 # never used, BUT needed
 def completed_register(request):
     return Response()

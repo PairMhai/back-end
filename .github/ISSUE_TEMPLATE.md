@@ -16,15 +16,12 @@
 
 
 <!-- delete this line if is a `bug`
-
 ### Expected
 1. ...
 2. ...
-
 ### Actually happening
 1. ...
 2. ...
-
 delete this line if is a `bug` -->
 
 <!-- delete this line if `necessary`
