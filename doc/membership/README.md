@@ -6,7 +6,7 @@
 - [Rest Login **(v1.0.1)**](#rest-login-v101)
 - [Rest Logout **(v0.2.2)**](#rest-logout-v022)
 - [Rest Password Change **(v1.0.1)**](#rest-password-change-v101)
-- [Rest Register **(v0.10.1)**](#rest-register-v0101)
+- [Rest Register **(v1.1.0)**](#rest-register-v110)
 - [Membership Customer Detail **(v1.0.1)**](#membership-customer-detail-v101)
 - [Membership User Detail **(v1.0.1)**](#membership-user-detail-v101)
 - [Membership Class **(v0.2.2)**](#membership-class-v022)
