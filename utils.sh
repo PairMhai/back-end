@@ -53,7 +53,11 @@ get_setting() {
     return 0
 }
 
-if [[ $1 == "l" ]]; then
+# ---------------------------------
+# function section
+# ---------------------------------
+
+load() {
     if setting=$(get_setting $2); then
         module="$3"
     else
@@ -85,7 +89,9 @@ if [[ $1 == "l" ]]; then
         $0 l $2 token
         $0 l $2 site
     fi
-elif [[ $1 == "e" ]]; then
+}
+
+export_database() {
     if setting=$(get_setting $2); then
         model="$3"
         file="$4"
@@ -101,14 +107,20 @@ elif [[ $1 == "e" ]]; then
     else
         $COMMAND manage.py dumpdata --format yaml $model $setting
     fi
-elif [[ $1 == "mm" ]]; then
+}
+
+make_migrate() {
     setting=$(get_setting $2)
     $COMMAND manage.py makemigrations $setting
-elif [[ $1 == "m" ]]; then
+}
+
+migrate() {
     setting=$(get_setting $2)
     # echo "$COMMAND manage.py migrate $setting"; exit 155 # dry run
     $COMMAND manage.py migrate $setting
-elif [[ $1 == "s" ]]; then
+}
+
+run_server() {
     setting=$(get_setting $2)
     if setting=$(get_setting $2); then
         port="$3"
@@ -116,7 +128,9 @@ elif [[ $1 == "s" ]]; then
         port="$2"
     fi
     $COMMAND manage.py runserver $setting $port
-elif [[ $1 == "c" ]]; then
+}
+
+check() {
     setting=$(get_setting $2)
     # cause error
     if ! output=$(python manage.py makemigrations --check "$setting" 2>&1); then
@@ -126,23 +140,64 @@ elif [[ $1 == "c" ]]; then
                 echo "database need to merge. COMPLETE!"
         fi
     fi
-elif [[ $1 == "co" ]]; then
+}
+
+collect() {
     setting=$(get_setting $2)
-    # cause error
     $COMMAND manage.py collectstatic $setting
-elif [[ $1 == "t" ]]; then
+}
+
+test_py() {
     if setting=$(get_setting $2); then
         model="$3"
     else
         model="$2"
     fi
+
     if [ -n "$model" ]; then
         $COMMAND manage.py test $setting "$model"
     else
         $COMMAND manage.py test $setting
     fi
-# heroku
-elif [[ $1 == 'h' ]]; then
+}
+
+coverage_py() {
+    ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
+
+    if setting=$(get_setting $2); then
+        model="$3"
+    else
+        model="$2"
+    fi
+
+    if [ -n "$model" ]; then
+        coverage run --source='.' manage.py test $setting "$model"
+        coverage report
+    else
+        coverage run --source='.' manage.py test $setting
+        coverage report
+    fi
+}
+
+test_ci() {
+    ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
+    [ -d test-reports ] || mkdir test-reports
+
+    coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
+    # coverage report
+    coverage xml
+}
+
+heroku_deploy() {
+    [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
+    git push heroku "${BRANCH// /}":master # push to master
+}
+
+heroku_log() {
+    heroku logs --tail
+}
+
+heroku_imp() {
     ! command -v heroku &>/dev/null &&\
         echo "no heroku installed." &&\
         exit 1
@@ -151,33 +206,52 @@ elif [[ $1 == 'h' ]]; then
     git remote show | grep heroku &>/dev/null ||\
         git remote add heroku https://git.heroku.com/pairmhai-api.git
 
-    # disable auto collect static
-    # heroku config:set DISABLE_COLLECTSTATIC=1
+    [[ $2 == 'd' ]] && heroku_deploy   && exit 0
+    [[ $2 == 'l' ]] && heroku_log      && exit 0
+}
 
-    # deploy
-    if [[ $2 == 'd' ]]; then
-        # get branch in input or current branch
-        [ -n "$3" ] && BRANCH="$3" || BRANCH=$(git branch | grep \* | tr '*' ' ')
-        # push to master
-        git push heroku "${BRANCH// /}":master
-    # log
-    elif [[ $2 == 'l' ]]; then
-        heroku logs --tail
-    fi
-elif [[ $1 == "t-ci" ]]; then
-    [ -d test-reports ] || mkdir test-reports
-    $COMMAND manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
-elif [[ $1 == "reset-database" || $1 == "reset" || $1 == "r" ]]; then
+remove_db() {
+    [ -f db.sqlite3 ] && echo "remove database."
     rm -rf db.sqlite3
-    echo "remove database."
-elif [[ $1 == "clear-test-result" || $1 == "clear-test" || $1 == "delete" ]]; then
+}
+
+remove_all() {
+    [ -d test-reports ] && echo "remove report."
     rm -rf ./test-reports/*
-    echo "remove test-reports."
-elif [[ $1 == "summary" ]]; then
+
+    [ -d static ] && echo "remove static."
+    rm -rf ./static/*
+
+    [ -f .coverage ] && echo "remove coverage."
+    rm -rf *coverage*
+}
+
+summary_code() {
     echo "# $(date)" > ./summary-code/information.txt
     git-summary >> ./summary-code/information.txt
-else
-    echo "
+}
+
+# ---------------------------------
+# parameter section
+# ---------------------------------
+
+[[ $1 == "l" ]]     && load            && exit 0
+[[ $1 == "e" ]]     && export_database && exit 0
+[[ $1 == "mm" ]]    && make_migrate    && exit 0
+[[ $1 == "m" ]]     && migrate         && exit 0
+[[ $1 == "s" ]]     && run_server      && exit 0
+[[ $1 == "c" ]]     && check           && exit 0
+[[ $1 == "co" ]]    && collect         && exit 0
+[[ $1 == "cov" ]]   && coverage_py     && exit 0
+[[ $1 == "t" ]]     && test_py         && exit 0
+[[ $1 == "t-ci" ]]  && test_ci         && exit 0
+[[ $1 == "h" ]]     && heroku_imp      && exit 0
+[[ $1 == "r" ]]     && remove_db       && exit 0
+[[ $1 == "d" ]]     && remove_all      && exit 0
+[[ $1 == "sum" ]]   && summary_code    && exit 0
+
+
+echo "
 Description:
     This is python utilities with django (To use this you must follow install helper in README.md)
 
@@ -194,6 +268,7 @@ Feature:
 Help Command:
     # Setting
         1. setup   - setup project after you download new project down.
+        2. sum     - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
         1. s       - run server (default port 8000)
@@ -215,13 +290,17 @@ Help Command:
         5. e       - dump currently database to file-name (if no file-name print as 'stout')
                      - @params 1 - models to export
                      - @params 2 - (optional) file name
-        6. r       - remove currently database
 
     # Testing
         1. t       - test all testcase
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
-        2. t-ci    - test all testcase with full debug printing
-        3. delete  - clear test-report
+        2. cov     - coverage test and report to 'stdout'
+                     - @params 1 - (optional) module.testcase.method is allow to spectify test
+        3. t-ci    - test all testcase with full debug printing
+
+    # Clean project
+        1. r       - remove currently database
+        1. d       - delete all file/folder in gitignore
 
 Example Usage:
 1. './utils.sh s production 1234' - run server production on port 1234
@@ -229,4 +308,3 @@ Example Usage:
 3. './utils.sh t membership.tests.test_login' - test all testcase in 'test_login' file
 4. './utils.sh r,m,l production' - remove current database -> migrate new -> load fixture (all done by production environment)
     "
-fi
