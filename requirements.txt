@@ -16,7 +16,7 @@ oauthlib==2.0.6
 PyGithub==1.35
 PyJWT==1.5.3
 python3-openid==3.1.0
-pytz==2017.2
+pytz==2017.3
 PyYAML==3.12
 redis==2.10.6
 requests==2.18.4
