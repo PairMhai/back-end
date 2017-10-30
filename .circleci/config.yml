@@ -59,22 +59,16 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
+            ./cc-test-reporter before-build
             ./utils.sh t-ci
+            ./cc-test-reporter after-build -t coveragepy --exit-code $?
 
       - run:
           name: run coverage (codecov)
           command: |
             . venv/bin/activate
             codecov
-
-      - run:
-          name: run coverage (code-climate)
-          command: |
-            . venv/bin/activate
-            ./cc-test-reporter before-build
-            sudo vendor/bin/phpunit --coverage-clover clover.xml
-            ./cc-test-reporter after-build -t clover --exit-code $?
-
+            
       - run: 
           name: collect artifacts
           command: |
