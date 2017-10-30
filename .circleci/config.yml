@@ -53,6 +53,11 @@ jobs:
             . venv/bin/activate
             ./utils.sh t-ci
 
+      - run:
+          name: run coverage
+          command: |
+            codecov
+
       - store_test_results:
           path: test-reports
           destination: test-reports
