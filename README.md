@@ -1,13 +1,17 @@
 # Pairmhai Backend [![Tag](https://img.shields.io/github/tag/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/tags) [![Release](https://img.shields.io/github/release/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/releases/latest) [![License](https://img.shields.io/github/license/PairMhai/Backend.svg?style=flat-square)](https://github.com/PairMhai/Backend/blob/master/LICENSE)
 
 ## Badges 
-|Type      |Environment|badges|
-|----------|-----------|------|
-|Test      |Develop    |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/dev.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/dev)|
-|          |Production |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/master.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/master)|
-|Dependency|Develop    |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/dev.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=dev)|
-|          |Production |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/master.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=master)|
-
+|Type                 |Environment|badges|
+|---------------------|-----------|------|
+|Test                 |Develop    |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/dev.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/dev)|
+|                     |Production |[![CircleCI](https://img.shields.io/circleci/project/github/PairMhai/Backend/master.svg?style=flat-square)](https://circleci.com/gh/PairMhai/Backend/tree/master)|
+|Dependency           |Develop    |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/dev.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=dev)|
+|                     |Production |[![Requires](https://img.shields.io/requires/github/PairMhai/Backend/master.svg?style=flat-square)](https://requires.io/github/PairMhai/Backend/requirements/?branch=master)|
+|Coverage             |Develop    |[![Codecov](https://img.shields.io/codecov/c/github/Pairmhai/Backend/dev.svg?style=flat-square)](https://codecov.io/gh/PairMhai/Backend/branch/dev)|
+|Coverage             |Production |[![Codecov](https://img.shields.io/codecov/c/github/Pairmhai/Backend/master.svg?style=flat-square)](https://codecov.io/gh/PairMhai/Backend/branch/master)|
+|Code-Climate:gpa     |           |[![Code-Climate](https://img.shields.io/codeclimate/github/PairMhai/Backend.svg?style=flat-square)](https://codeclimate.com/github/PairMhai/Backend)|
+|Code-Climate:coverage|           |[![Code-Climate](https://img.shields.io/codeclimate/coverage/github/PairMhai/Backend.svg?style=flat-square)](https://codeclimate.com/github/PairMhai/Backend/code)|
+|Code-Climate:issues  |           |[![Code-Climate](https://img.shields.io/codeclimate/issues/github/PairMhai/Backend.svg?style=flat-square)](https://codeclimate.com/github/PairMhai/Backend/issues)|
 
 # Table of Contents
 - [Install Guide](#install-guide)
