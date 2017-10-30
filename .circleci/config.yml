@@ -70,10 +70,9 @@ jobs:
             codecov
             
       - run: 
-          name: collect artifacts
+          name: create coverage result (json)
           command: |
             ./cc-test-reporter format-coverage -t coverage.py
-            ./cc-test-reporter upload-coverage
 
       - store_artifacts:
           path: coverage/
