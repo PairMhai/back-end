@@ -175,19 +175,14 @@ class ThaiDateTimeField(serializers.DateTimeField):
 class ImpGithub():
     github = None
 
-    def __init__(self, user):
-        self.user = user
+    def __init__(self, username=None, password=None):
+        self.username = username
+        self.password = password
 
     def get_github(self):
         from github import Github
-
         if self.github is None:
-            if (self.user == "kamontat"):
-                self.github = Github("kamontat", "")
-            elif (self.user == "bubblebitoey"):
-                self.github = Github("bubblebitoey", "")
-            else:
-                self.github = Github()
+            self.github = Github(self.username, self.password)
         return self.github
 
     def get_pairmhai(self):

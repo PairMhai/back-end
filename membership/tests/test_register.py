@@ -16,7 +16,7 @@ from Backend.test_utils import ImpRandomNumber, ImpTestCase
 
 
 class MembershipTestCase(ImpTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml']
+    fixtures = ['init_class.yaml', 'init_user.yaml', 'init_email.yaml']
 
     def setUp(self):
         self.client = APIClient()
@@ -27,8 +27,14 @@ class MembershipTestCase(ImpTestCase):
     def set_constants(self):
         print("no implemented yet!")
 
+    def get_user(self, username):
+        return User.objects.get(username=username)
+
+    def get_user_by_id(self, id):
+        return User.objects.get(pk=id)
+
     def get_customer(self, username):
-        return Customer.objects.get(user=User.objects.get(username=username))
+        return Customer.objects.get(user=self.get_user(username))
 
     def get_default_customer(self):
         password = self.random_class.random_password()
