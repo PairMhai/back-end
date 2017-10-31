@@ -243,28 +243,8 @@ analyze() {
     fi
 }
 
-# ---------------------------------
-# parameter section
-# ---------------------------------
-
-[[ $1 == "a" ]]     && analyze "$@"         && exit 0
-[[ $1 == "l" ]]     && load "$@"            && exit 0
-[[ $1 == "e" ]]     && export_database "$@" && exit 0
-[[ $1 == "mm" ]]    && make_migrate "$@"    && exit 0
-[[ $1 == "m" ]]     && migrate "$@"         && exit 0
-[[ $1 == "s" ]]     && run_server "$@"      && exit 0
-[[ $1 == "c" ]]     && check "$@"           && exit 0
-[[ $1 == "co" ]]    && collect "$@"         && exit 0
-[[ $1 == "cov" ]]   && coverage_py "$@"     && exit 0
-[[ $1 == "t" ]]     && test_py "$@"         && exit 0
-[[ $1 == "t-ci" ]]  && test_ci "$@"         && exit 0
-[[ $1 == "h" ]]     && heroku_imp "$@"      && exit 0
-[[ $1 == "r" ]]     && remove_db "$@"       && exit 0
-[[ $1 == "d" ]]     && remove_all "$@"      && exit 0
-[[ $1 == "sum" ]]   && summary_code "$@"    && exit 0
-
-
-echo "
+help() {
+    echo "
 Description:
     This is python utilities with django (To use this you must follow install helper in README.md)
 
@@ -324,3 +304,30 @@ Example Usage:
 3. './utils.sh t membership.tests.test_login' - test all testcase in 'test_login' file
 4. './utils.sh r,m,l production' - remove current database -> migrate new -> load fixture (all done by production environment)
     "
+}
+
+# ---------------------------------
+# parameter section
+# ---------------------------------
+
+[[ $1 == "a" ]]      && analyze "$@"         && exit 0
+[[ $1 == "e" ]]      && export_database "$@" && exit 0 
+[[ $1 == "l" ]]      && load "$@"            && exit 0 
+[[ $1 == "mm" ]]     && make_migrate "$@"    && exit 0 
+[[ $1 == "m" ]]      && migrate "$@"         && exit 0 
+[[ $1 == "s" ]]      && run_server "$@"      && exit 0 
+[[ $1 == "c" ]]      && check "$@"           && exit 0 
+[[ $1 == "co" ]]     && collect "$@"         && exit 0 
+[[ $1 == "cov" ]]    && coverage_py "$@"     && exit 0 
+[[ $1 == "d" ]]      && remove_all "$@"      && exit 0 
+[[ $1 == "t-ci" ]]   && test_ci "$@"         && exit 0 
+[[ $1 == "t" ]]      && test_py "$@"         && exit 0 
+[[ $1 == "h" ]]      && heroku_imp "$@"      && exit 0 
+[[ $1 == "r" ]]      && remove_db "$@"       && exit 0 
+[[ $1 == "sum" ]]    && summary_code "$@"    && exit 0 
+
+[[ $1 == "h" ]]      && help                 && exit 0 
+[[ $1 == "-h" ]]     && help                 && exit 0 
+[[ $1 == "help" ]]   && help                 && exit 0 
+[[ $1 == "-help" ]]  && help                 && exit 0 
+[[ $1 == "--help" ]] && help                 && exit 0 
