@@ -17,29 +17,34 @@ class ClassSerializer(serializers.ModelSerializer):
         read_only = ('id', 'name', 'price', 'description')
 
 
+class EmailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmailAddress
+        fields = ('email', 'primary', 'verified')
+
+
 class UserSerializer(serializers.ModelSerializer):
+    email_address = serializers.EmailField(source="get_email_str", read_only=True)
+    email = serializers.EmailField(write_only=True)
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email')
+        fields = ('id', 'username', 'first_name',
+                  'last_name', 'email', 'email_address')
 
 
-class HalfUserSerializer(serializers.ModelSerializer):
+class HalfUserSerializer(UserSerializer):
     age = serializers.IntegerField(source='get_age', read_only=True)
 
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'age', 'gender')
+    class Meta(UserSerializer.Meta):
+        fields = UserSerializer.Meta.fields + ('age', 'gender')
 
 
-class FullUserSerializer(serializers.ModelSerializer):
-    age = serializers.IntegerField(source='get_age', read_only=True)
+class FullUserSerializer(HalfUserSerializer):
 
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'first_name', 'last_name',
-                  'email', 'address', 'age', 'date_of_birth', 'telephone', 'gender')
+    class Meta(HalfUserSerializer.Meta):
+        fields = HalfUserSerializer.Meta.fields + ('address', 'date_of_birth', 'telephone')
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -74,11 +79,14 @@ class CustomerSerializer(serializers.ModelSerializer):
         if (pass1 != pass2):
             raise serializers.ValidationError('password not match')
         user_data.update({'password': make_password(pass1)})
+
         try:
             user = User(**user_data)  # create user
             user.save()
+            user.set_email(user_data.get('email'))
         except ValidationError as e:
             raise serializers.ValidationError(e.message_dict)
+
         user_class = Class.objects.get(id=1)  # get none class by defaul
         if ('classes' in raw_data):
             class_id = raw_data['classes']
@@ -91,14 +99,15 @@ class CustomerSerializer(serializers.ModelSerializer):
             cc_json = raw_data['credit_cards']
             for cc in cc_json:
                 # cc.update({'customer': customer})
-                s = FullCreditCardSerializer(data=cc, exclude_fields=['customer'])
+                s = FullCreditCardSerializer(
+                    data=cc, exclude_fields=['customer'])
                 if (s.is_valid()):
                     data = s.validated_data
                     data.update({'customer': customer})
                     CreditCard.objects.create(**data)
                 else:
                     raise serializers.ValidationError(s.errors)
-        return user
+        return user  # customer
 
 # class CustomerSerializer(DefaultCustomerSerializer):
 #     token = serializers.CharField(max_length=200)
