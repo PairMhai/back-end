@@ -18,7 +18,7 @@ class TransportationListView(generics.ListAPIView):
 
 
 class OrderCreatorView(generics.CreateAPIView):
-    ## real decrease quantity of the products
+
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -45,10 +45,17 @@ class OrderCreatorView(generics.CreateAPIView):
             })
         # print(products)
         for d in products:
-            p = d.get('product')
-            q = d.get('quantity')
-            a = p.get_object()
-            a['quantity'] = a.quantity - q
+            p = Product.objects.get(id=d.get("pid"))
+            q = d.get("quantity")
+            prd = p.get_object
+            if isinstance(prd, Design):
+                total_quantity = prd.yard*q
+                quantity = prd.material.quantity
+                prd.material.quantity = quantity - total_quantity
+                prd.save()
+            else:
+                prd.quantity = prd.quantity - q
+                prd.save()
         data = {
             "customer": order_calculation.get('customer_id'),
             "products": products,
@@ -100,9 +107,8 @@ class OrderCalculateView(APIView):
                 q = d.get('quantity')
                 a = p.get_object()
                 if isinstance(a, Design):
-                    yard = a.get('yard')
-                    total_yard = yard*q
-                    mat = a.get('material')
+                    total_yard = a.yard*q
+                    mat = a.material
                     if total_yard > mat.quantity:
                         error_products.append(p)
                 else:
