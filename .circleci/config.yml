@@ -7,6 +7,7 @@ jobs:
   build:
     environment:
       CC_TEST_REPORTER_ID: b57a879605f01bc1cb5be3e4512ce08d5355f0803d2a1ce006b6d260feab96a2
+      SHELLCHECK_OPTS: "-e SC2063 -e SC1091 -e SC2068"
     docker:
       # specify the version you desire here
       # use `-browsers` prefix for selenium tests, e.g. `3.6.1-browsers`
