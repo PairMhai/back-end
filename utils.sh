@@ -157,40 +157,11 @@ test_py() {
     fi
 
     if [ -n "$model" ]; then
-        $COMMAND manage.py test "$setting" "$model"
+        coverage run --source="$source" manage.py test "$setting" "$model"
     else
-        $COMMAND manage.py test "$setting"
+        coverage run --source="$source" manage.py test "$setting"
     fi
 }
-
-# This is test + coverage
-# coverage_py() {
-#     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
-
-#     if setting=$(get_setting "$2"); then
-#         output="$3"
-#         directory="$4"
-#         model="$5"
-#     else
-#         output="$2"
-#         directory="$3"
-#         model="$4"
-#     fi
-#     [ -z "$output" ] && output="report"
-
-#     [[ "$output" == "xml" ]] && [ -n "$directory" ] && result_file="-o $directory"
-#     [[ "$output" == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
-
-#     if [ -n "$model" ]; then
-#         coverage run --source="$source" manage.py test "$setting" "$model"
-#         coverage $output
-#     else
-#         coverage run --source="$source" manage.py test "$setting"
-
-#     fi
-
-#     coverage $output $result_file
-# }
 
 coverage_py() {
     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
