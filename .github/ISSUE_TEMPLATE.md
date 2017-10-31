@@ -16,17 +16,15 @@
 
 
 <!-- delete this line if is a `bug`
-
 ### Expected
 1. ...
 2. ...
-
 ### Actually happening
 1. ...
 2. ...
-
 delete this line if is a `bug` -->
 
+<!-- delete this line if `necessary`
 ## Environment
 - python: VERSION
 - django: VERSION
@@ -34,6 +32,7 @@ delete this line if is a `bug` -->
 - OS: TYPE,VERSION
 - app: VERSION
 - other: xxxxxx
+delete this line if `necessary` -->
 
 <!--
 ## Other comment

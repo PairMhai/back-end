@@ -7,7 +7,7 @@ from membership.models import Customer
 from payment.models import CreditCard
 
 from membership.serializers import FullCustomerSerializer
-from catalog.serializers import ProductSerializer
+from catalog.serializers import ProductSerializer, ProductDetailSerializer
 
 
 class OrderInfoSerializer(serializers.ModelSerializer):
@@ -19,6 +19,14 @@ class OrderInfoSerializer(serializers.ModelSerializer):
         model = OrderInfo
         fields = ('product', 'pid', 'quantity')
 
+class OrderInfoDetailSerializer(serializers.ModelSerializer):
+    product = ProductDetailSerializer(read_only=True)
+    pid = serializers.PrimaryKeyRelatedField(
+        queryset=Product.objects.all(), source='product', write_only=True)
+
+    class Meta:
+        model = OrderInfo
+        fields = ('product', 'pid', 'quantity')
 
 class CalculateOrderSerializer(serializers.Serializer):
     customer = serializers.CharField(max_length=200)
@@ -64,10 +72,11 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('uuid', 'creditcard', 'transportation')
 
 class HistorySerializer(serializers.ModelSerializer):
-    products = OrderInfoSerializer(many=True)
+    products = OrderInfoDetailSerializer(many=True, read_only=True)
+    
     class Meta:
         model = Order
-        fields = ('id', 'products')
+        fields = ('id', 'final_price', 'products', 'updated_at')
 
 class TransportationSerializer(serializers.ModelSerializer):
 

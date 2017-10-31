@@ -14,6 +14,7 @@
 # Help Command:
     # Setting
         1. setup   - setup project after you download new project down.
+        2. sum     - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
         1. s       - run server (default port 8000)
@@ -32,16 +33,20 @@
         3. m       - migrate database
         4. l       - load all fixture (test data)
                      - @params 1 - (optional) fixture name (without init_*)
-        5. e       - dump currently database to file-name (if no file-name print as `stout`)
+        5. e       - dump currently database to file-name (if no file-name print as 'stout')
                      - @params 1 - models to export
                      - @params 2 - (optional) file name
-        6. r       - remove currently database
 
     # Testing
         1. t       - test all testcase
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
-        2. t-ci    - test all testcase with full debug printing
-        3. delete  - clear test-report
+        2. cov     - coverage test and report to 'stdout'
+                     - @params 1 - (optional) module.testcase.method is allow to spectify test
+        3. t-ci    - test all testcase with full debug printing
+
+    # Clean project
+        1. r       - remove currently database
+        1. d       - delete all file/folder in gitignore
 
 # Example Usage:
 1. `./utils.sh s production 1234` - run server production on port 1234

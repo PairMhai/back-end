@@ -47,7 +47,7 @@ class Index(APIView):
             "releases": return_releases,
             "latest-event": {
                 "type": latest_event.type,
-                "payload": latest_event.payload,
+                # "payload": latest_event.payload,
                 "actor": {
                     "login": latest_event.actor.login,
                     "email": latest_event.actor.email,
@@ -59,7 +59,7 @@ class Index(APIView):
         }
 
     def get(self, request, format=None):
-        github = ImpGithub("")
+        github = ImpGithub() # "kamontat", "password"
 
         try:
             return Response({

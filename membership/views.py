@@ -38,7 +38,6 @@ class ConfirmEmailView(APIView):
         else:
             return Response({"email": email.email})
 
-    # example of custom response json format
-    # def retrieve(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(self.get_object())
-    #     return Response({"successful": True, "data": serializer.data})
+# never used, BUT needed
+def completed_register(request):
+    return Response()

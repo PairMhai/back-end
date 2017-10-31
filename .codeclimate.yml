@@ -1,0 +1,33 @@
+engines:
+  markdownlint:
+    enabled: true
+  shellcheck:
+    enabled: true
+  fixme:
+    enabled: true
+    config:
+      strings:
+      - FIXME
+      - BUG
+      - TODO
+  radon: 
+    enabled: true
+    config: 
+      threshold: "C"
+  pep8:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+        python:
+          python_version: 3
+
+ratings:
+  paths:
+    - "**.py"
+    - "**.md"
+    - "**.sh"
+
+exclude_paths:
+  - "**/__init__.py"

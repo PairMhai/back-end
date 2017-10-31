@@ -191,7 +191,7 @@
         }
         ```
 
-### Promotion list **(v0.11.0)**
+### Promotion list **(v1.0.1)**
 - Path: ^catalog/promotions$
 - Description: List all promotions
 1. **Request**
@@ -204,38 +204,37 @@
         ```json
         [
             {
-                "product": 1,
-                "name": "pro1",
-                "description": "something1",
-                "discount": "10.00",
-                "image_name": "something1.png"
-            },
-            {
-                "product": 3,
-                "name": "pro2",
-                "description": "something2",
-                "discount": "0.00",
-                "image_name": "something2.png"
+                "id": 1,
+                "final_price": "1000.00",
+                "products": [
+                    {
+                        "product": {
+                            "id": 3,
+                            "design": {
+                                "product_id": 3,
+                                "id": 3,
+                                "name": "name-1",
+                                "description": "description-1",
+                                "material": {
+                                    "product_id": 10,
+                                    "id": 5,
+                                    "name": "name-11",
+                                    "description": "description-11",
+                                    "color": "red",
+                                    "image_name": "red.jpg"
+                                },
+                                "images": [
+                                    {
+                                        "id": 3,
+                                        "file_name": "name-1.jpg"
+                                    }
+                                ]
+                            }
+                        },
+                        "quantity": 1
+                    }
+                ],
+                "updated_at": "2016-12-31T17:00:00Z"
             }
         ]
-        ```
-
-### Promotion Detail **(Deprecate @ v0.11.0)**
-- Path: ^catalog/promotion/(?P<pk>[0-9]+)$
-- Description: Get individual promotion by `promotion id`
-1. **Request**
-    - method: `GET`
-    - body: [none]
-2. **Response**
-    1. Successfully
-        - code: `200_OK`
-        - body:
-        ```json
-        {
-            "product": 1,
-            "name": "pro1",
-            "description": "something1",
-            "discount": "10.00",
-            "image_name": "something1.png"
-        }
         ```

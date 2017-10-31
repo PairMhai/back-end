@@ -58,5 +58,7 @@ This app contain api for `ordering` and getting `transportation`
 This have 1 url `^version$ [name='version']`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
 
 # Announcement
-- admin username is `admin`
-- admin password is `password123`
+- test admin username is `admin`
+- test admin password is `password123`
+- test email username is `pairmhai.test@gmail.com`
+- test email password is `zkE-PXe-VdA-253`
