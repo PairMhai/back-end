@@ -31,3 +31,4 @@ ratings:
 
 exclude_paths:
   - "**/__init__.py"
+  - "**/migrations/*.py"
