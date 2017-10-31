@@ -231,10 +231,23 @@ summary_code() {
     git-summary >> ./summary-code/information.txt
 }
 
+analyze() {
+    ! command -v codeclimate &>/dev/null &&\
+        echo "no codeclimate installed." &&\
+        exit 1
+    
+    if [ -n "$3" ]; then
+        codeclimate analyze -f "$2" > "$3"
+    else 
+        codeclimate analyze -f "$2"
+    fi
+}
+
 # ---------------------------------
 # parameter section
 # ---------------------------------
 
+[[ $1 == "a" ]]     && analyze $@         && exit 0
 [[ $1 == "l" ]]     && load $@            && exit 0
 [[ $1 == "e" ]]     && export_database $@ && exit 0
 [[ $1 == "mm" ]]    && make_migrate $@    && exit 0
@@ -292,11 +305,14 @@ Help Command:
                      - @params 2 - (optional) file name
 
     # Testing
-        1. t       - test all testcase
-                     - @params 1 - (optional) module.testcase.method is allow to spectify test
-        2. cov     - coverage test and report to 'stdout'
+        1. a       - analyze using 'codeclimate' 
+                     - @params 1 - output format
+                     - @params 2 - (optional) output file
+        2. t       - test all testcase
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
         3. t-ci    - test all testcase with full debug printing
+        4. cov     - coverage test and report to 'stdout'
+                     - @params 1 - (optional) module.testcase.method is allow to spectify test
 
     # Clean project
         1. r       - remove currently database
