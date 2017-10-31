@@ -59,17 +59,11 @@ jobs:
             ./utils.sh c
 
       - run:
-          name: run tests (staging)
-          command: |
-            . venv/bin/activate
-            ./utils.sh t-ci staging
-      
-      - run:
-          name: run tests (production)
+          name: run tests
           command: |
             . venv/bin/activate
             ./cc-test-reporter before-build
-            ./utils.sh t-ci production
+            ./utils.sh t-ci
             ./cc-test-reporter after-build -t coverage.py --exit-code $? 
 
       - run:
