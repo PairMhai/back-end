@@ -235,12 +235,13 @@ analyze() {
     ! command -v codeclimate &>/dev/null &&\
         echo "no codeclimate installed." &&\
         exit 1
-    
-    if [ -n "$3" ]; then
-        codeclimate analyze -f "$2" > "$3"
-    else 
-        codeclimate analyze -f "$2"
-    fi
+
+    format="$2"
+    file="$3"
+    [ -z "$2" ] && format="html"
+    [ -z "$3" ] && file="result.html"
+
+    codeclimate analyze -f "$format" > "$file"
 }
 
 help() {
@@ -285,9 +286,9 @@ Help Command:
                      - @params 2 - (optional) file name
 
     # Testing
-        1. a       - analyze using 'codeclimate' 
-                     - @params 1 - output format
-                     - @params 2 - (optional) output file
+        1. a       - analyze using 'codeclimate'
+                     - @params 1 - (optional) output format (default=html)
+                     - @params 2 - (optional) output file   (default=result.html)
         2. t       - test all testcase
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
         3. t-ci    - test all testcase with full debug printing
@@ -311,23 +312,23 @@ Example Usage:
 # ---------------------------------
 
 [[ $1 == "a" ]]      && analyze "$@"         && exit 0
-[[ $1 == "e" ]]      && export_database "$@" && exit 0 
-[[ $1 == "l" ]]      && load "$@"            && exit 0 
-[[ $1 == "mm" ]]     && make_migrate "$@"    && exit 0 
-[[ $1 == "m" ]]      && migrate "$@"         && exit 0 
-[[ $1 == "s" ]]      && run_server "$@"      && exit 0 
-[[ $1 == "c" ]]      && check "$@"           && exit 0 
-[[ $1 == "co" ]]     && collect "$@"         && exit 0 
-[[ $1 == "cov" ]]    && coverage_py "$@"     && exit 0 
-[[ $1 == "d" ]]      && remove_all "$@"      && exit 0 
-[[ $1 == "t-ci" ]]   && test_ci "$@"         && exit 0 
-[[ $1 == "t" ]]      && test_py "$@"         && exit 0 
-[[ $1 == "h" ]]      && heroku_imp "$@"      && exit 0 
-[[ $1 == "r" ]]      && remove_db "$@"       && exit 0 
-[[ $1 == "sum" ]]    && summary_code "$@"    && exit 0 
+[[ $1 == "e" ]]      && export_database "$@" && exit 0
+[[ $1 == "l" ]]      && load "$@"            && exit 0
+[[ $1 == "mm" ]]     && make_migrate "$@"    && exit 0
+[[ $1 == "m" ]]      && migrate "$@"         && exit 0
+[[ $1 == "s" ]]      && run_server "$@"      && exit 0
+[[ $1 == "c" ]]      && check "$@"           && exit 0
+[[ $1 == "co" ]]     && collect "$@"         && exit 0
+[[ $1 == "cov" ]]    && coverage_py "$@"     && exit 0
+[[ $1 == "d" ]]      && remove_all "$@"      && exit 0
+[[ $1 == "t-ci" ]]   && test_ci "$@"         && exit 0
+[[ $1 == "t" ]]      && test_py "$@"         && exit 0
+[[ $1 == "h" ]]      && heroku_imp "$@"      && exit 0
+[[ $1 == "r" ]]      && remove_db "$@"       && exit 0
+[[ $1 == "sum" ]]    && summary_code "$@"    && exit 0
 
-[[ $1 == "h" ]]      && help                 && exit 0 
-[[ $1 == "-h" ]]     && help                 && exit 0 
-[[ $1 == "help" ]]   && help                 && exit 0 
-[[ $1 == "-help" ]]  && help                 && exit 0 
-[[ $1 == "--help" ]] && help                 && exit 0 
+[[ $1 == "h" ]]      && help                 && exit 0
+[[ $1 == "-h" ]]     && help                 && exit 0
+[[ $1 == "help" ]]   && help                 && exit 0
+[[ $1 == "-help" ]]  && help                 && exit 0
+[[ $1 == "--help" ]] && help                 && exit 0
