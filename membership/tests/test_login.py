@@ -1,18 +1,4 @@
-from django.contrib.messages import get_messages
-from django.contrib.auth.hashers import make_password
-
-from Backend.test_utils import ImpTestCase
-from .test_register import MembershipTestCase
-
-from rest_framework.test import APIClient
-
-from membership.models import User, Customer, Class
-from rest_framework.authtoken.models import Token
-
-from rest_framework import status
-from django.core.urlresolvers import reverse
-
-from random import uniform, randrange
+from utils.testcaseutils import MembershipTestCase
 
 
 class LoginTestCase(MembershipTestCase):
@@ -41,50 +27,39 @@ class LoginTestCase(MembershipTestCase):
             "username": self.db_user.username,
             "password": "password123"
         }
+        response = self.run_login_membership_and_test(data)
 
-        response = self.client.post(
-            reverse('rest_login'),
-            data,
-            format="json"
-        )
-        self.assertResponseCode200(response)
+        self.assertEqual(self.return_user_id(response), self.db_user.id)
 
-        id = Token.objects.get(key=response.data.get('key')).user_id
-        self.assertEqual(id, self.db_user.id)
-    
     def test_login_by_raw_data(self):
         """"Test if user can login using raw data"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.superman,
-            format="json"
-        )
-        self.assertResponseCode200(response)
+        response = self.run_login_membership_and_test(self.superman)
 
-        token_user = self.get_user_by_id(Token.objects.get(key=response.data.get('key')).user_id)
+        token_user = self.return_user(response)
         db_user = self.get_user(self.superman_name)
-        self.assertEqual(self.superman.get('username'), token_user.username)  # token compare sent data
-        self.assertEqual(token_user, db_user)                                 # token compare database user
+        self.assertEqual(self.superman.get('username'),
+                         token_user.username)  # token compare sent data
+        # token compare database user
+        self.assertEqual(token_user, db_user)
 
     def test_username_case_sensitive(self):
         """test, username must be case sensitive"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.username_insensitive,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.username_insensitive)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('non_field_errors')[0], "Unable to log in with provided credentials.")
+        self.assertEqual(response.data.get('non_field_errors')[
+                         0], "Unable to log in with provided credentials.")
 
     def test_password_case_sensitive(self):
         """test, password must be case sensitive"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.password_insensitive,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.password_insensitive)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('non_field_errors')[0], "Unable to log in with provided credentials.")
+        self.assertEqual(response.data.get('non_field_errors')[
+                         0], "Unable to log in with provided credentials.")
+
 
 class LoginFailureTestCase(MembershipTestCase):
 
@@ -111,50 +86,54 @@ class LoginFailureTestCase(MembershipTestCase):
 
     def test_cannot_login_with_unknown_user(self):
         """test, if username is invalid"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.baduser,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.baduser)
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('non_field_errors')[0], "Unable to log in with provided credentials.")
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Unable to log in with provided credentials."
+        )
 
     def test_no_parameter(self):
         """test, if don't have body"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.baduser_missing_all,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.baduser_missing_all)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('password')[0], "This field is required.")
+        self.assertEqual(
+            response.data.get('password')[0],
+            "This field is required."
+        )
 
     def test_parameter_username_missing(self):
         """test, if username is missing"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.baduser_missing_username,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.baduser_missing_username)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('non_field_errors')[0], "Must include \"username\" and \"password\".")
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Must include \"username\" and \"password\"."
+        )
 
     def test_parameter_password_missing(self):
         """test, if password is missing"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.baduser_missing_password,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.baduser_missing_password)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('password')[0], "This field is required.")
+        self.assertEqual(
+            response.data.get('password')[0],
+            "This field is required."
+        )
 
     def test_cannot_login_with_wrong_password(self):
         """test, if password is wrong"""
-        response = self.client.post(
-            reverse('rest_login'),
-            self.badpassword,
-            format="json"
-        )
+        response = self.run_login_membership(
+            self.badpassword)
+
         self.assertResponseCode400(response)
-        self.assertEqual(response.data.get('non_field_errors')[0], "Unable to log in with provided credentials.")
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Unable to log in with provided credentials."
+        )
