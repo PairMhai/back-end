@@ -165,17 +165,19 @@ coverage_py() {
     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
 
     if setting=$(get_setting "$2"); then
-        model="$3"
+        output="$3"
+        model="$4"
     else
-        model="$2"
+        output="$2"
+        model="$4"
     fi
-
+    [ -z $output ] && output="report"
     if [ -n "$model" ]; then
         coverage run --source='.' manage.py test "$setting" "$model"
-        coverage report
+        coverage $output
     else
         coverage run --source='.' manage.py test "$setting"
-        coverage report
+        coverage $output
     fi
 }
 
@@ -190,7 +192,7 @@ test_ci() {
     echo "### coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql $setting ###"
     coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
     # coverage report
-    coverage xml
+    coverage xml 
 }
 
 heroku_deploy() {
@@ -228,7 +230,8 @@ remove_all() {
     rm -rf ./static/*
 
     [ -f .coverage ] && echo "remove coverage."
-    rm -rf ./*coverage*
+    rm -rf .coverage
+
 }
 
 summary_code() {
@@ -298,7 +301,8 @@ Help Command:
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
         3. t-ci    - test all testcase with full debug printing
         4. cov     - coverage test and report to 'stdout'
-                     - @params 1 - (optional) module.testcase.method is allow to spectify test
+                     - @params 1 - (optional) output type [report|html|xml] (default=report)
+                     - @params 2 - (optional) module.testcase.method is allow to spectify test
 
     # Clean project
         1. r       - remove currently database
