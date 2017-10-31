@@ -1,4 +1,4 @@
-from utils.testcaseutils import MembershipTestCase
+from utilities.testcaseutils import MembershipTestCase
 
 
 class LoginTestCase(MembershipTestCase):

@@ -5,7 +5,7 @@
 # Example test
 
 ```python
-    from utils.testcaseutils import ImpTestCase
+    from utilities.testcaseutils import ImpTestCase
     """
         - run `pre_setup` -> `set_constants` -> `post_setup`
         - self.client is preload

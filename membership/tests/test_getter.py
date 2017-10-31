@@ -1,8 +1,7 @@
-from utils.testcaseutils import ImpTestCase, MembershipTestCase
+from utilities.testcaseutils import ImpTestCase, MembershipTestCase
+from utilities.methodutils import date_to_str
 
 from membership.models import Class
-
-from utils.methodutils import date_to_str
 
 
 class GettingTestCase(MembershipTestCase):
