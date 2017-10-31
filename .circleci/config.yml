@@ -90,7 +90,7 @@ jobs:
           name: run coverage (codecov)
           command: |
             . venv/bin/activate
-            codecov
+            bash <(curl -s https://codecov.io/bash)
             
       - run: 
           name: create coverage result (json)
