@@ -27,6 +27,8 @@ COMMAND="python"
 
 SETTING_OPTION="--settings=Backend.settings."
 
+export source="Backend,cart,catalog,comment,landingpage,membership,payment,utils,version"
+
 ### EXTRA FEATURE!
 #### format ./utils.sh r,mm,m,l [develop|production]
 if [[ $1 =~ , ]]; then
@@ -161,24 +163,47 @@ test_py() {
     fi
 }
 
+# This is test + coverage
+# coverage_py() {
+#     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
+
+#     if setting=$(get_setting "$2"); then
+#         output="$3"
+#         directory="$4"
+#         model="$5"
+#     else
+#         output="$2"
+#         directory="$3"
+#         model="$4"
+#     fi
+#     [ -z "$output" ] && output="report"
+
+#     [[ "$output" == "xml" ]] && [ -n "$directory" ] && result_file="-o $directory"
+#     [[ "$output" == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
+
+#     if [ -n "$model" ]; then
+#         coverage run --source="$source" manage.py test "$setting" "$model"
+#         coverage $output
+#     else
+#         coverage run --source="$source" manage.py test "$setting"
+
+#     fi
+
+#     coverage $output $result_file
+# }
+
 coverage_py() {
     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
 
-    if setting=$(get_setting "$2"); then
-        output="$3"
-        model="$4"
-    else
-        output="$2"
-        model="$4"
-    fi
-    [ -z $output ] && output="report"
-    if [ -n "$model" ]; then
-        coverage run --source='.' manage.py test "$setting" "$model"
-        coverage $output
-    else
-        coverage run --source='.' manage.py test "$setting"
-        coverage $output
-    fi
+    type="report"
+    [ -n "$2" ] && type="$2"
+
+    [[ ! "$type" == "report" ]] && directory="$3"
+
+    [[ "$type" == "xml" ]]  && [ -n "$directory" ] && result_file="-o $directory"
+    [[ "$type" == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
+
+    coverage $type $result_file
 }
 
 test_ci() {
@@ -188,9 +213,20 @@ test_ci() {
 
     [[ "$setting" =~ develop ]] && setting="${SETTING_OPTION}staging"  # on ci test, cannot set env to develop 
     
-    echo "run: "
-    echo "### coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql $setting ###"
-    coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
+    echo "
+############################################################
+    run: 
+    coverage run 
+        --source=$source 
+        manage.py test 
+        --parallel=4 
+        --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner 
+        --verbosity=3 
+        --debug-sql 
+        $setting 
+############################################################
+"
+    coverage run --source=$source manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
     # coverage report
     coverage xml 
 }
@@ -223,15 +259,12 @@ remove_db() {
 }
 
 remove_all() {
-    [ -d test-reports ] && echo "remove report."
-    rm -rf ./test-reports/*
-
-    [ -d static ] && echo "remove static."
-    rm -rf ./static/*
-
-    [ -f .coverage ] && echo "remove coverage."
-    rm -rf .coverage
-
+    rm -r ./test-reports/* 2>/dev/null && echo "remove report."
+    rm -r ./static/*       2>/dev/null && echo "remove static."
+    rm -r .coverage*       2>/dev/null && echo "remove .coverage*."
+    rm -r coverage*        2>/dev/null && echo "remove coverage*."
+    rm -r *htmlcov*        2>/dev/null && echo "remove htmlcov."
+    return 0
 }
 
 summary_code() {
@@ -299,10 +332,10 @@ Help Command:
                      - @params 2 - (optional) output file   (default=result.html)
         2. t       - test all testcase
                      - @params 1 - (optional) module.testcase.method is allow to spectify test
-        3. t-ci    - test all testcase with full debug printing
-        4. cov     - coverage test and report to 'stdout'
+        3. t-ci    - test all testcase with full debug printing and report coverage as xml
+        4. cov     - report coverage with specify parameter
                      - @params 1 - (optional) output type [report|html|xml] (default=report)
-                     - @params 2 - (optional) module.testcase.method is allow to spectify test
+                     - @params 2 - (optional) output directory (html) / file (xml)
 
     # Clean project
         1. r       - remove currently database
