@@ -75,7 +75,6 @@ jobs:
           name: run tests (default)
           command: |
             . venv/bin/activate
-            ./utils.sh d
             ./cc-test-reporter before-build
             ./utils.sh t-ci
             ./cc-test-reporter after-build -t coverage.py --exit-code $? 
