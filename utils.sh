@@ -27,7 +27,7 @@ COMMAND="python"
 
 SETTING_OPTION="--settings=Backend.settings."
 
-export source="Backend,cart,catalog,comment,landingpage,membership,payment,utils,version"
+export source="Backend,cart,catalog,comment,landingpage,membership,payment,utilities,version"
 
 ### EXTRA FEATURE!
 #### format ./utils.sh r,mm,m,l [develop|production]
