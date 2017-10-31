@@ -51,18 +51,32 @@ jobs:
           name: create report folder
           command: |
             [ -d test-reports ] || mkdir test-reports/
+
       - run:
           name: checking database setting
           command: |
             . venv/bin/activate
             ./utils.sh c
+
       - run:
-          name: run tests
+          name: run tests (staging)
+          command: |
+            . venv/bin/activate
+            ./utils.sh t-ci staging
+      
+      - run:
+          name: run tests (production)
           command: |
             . venv/bin/activate
             ./cc-test-reporter before-build
-            ./utils.sh t-ci
+            ./utils.sh t-ci production
             ./cc-test-reporter after-build -t coverage.py --exit-code $? 
+
+      - run:
+          name: run coverage (default)
+          command: |
+            . venv/bin/activate
+            ./utils.sh cov html
 
       - run:
           name: run coverage (codecov)
@@ -80,6 +94,9 @@ jobs:
 
       - store_artifacts:
           path: test-reporter.version.txt
+
+      - store_artifacts:
+          path: htmlcov
 
       - store_test_results:
           path: test-reports
