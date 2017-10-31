@@ -59,9 +59,23 @@ jobs:
             ./utils.sh c
 
       - run:
-          name: run tests
+          name: run test (develop)
           command: |
             . venv/bin/activate
+            ./utils.sh d
+            ./utils.sh t develop
+
+      - run:
+          name: run coverage (develop)
+          command: |
+            . venv/bin/activate
+            ./utils.sh cov html develop-htmlcov
+
+      - run:
+          name: run tests (default)
+          command: |
+            . venv/bin/activate
+            ./utils.sh d
             ./cc-test-reporter before-build
             ./utils.sh t-ci
             ./cc-test-reporter after-build -t coverage.py --exit-code $? 
@@ -84,13 +98,16 @@ jobs:
             ./cc-test-reporter format-coverage -t coverage.py
 
       - store_artifacts:
-          path: coverage/
-
-      - store_artifacts:
           path: test-reporter.version.txt
 
       - store_artifacts:
+          path: coverage/
+
+      - store_artifacts:
           path: htmlcov
+
+      - store_artifacts:
+          path: develop-htmlcov
 
       - store_test_results:
           path: test-reports
