@@ -182,8 +182,13 @@ coverage_py() {
 test_ci() {
     ! command -v coverage &>/dev/null && echo "coverage required to run coverage!" && exit 1
     [ -d test-reports ] || mkdir test-reports
+    setting=$(get_setting "$2")
 
-    coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql --traceback "${SETTING_OPTION}staging"
+    [[ "$setting" =~ develop ]] && setting="${SETTING_OPTION}staging"  # on ci test, cannot set env to develop 
+    
+    echo "run: "
+    echo "### coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql $setting ###"
+    coverage run --source='.' manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
     # coverage report
     coverage xml
 }
