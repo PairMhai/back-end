@@ -38,13 +38,14 @@ jobs:
           name: install dependencies
           command: |
             python3 -m venv venv
-            . venv/bin/activate
+            mv venv ~
+            . ~/venv/bin/activate
             pip install -r requirements.txt
 
       - save_cache:
           key: dependencies-caches-{{ arch }}-{{ checksum "requirements.txt" }}
           paths:
-            - ./venv
+            - ~/venv
             - ./cc-test-reporter
 
       - run:
@@ -55,13 +56,13 @@ jobs:
       - run:
           name: checking database setting
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             ./utils.sh c
 
       - run:
           name: run tests
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             ./cc-test-reporter before-build
             ./utils.sh t-ci
             ./cc-test-reporter after-build -t coverage.py --exit-code $? 
@@ -69,13 +70,13 @@ jobs:
       - run:
           name: run coverage (default)
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             ./utils.sh cov html
 
       - run:
           name: run coverage (codecov)
           command: |
-            . venv/bin/activate
+            . ~/venv/bin/activate
             codecov
             
       - run: 
