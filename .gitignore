@@ -44,4 +44,6 @@ tags
 
 test-reports
 **/*coverage*
+htmlcov
+
 result.html
