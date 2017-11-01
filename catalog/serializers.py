@@ -2,7 +2,7 @@ from catalog.models import Material, Design, Image, Product, Promotion
 from rest_framework import serializers
 
 from collections import OrderedDict
-from Backend.utils import ThaiDateTimeField
+from utilities.classes.database import ThaiDateTimeField
 
 
 class PromotionSerializer(serializers.ModelSerializer):

@@ -3,7 +3,9 @@ database model of django
 """
 from django.db import models
 from django.utils.timezone import datetime
-from Backend.utils import is_between_date, update_all_status_promotions
+
+from utilities.methods.database import update_all_status_promotions
+from utilities.methods.other import is_between_date
 
 
 class Design(models.Model):
