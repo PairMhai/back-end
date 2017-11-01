@@ -59,19 +59,6 @@ jobs:
             ./utils.sh c
 
       - run:
-          name: run test (develop)
-          command: |
-            . venv/bin/activate
-            ./utils.sh d
-            ./utils.sh t develop
-
-      - run:
-          name: run coverage (develop)
-          command: |
-            . venv/bin/activate
-            ./utils.sh cov html develop-htmlcov
-
-      - run:
           name: run tests (default)
           command: |
             . venv/bin/activate
@@ -95,6 +82,19 @@ jobs:
           name: create coverage result (json)
           command: |
             ./cc-test-reporter format-coverage -t coverage.py
+
+      - run:
+          name: run test (develop)
+          command: |
+            . venv/bin/activate
+            ./utils.sh d
+            ./utils.sh t develop
+
+      - run:
+          name: run coverage (develop)
+          command: |
+            . venv/bin/activate
+            ./utils.sh cov html develop-htmlcov
 
       - store_artifacts:
           path: test-reporter.version.txt
