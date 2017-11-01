@@ -13,7 +13,7 @@ from utilities.classes.database import ImpDetailByTokenView
 class CustomerDetail(ImpDetailByTokenView):
     queryset = Customer.objects.all()
     serializer_class = FullCustomerSerializer
-    id_str = 'user_id'
+    user_id = 'user_id'
 
 
 class UserDetail(ImpDetailByTokenView):
