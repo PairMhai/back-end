@@ -9,7 +9,9 @@ from rest_framework.authtoken.models import Token
 
 from django.forms.models import model_to_dict
 
-from Backend.utils import ImpListByTokenView, get_customer_from_user_id
+from utilities.methods.database import get_customer_by_uid
+from utilities.classes.database import ImpListByTokenView
+
 
 class TransportationListView(generics.ListAPIView):
     queryset = Transportation.objects.all()
@@ -146,7 +148,7 @@ class HistoryView(ImpListByTokenView):
     id_str = 'customer_id'
 
     def set_id(self, token):
-        self.uid = get_customer_from_user_id(token.user_id).id
+        self.uid = get_customer_by_uid(token.user_id).id
 
     def get_queryset(self):
         return super(HistoryView, self).get_queryset().filter(customer_id=self.uid)

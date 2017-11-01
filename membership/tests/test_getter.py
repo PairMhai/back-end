@@ -1,5 +1,5 @@
 from utilities.testcaseutils import ImpTestCase, MembershipTestCase
-from utilities.methodutils import date_to_str
+from utilities.methods.other import date_to_str
 
 from membership.models import Class
 
