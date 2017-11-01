@@ -1,5 +1,5 @@
 from membership.models import Customer
-from catalog.models import Product
+from catalog.models import Product, Design
 from cart.models import Order, OrderInfo, Transportation
 from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, HistorySerializer, CalculateOrderSerializer
 
@@ -51,7 +51,7 @@ class OrderCreatorView(generics.CreateAPIView):
             q = d.get("quantity")
             prd = p.get_object
             if isinstance(prd, Design):
-                total_quantity = prd.yard*q
+                total_quantity = prd.yard * q
                 quantity = prd.material.quantity
                 prd.material.quantity = quantity - total_quantity
                 prd.save()
@@ -109,7 +109,7 @@ class OrderCalculateView(APIView):
                 q = d.get('quantity')
                 a = p.get_object()
                 if isinstance(a, Design):
-                    total_yard = a.yard*q
+                    total_yard = a.yard * q
                     mat = a.material
                     if total_yard > mat.quantity:
                         error_products.append(p)
@@ -134,7 +134,6 @@ class OrderCalculateView(APIView):
             if error_products.count() > 0:
                 detail = str(error_products) + " doesn't have enough stocks."
                 return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
-
 
             data = {
                 "calculate_id": uuid.uuid4(),
