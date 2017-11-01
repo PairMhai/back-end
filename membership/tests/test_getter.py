@@ -20,7 +20,7 @@ class UserGettingTestCase(GettingTestCase):
         self.superman_token = self.get_token(self.superman)
 
     def test_get_complete_data_of_test_user(self):
-        """Test if getting user complete return as expected data"""
+        """Test if getting user complete as expected data (test_user)"""
         response = self.run_get_user_membership_and_test(self.test_token)
 
         self.assertResponseData(response, 'id',
@@ -33,7 +33,7 @@ class UserGettingTestCase(GettingTestCase):
                                 self.test_user.telephone)
 
     def test_get_complete_data_of_superman(self):
-        """Test if getting user complete return as expected data"""
+        """Test if getting user complete as expected data (superman)"""
         response = self.run_get_user_membership_and_test(self.superman_token)
 
         self.assertResponseData(response, 'id',
