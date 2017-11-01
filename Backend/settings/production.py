@@ -12,6 +12,8 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEBUG = False
 
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-PRODUCTION-' + str(round(time.time())) + '.xml'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',

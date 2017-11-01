@@ -1,3 +1,11 @@
+# admin     - admin@pairmhai.com      - `primary` and `verified`
+# test_user - pairmhai.test@gmail.com - `primary` and `verified` and `real`
+# staff     - staff_1@pairmhai.com    - `primary` and `verified`
+# superman  - superman@pairmhai.com   - `primary` and `verified`
+#           - ultraman@pairmhai.com   -               `verified`
+# ironman   - ironman@pairmhai.com    - `primary`
+#           - ironwoman@pairmhai.com  - 
+
 - model: account.emailaddress
   pk: 1
   fields:
@@ -36,7 +44,14 @@
 - model: account.emailaddress
   pk: 6
   fields:
-      verified: true
+      verified: false
       primary: true
       user_id: 6
       email: ironman@pairmhai.com
+- model: account.emailaddress
+  pk: 6
+  fields:
+      verified: false
+      primary: false
+      user_id: 6
+      email: ironwoman@pairmhai.com

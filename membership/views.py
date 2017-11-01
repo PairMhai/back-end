@@ -7,7 +7,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from Backend.utils import ImpDetailByTokenView
+from utilities.classes.database import ImpDetailByTokenView
 
 
 class CustomerDetail(ImpDetailByTokenView):
@@ -39,5 +39,7 @@ class ConfirmEmailView(APIView):
             return Response({"email": email.email})
 
 # never used, BUT needed
+
+
 def completed_register(request):
     return Response()
