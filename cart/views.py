@@ -47,7 +47,7 @@ class OrderCreatorView(generics.CreateAPIView):
         data = {
             "customer": order_calculation.get('customer_id'),
             "products": products,
-            "final_price": order_calculation.get('total_price'),
+            "final_price": order_calculation.get('total_price') + transportation.price,
             'creditcard': creditcard.id,
             "transportation": transportation.id
         }
