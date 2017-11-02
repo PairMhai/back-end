@@ -7,13 +7,13 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from Backend.utils import ImpDetailByTokenView
+from utilities.classes.database import ImpDetailByTokenView
 
 
 class CustomerDetail(ImpDetailByTokenView):
     queryset = Customer.objects.all()
     serializer_class = FullCustomerSerializer
-    id_str = 'user_id'
+    user_id = 'user_id'
 
 
 class UserDetail(ImpDetailByTokenView):
@@ -38,7 +38,8 @@ class ConfirmEmailView(APIView):
         else:
             return Response({"email": email.email})
 
-    # example of custom response json format
-    # def retrieve(self, request, *args, **kwargs):
-    #     serializer = self.get_serializer(self.get_object())
-    #     return Response({"successful": True, "data": serializer.data})
+# never used, BUT needed
+
+
+def completed_register(request):
+    return Response()

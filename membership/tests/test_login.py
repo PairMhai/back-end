@@ -1,139 +1,139 @@
-from django.contrib.messages import get_messages
-from django.contrib.auth.hashers import make_password
-
-from Backend.test_utils import ImpTestCase
-
-from rest_framework.test import APIClient
-from django.test import Client
-from membership.models import User, Customer, Class
-from rest_framework.authtoken.models import Token
-
-from rest_framework import status
-from django.core.urlresolvers import reverse
-
-from random import uniform, randrange
+from utilities.testcaseutils import MembershipTestCase
 
 
-class LoginTestCase(ImpTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml']
+class LoginTestCase(MembershipTestCase):
 
-    def setUp(self):
-        # self.admin = User.objects.get(username='admin')
-
-        self.client = APIClient()
-
-        number = str(round(uniform(0, 10000), 5))
-        self.good_user = {
-            "user": {
-                "username": "good-user" + number,
-                "first_name": "good" + number,
-                "last_name": "user",
-                "email": "good" + number + "@user.com"
-            },
-            "password1": "asdf123fdssa",
-            "password2": "asdf123fdssa"
+    def set_constants(self):
+        self.db_user = self.get_user("test_user")
+        self.superman_name = "superman"
+        self.superman = {
+            "username": self.superman_name,
+            "password": "password123"
         }
 
-    def test_tc_001(self):
-        """Test if registed user that is already in db can login"""
-        # self.client.force_authenticate(user=self.admin)
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
+        self.password_insensitive = {
+            "username": "test_user",
+            "password": "PasSwOrD123"
+        }
+
+        self.username_insensitive = {
+            "username": self.db_user.username.upper(),
+            "password": "password123"
+        }
+
+    def test_login_by_database_user(self):
+        """"Test if user can login using database data"""
+        data = {
+            "username": self.db_user.username,
+            "password": "password123"
+        }
+        response = self.run_login_membership_and_test(data)
+
+        self.assertEqual(self.return_user_id(response), self.db_user.id)
+
+    def test_login_by_raw_data(self):
+        """"Test if user can login using raw data"""
+        response = self.run_login_membership_and_test(self.superman)
+
+        token_user = self.return_user(response)
+        db_user = self.get_user(self.superman_name)
+        self.assertEqual(self.superman.get('username'),
+                         token_user.username)  # token compare sent data
+        # token compare database user
+        self.assertEqual(token_user, db_user)
+
+    def test_username_case_sensitive(self):
+        """test, username must be case sensitive"""
+        response = self.run_login_membership(
+            self.username_insensitive)
+
+        self.assertResponseCode400(response)
+        self.assertEqual(response.data.get('non_field_errors')[
+                         0], "Unable to log in with provided credentials.")
+
+    def test_password_case_sensitive(self):
+        """test, password must be case sensitive"""
+        response = self.run_login_membership(
+            self.password_insensitive)
+
+        self.assertResponseCode400(response)
+        self.assertEqual(response.data.get('non_field_errors')[
+                         0], "Unable to log in with provided credentials.")
+
+
+class LoginFailureTestCase(MembershipTestCase):
+
+    def set_constants(self):
+        self.baduser_missing_password = {
+            "username": "who_are_you"
+        }
+
+        self.baduser_missing_username = {
+            "password": "password123"
+        }
+
+        self.baduser_missing_all = {}
+
+        self.baduser = {
+            "username": "who_are_you",
+            "password": "password123"
+        }
+
+        self.badpassword = {
+            "username": "test_user",
+            "password": "password1234567890"
+        }
+
+    def test_cannot_login_with_unknown_user(self):
+        """test, if username is invalid"""
+        response = self.run_login_membership(
+            self.baduser)
+        self.assertResponseCode400(response)
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Unable to log in with provided credentials."
         )
 
-        self.assertResponseCode201(response)
+    def test_no_parameter(self):
+        """test, if don't have body"""
+        response = self.run_login_membership(
+            self.baduser_missing_all)
 
-        un = self.good_user.get("user").get("username")
-        pw = self.good_user.get("password1")
-        response = self.client.login(username=un, password=pw)
-        self.assertTrue(response)
-
-        # self.client.logout()
-
-    def test_tc_002(self):
-        """Test if unregisted user cannot login"""
-
-        un = self.good_user.get("user").get("username")
-        pw = self.good_user.get("password1")
-        response = self.client.login(username=un, password=pw)
-        self.assertFalse(response)
-
-        self.client.logout()
-
-    def test_tc_003(self):
-        """Test with valid username and empty
-        invalid password such that login must get failed"""
-
-        # self.client.force_authenticate(user=self.admin)
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
+        self.assertResponseCode400(response)
+        self.assertEqual(
+            response.data.get('password')[0],
+            "This field is required."
         )
-        self.assertResponseCode201(response)
 
-        un = self.good_user.get("user").get("username")
-        response = self.client.login(username=un, password="")
-        self.assertFalse(response)
-        response = self.client.login(username=un, password="dkdkkkkd")
-        self.assertFalse(response)
+    def test_parameter_username_missing(self):
+        """test, if username is missing"""
+        response = self.run_login_membership(
+            self.baduser_missing_username)
 
-        # self.client.logout()
-
-    def test_tc_004(self):
-        """Test with empty username and empty
-        invalid password and check if login fails"""
-
-        # self.client.force_authenticate(user=self.admin)
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
+        self.assertResponseCode400(response)
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Must include \"username\" and \"password\"."
         )
-        self.assertResponseCode201(response)
 
-        response = self.client.login(username="", password="")
-        self.assertFalse(response)
-        response = self.client.login(username="", password="dkdkkkkd")
-        self.assertFalse(response)
+    def test_parameter_password_missing(self):
+        """test, if password is missing"""
+        response = self.run_login_membership(
+            self.baduser_missing_password)
 
-        # self.client.logout()
-
-    def test_tc_005(self):
-        """Check if the login function handles case sensitivity"""
-
-        # self.client.force_authenticate(user=self.admin)
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
+        self.assertResponseCode400(response)
+        self.assertEqual(
+            response.data.get('password')[0],
+            "This field is required."
         )
-        self.assertResponseCode201(response)
 
-        un = self.good_user.get("user").get("username")
-        pw = self.good_user.get("password1")
-        un = un.upper()
-        pw = pw.upper()
-        response = self.client.login(username=un, password=pw)
-        self.assertFalse(response)
-        response = self.client.login(username=un, password=pw)
-        self.assertFalse(response)
+    def test_cannot_login_with_wrong_password(self):
+        """test, if password is wrong"""
+        response = self.run_login_membership(
+            self.badpassword)
 
-        # self.client.logout()
-    def test_tc_006(self):
-        """test user email should saved"""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
+        self.assertResponseCode400(response)
+        self.assertEqual(
+            response.data.get('non_field_errors')[0],
+            "Unable to log in with provided credentials."
         )
-        self.assertResponseCode201(response)
-        # json
-        json_user = self.good_user.get("user")
-        json_user_email = json_user.get('email')
-
-        # created
-        user = response.context.get('user')
-        self.assertEqual(json_user_email, user.get_email().email)
