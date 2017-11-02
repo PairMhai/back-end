@@ -1,13 +1,12 @@
 from utilities.testcaseutils import ImpTestCase, MembershipTestCase
-from utilities.methodutils import date_to_str
+from utilities.methods.other import date_to_str
 
 from membership.models import Class
+from utilities.fixtureutils import MembershipFixture
 
 
 class GettingTestCase(MembershipTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml',
-                'init_customer.yaml', 'init_creditcard.yaml',
-                'init_token.yaml', 'init_email.yaml']
+    fixtures = MembershipFixture.fixtures
 
 
 class UserGettingTestCase(GettingTestCase):
@@ -20,7 +19,7 @@ class UserGettingTestCase(GettingTestCase):
         self.superman_token = self.get_token(self.superman)
 
     def test_get_complete_data_of_test_user(self):
-        """Test if getting user complete return as expected data"""
+        """Test if getting user complete as expected data (test_user)"""
         response = self.run_get_user_membership_and_test(self.test_token)
 
         self.assertResponseData(response, 'id',
@@ -33,7 +32,7 @@ class UserGettingTestCase(GettingTestCase):
                                 self.test_user.telephone)
 
     def test_get_complete_data_of_superman(self):
-        """Test if getting user complete return as expected data"""
+        """Test if getting user complete as expected data (superman)"""
         response = self.run_get_user_membership_and_test(self.superman_token)
 
         self.assertResponseData(response, 'id',

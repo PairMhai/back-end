@@ -1,5 +1,29 @@
 from django.db import models
 
+# App flow #
+# create order without `total_product` and `final_price`
+# create each orderinfo
+# update `total_product` and `final_price`
+
+
+class OrderInfo(models.Model):
+    quantity = models.IntegerField(default=0)
+    remarks = models.TextField(max_length=100, default=0)
+    order = models.ForeignKey(
+        'cart.Order',
+        related_name='products',
+        on_delete=models.CASCADE
+    )
+    product = models.ForeignKey(
+        'catalog.Product',
+        on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return "{}-{}".format(self.id, self.product)
+
 
 class Order(models.Model):
     total_product = models.IntegerField(default=0)
@@ -23,24 +47,40 @@ class Order(models.Model):
     def __str__(self):
         return str(self.id)
 
+    def update_total_product(self):
+        self.total_product = len(self.get_orderinfos())
 
-class OrderInfo(models.Model):
-    quantity = models.IntegerField(default=0)
-    remarks = models.TextField(max_length=100, default=0)
-    order = models.ForeignKey(
-        'cart.Order',
-        related_name='products',
-        on_delete=models.CASCADE
-    )
-    product = models.ForeignKey(
-        'catalog.Product',
-        on_delete=models.CASCADE
-    )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    def get_orderinfos(self):
+        return OrderInfo.objects.filter(order=self)
 
-    def __str__(self):
-        return "{} {}".format(self.id, self.product)
+    def get_prices(self):
+        full_price = 0
+        customer_discount = 0
+        total_price = 0
+        product_event_price = 0
+
+        for orderinfo in self.get_orderinfos():
+            print(orderinfo)
+
+        final_price = total_price + self.transportation.price
+        return {
+            "customer_discount": customer_discount,
+            "full_price": full_price,
+            "product_event_price": product_event_price,
+            "total_price": total_price,
+            "transportation_price": self.transportation.price,
+            "final_price": final_price
+        }
+
+    def update_final_price(self):
+        pass
+
+    def save(self, force_insert=False, force_update=False,
+             using=None, update_fields=None):
+        self.update_total_product()
+        # self.update_final_price() # FIXME: might slow
+        super().save(force_insert, force_update,
+                     using, update_fields)
 
 
 class Transportation(models.Model):

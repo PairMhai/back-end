@@ -1,7 +1,10 @@
-from random import uniform, randrange
+from random import uniform, randrange, choice
 
 
 class ImpRandomNumber:
+
+    def random_element_in_list(self, input_list):
+        return choice(input_list)
 
     def random_username(self, title):
         rand_number = str(round(uniform(0, 10000), 5))
@@ -23,11 +26,14 @@ class ImpRandomNumber:
     def random_class(self):
         return randrange(1, 7)
 
+    def random_range(self, start, end):
+        return int(round(uniform(start, end), 0))
+
     def random_N_digit(self, n):
         """random number with n digit"""
         result = ""
         for _ in range(0, n):
-            result += str(int(round(uniform(0, 9), 0)))
+            result += str(self.random_range(0, 9))
         return result
 
     def random_credit_no(self):

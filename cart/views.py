@@ -1,4 +1,5 @@
 from membership.models import Customer
+from catalog.models import Product
 from cart.models import Order, OrderInfo, Transportation
 from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, HistorySerializer, CalculateOrderSerializer
 
@@ -9,7 +10,9 @@ from rest_framework.authtoken.models import Token
 
 from django.forms.models import model_to_dict
 
-from Backend.utils import ImpListByTokenView, get_customer_from_user_id
+from utilities.methods.database import get_customer_by_uid
+from utilities.classes.database import ImpListByTokenView
+
 
 class TransportationListView(generics.ListAPIView):
     queryset = Transportation.objects.all()
@@ -17,6 +20,7 @@ class TransportationListView(generics.ListAPIView):
 
 
 class OrderCreatorView(generics.CreateAPIView):
+
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
@@ -42,10 +46,22 @@ class OrderCreatorView(generics.CreateAPIView):
                 "quantity": quantity
             })
         # print(products)
+        for d in products:
+            p = Product.objects.get(id=d.get("pid"))
+            q = d.get("quantity")
+            prd = p.get_object
+            if isinstance(prd, Design):
+                total_quantity = prd.yard*q
+                quantity = prd.material.quantity
+                prd.material.quantity = quantity - total_quantity
+                prd.save()
+            else:
+                prd.quantity = prd.quantity - q
+                prd.save()
         data = {
             "customer": order_calculation.get('customer_id'),
             "products": products,
-            "final_price": order_calculation.get('total_price'),
+            "final_price": order_calculation.get('total_price') + transportation.price,
             'creditcard': creditcard.id,
             "transportation": transportation.id
         }
@@ -86,10 +102,21 @@ class OrderCalculateView(APIView):
             products = data.get('products')
             # dict={1:2, 4,1} PRODUCT_ID:QUANTITY
             products_id = dict()
+            error_products = []
 
             for d in products:
                 p = d.get('product')
                 q = d.get('quantity')
+                a = p.get_object()
+                if isinstance(a, Design):
+                    total_yard = a.yard*q
+                    mat = a.material
+                    if total_yard > mat.quantity:
+                        error_products.append(p)
+                else:
+                    if q > a.quantity:
+                        error_products.append(p)
+
                 if (p.id in products_id):
                     products_id[p.id] += q
                 else:
@@ -103,6 +130,12 @@ class OrderCalculateView(APIView):
             if (total_price < 0):
                 total_price = 0
             # "event_price": product_event_price, # can calculate by `event_discount`
+
+            if error_products.count() > 0:
+                detail = str(error_products) + " doesn't have enough stocks."
+                return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
+
+
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
@@ -146,7 +179,7 @@ class HistoryView(ImpListByTokenView):
     id_str = 'customer_id'
 
     def set_id(self, token):
-        self.uid = get_customer_from_user_id(token.user_id).id
+        self.uid = get_customer_by_uid(token.user_id).id
 
     def get_queryset(self):
         return super(HistoryView, self).get_queryset().filter(customer_id=self.uid)
