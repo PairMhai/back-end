@@ -1,9 +1,9 @@
+from rest_framework import generics
+
 from catalog.models import Material, Design, Promotion
 from catalog.serializers import ListMaterialSerializer, MaterialSerializer, DesignSerializer, PromotionSerializer
 
-from Backend.utils import update_all_status_promotions
-
-from rest_framework import generics
+from utilities.methods.database import update_all_status_promotions
 
 
 class MaterialList(generics.ListAPIView):

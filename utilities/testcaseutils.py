@@ -115,7 +115,7 @@ class MembershipTestCase(ImpTestCase):
     fixtures = ['init_class.yaml', 'init_user.yaml', 'init_email.yaml']
 
     def pre_setup(self):
-        from .classutils import ImpRandomNumber
+        from utilities.classes.other import ImpRandomNumber
         self.random_class = ImpRandomNumber()
 
     def run_create_membership(self, user):
