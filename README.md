@@ -99,9 +99,9 @@ The pull-request, there have workflow
 3. run push command: `git push heroku <local-branch>:master`
 
 # Documentation
-1. [Document link](doc/README.md)
-2. [utils.sh](doc/utils.md)
+1. [Document link](docs/README.md)
+2. [utils.sh](docs/utils.md)
 
 # Contribution
-- [Need to know](doc/contributions/README.md)
+- [Need to know](docs/contributions/README.md)
 - [Contribution list](summary-code/information.txt)
