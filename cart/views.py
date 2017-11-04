@@ -130,11 +130,9 @@ class OrderCalculateView(APIView):
             if (total_price < 0):
                 total_price = 0
             # "event_price": product_event_price, # can calculate by `event_discount`
-
             if len(error_products) > 0:
                 detail = str(error_products) + " doesn't have enough stocks."
                 return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
-
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
