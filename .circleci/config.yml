@@ -57,6 +57,12 @@ jobs:
           command: |
             . venv/bin/activate
             ./utils.sh c
+        
+      - run:
+          name: clear file(s)
+          command: |
+            . venv/bin/activate
+            ./utils.sh d
 
       - run:
           name: run tests (default)
@@ -87,7 +93,6 @@ jobs:
           name: run test (develop)
           command: |
             . venv/bin/activate
-            ./utils.sh d
             ./utils.sh t develop
 
       - run:

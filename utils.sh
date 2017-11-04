@@ -205,9 +205,15 @@ test_ci() {
         $setting
 ############################################################
 "
-    coverage run --source=$source manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
-    # coverage report
-    coverage xml
+    coverage run \
+        --source=$source \
+        manage.py test \
+        --parallel=4 \
+        --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner \
+        --verbosity=3 \
+        --debug-sql \
+        "$setting"
+    [ $? -eq 0 ] && coverage xml # coverage report (run only test True)
 }
 
 heroku_deploy() {

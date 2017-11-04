@@ -17,6 +17,10 @@ class TokenView(views.APIView):
     def get_id_name(self):
         if hasattr(self, 'id_key_of_user'):
             return self.id_key_of_user
+        elif hasattr(self, 'key_id'):
+            return self.key_id
+        elif hasattr(self, 'user_id'):
+            return self.user_id
         else:
             return 'id'
 

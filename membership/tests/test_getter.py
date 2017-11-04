@@ -2,12 +2,11 @@ from utilities.testcaseutils import ImpTestCase, MembershipTestCase
 from utilities.methods.other import date_to_str
 
 from membership.models import Class
+from utilities.fixtureutils import MembershipFixture
 
 
 class GettingTestCase(MembershipTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml',
-                'init_customer.yaml', 'init_creditcard.yaml',
-                'init_token.yaml', 'init_email.yaml']
+    fixtures = MembershipFixture.fixtures
 
 
 class UserGettingTestCase(GettingTestCase):
