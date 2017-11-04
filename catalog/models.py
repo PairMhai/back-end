@@ -30,12 +30,6 @@ class Design(models.Model):
     def get_product_id(self):
         return Product.objects.get(design=self).id
 
-    def get_color(self):
-        return self.material.color
-
-    def get_material_name(self):
-        return self.material.name
-
     def get_price(self):
         return self.material.price * self.yard
 
@@ -111,6 +105,16 @@ class Product(models.Model):
 
     def __str__(self):
         return "Design {} object".format(self.design.id) if self.material == None else "Material {} object".format(self.material.id)
+
+    def get_quantity(self):
+        if self.material == None:
+            import math
+            return math.floor(self.design.yard / self.design.material.quantity)
+        else:
+            return self.material.quantity
+          
+    def get_object(self):
+        return self.design if self.material == None else self.material
 
     def get_price(self):
         return self.design.get_price() if self.material == None else self.material.price
