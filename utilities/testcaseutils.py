@@ -3,17 +3,36 @@ from django.core.urlresolvers import reverse
 
 from rest_framework import status
 from rest_framework.test import APIClient
+from rest_framework.authtoken.models import Token
 
 from membership.models import User, Customer, Class
-from rest_framework.authtoken.models import Token
+from catalog.models import Product
+
+from .methods.database import (get_user_id_by_token,
+                               get_token_by_user,
+                               get_user_by_username,
+                               get_user_by_id,
+                               get_user_by_token,
+                               get_customer_by_username)
+
+from utilities.classes.other import ImpRandomNumber
+from utilities.fixtureutils import UserFixture, CatalogFixture, CartFixture
 
 
 class ImpTestCase(TestCase):
     """Test case implement for testing response of this api"""
 
+    def __init__(self, *args, **kwargs):
+        super(ImpTestCase, self).__init__(*args, **kwargs)
+
+        self.good_response = status.HTTP_200_OK
+        self.create_response = status.HTTP_201_CREATED
+        self.bad_response = status.HTTP_400_BAD_REQUEST
+
     def setUp(self):
         self.pre_setup()
         self.client = APIClient()
+        self.random_class = ImpRandomNumber()
         self.set_constants()
         self.post_setup()
 
@@ -42,6 +61,12 @@ class ImpTestCase(TestCase):
 
     def assertDictKeyNotExist(self, input_dict, key):
         self.assertNotIn(key, input_dict)
+
+    def assertResponseDataKeyExist(self, response, key):
+        self.assertDictKeyExist(response.data, key)
+
+    def assertResponseData2KeyExist(self, response, key1, key2):
+        self.assertDictKeyExist(response.data.get(key1), key2)
 
     def assertResponseData(self, response, key, expected):
         self.assertEqual(response.data.get(key), expected, msg=response.data)
@@ -112,11 +137,7 @@ class ImpTestCase(TestCase):
 
 
 class MembershipTestCase(ImpTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml', 'init_email.yaml']
-
-    def pre_setup(self):
-        from utilities.classes.other import ImpRandomNumber
-        self.random_class = ImpRandomNumber()
+    fixtures = UserFixture.fixtures
 
     def run_create_membership(self, user):
         return self.run_post("rest_register", user)
@@ -159,22 +180,22 @@ class MembershipTestCase(ImpTestCase):
         return self.get_user_by_id(self.return_user_id(response))
 
     def get_user_id_by_token(self, token):
-        return Token.objects.get(key=token).user_id
+        return get_user_id_by_token(token)
 
     def get_token(self, user):
-        return Token.objects.get(user=user)
+        return get_token_by_user(user)
 
     def get_user(self, username):
-        return User.objects.get(username=username)
+        return get_user_by_username(username)
 
     def get_user_by_id(self, userid):
-        return User.objects.get(pk=userid)
+        return get_user_by_id(userid)
 
     def get_user_by_token(self, token):
-        return self.get_user_by_id(self.get_user_id_by_token(token))
+        return get_user_by_token(token)
 
     def get_customer(self, username):
-        return Customer.objects.get(user=self.get_user(username))
+        return get_customer_by_username(username)
 
     def get_default_customer(self):
         password = self.random_class.random_password()
@@ -196,3 +217,87 @@ class MembershipTestCase(ImpTestCase):
             "ccv": self.random_class.random_ccv(),
             "expire_date": "2022-02-01"
         }
+
+
+class CatalogTestCase(ImpTestCase):
+    fixtures = CatalogFixture.fixtures
+
+    def random_product(self):
+        products = []
+        for p in Product.objects.all():
+            products += [p]
+
+        return self.random_class.random_element_in_list(products)
+
+
+class CartTestCase(CatalogTestCase):
+    fixtures = CatalogFixture.fixtures + CartFixture.fixtures
+
+    def run_calculate(self, data, test_code=None):
+        """200, 201, 400 -> example of test_code"""
+        response = self.run_post('calculate', data)
+        if test_code is not None:
+            self.assertResponseCode(response, test_code)
+        return response
+
+    def gen_buyer_json(self, token):
+        return {
+            "customer": token
+        }
+
+    def gen_product_json(self, pid, quantity):
+        return {
+            "pid": pid,
+            "quantity": quantity
+        }
+
+    def random_token(self):
+        tokens = []
+        for t in Token.objects.all():
+            tokens += [t.key]
+
+        return self.random_class.random_element_in_list(tokens)
+
+    def random_buyer(self):
+        return self.gen_buyer_json(self.random_token())
+
+    def add_product(self, buyer, product_json):
+        if 'products' in buyer:
+            buyer['products'] += [product_json]
+        else:
+            buyer['products'] = [product_json]
+
+    def add_valid_product_to_buy(self, buyer):
+        """ get buyer from random_buyer """
+        p = self.random_product()  # random product
+        quantity = self.random_class.random_range(
+            1,
+            p.get_quantity()
+        )  # random quantity
+        self.add_product(
+            buyer,
+            self.gen_product_json(p.id, quantity)
+        )
+
+    def add_invalid_product_to_buy(self, buyer, wrong_id=False):
+        p = self.random_product()            # random product
+        self.not_exist_product_id = 123456        # assume that this id will not exist
+        # get quantity and plus 2 (wrong quantity)
+        large_quantity = p.get_quantity() + 2
+
+        if wrong_id:
+            self.add_product(
+                buyer,
+                self.gen_product_json(
+                    self.not_exist_product_id,
+                    large_quantity
+                )
+            )  # add every bad product data
+        else:
+            self.add_product(
+                buyer,
+                self.gen_product_json(
+                    p.id,
+                    large_quantity
+                )
+            )

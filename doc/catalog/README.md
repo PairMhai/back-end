@@ -204,37 +204,13 @@
         ```json
         [
             {
-                "id": 1,
-                "final_price": "1000.00",
-                "products": [
-                    {
-                        "product": {
-                            "id": 3,
-                            "design": {
-                                "product_id": 3,
-                                "id": 3,
-                                "name": "name-1",
-                                "description": "description-1",
-                                "material": {
-                                    "product_id": 10,
-                                    "id": 5,
-                                    "name": "name-11",
-                                    "description": "description-11",
-                                    "color": "red",
-                                    "image_name": "red.jpg"
-                                },
-                                "images": [
-                                    {
-                                        "id": 3,
-                                        "file_name": "name-1.jpg"
-                                    }
-                                ]
-                            }
-                        },
-                        "quantity": 1
-                    }
-                ],
-                "updated_at": "2016-12-31T17:00:00Z"
+                "name": "Test Data",
+                "description": "some-text",
+                "discount": "87.65",
+                "image_name": "test_promotion.png",
+                "status": true,
+                "start": "2017-01-01T00:00:00+07:00",
+                "end": "2018-01-01T00:00:00+07:00"
             }
         ]
         ```
