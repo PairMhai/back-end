@@ -8,7 +8,7 @@ from rest_framework.views import APIView
 from github import GithubException
 from github.GithubException import RateLimitExceededException
 
-from Backend.utils import ImpGithub
+from utilities.classes.library import ImpGithub
 
 # Create your views here.
 
