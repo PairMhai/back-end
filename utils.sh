@@ -16,7 +16,7 @@ fi
 
 # if conda available
 if command -v conda &>/dev/null; then
-    conda info | grep pairmhai &>/dev/null ||\
+    conda info | grep pairmhai &>/dev/null ||
         # shellcheck disable=SC1091
         source activate pairmhai
 else
@@ -32,7 +32,7 @@ export source="Backend,cart,catalog,comment,landingpage,membership,payment,utili
 ### EXTRA FEATURE!
 #### format ./utils.sh r,mm,m,l [develop|production]
 if [[ $1 =~ , ]]; then
-    IFS=',' read -r -a arr <<< "$1"
+    IFS=',' read -r -a arr <<<"$1"
     shift
     for i in "${arr[@]}"; do
         echo "run $i -->"
@@ -42,18 +42,26 @@ if [[ $1 =~ , ]]; then
     exit $?
 fi
 
-get_setting() {
-    if [[ "$1" == "d" || "$1" == "dev" ||  "$1" == "develop" ]]; then
-        echo "${SETTING_OPTION}develop"
-    elif [[ "$1" == "s" || "$1" == "stage" ||  "$1" == "staging" ]]; then
-        echo "${SETTING_OPTION}staging"
-    elif [[ "$1" == "p" || "$1" == "prod" ||  "$1" == "production" ]]; then
-        echo "${SETTING_OPTION}production"
+get_setting_name() {
+    if [[ $1 == "d" || $1 == "dev" || $1 == "develop" ]]; then
+        echo "develop"
+    elif [[ $1 == "s" || $1 == "stage" || $1 == "staging" ]]; then
+        echo "staging"
+    elif [[ $1 == "p" || $1 == "prod" || $1 == "production" ]]; then
+        echo "production"
     else
-        echo "${SETTING_OPTION}develop"
+        echo "develop"
         return 1
     fi
     return 0
+}
+
+get_setting() {
+    local name
+    name="$(get_setting_name "$1")"
+    exit_code="$?"
+    echo "${SETTING_OPTION}$name"
+    return $exit_code
 }
 
 # ---------------------------------
@@ -72,25 +80,25 @@ load() {
         $COMMAND manage.py loaddata "init_$module" "$setting"
     else
         echo ">> load membership and all necessary models"
-        $0 l "$2" class
-        $0 l "$2" user
-        $0 l "$2" email
-        $0 l "$2" customer
-        $0 l "$2" creditcard
+        $0 l "$(get_setting_name "$2")" class
+        $0 l "$(get_setting_name "$2")" user
+        $0 l "$(get_setting_name "$2")" email
+        $0 l "$(get_setting_name "$2")" customer
+        $0 l "$(get_setting_name "$2")" creditcard
         echo ">> load product and all necessary models"
-        $0 l "$2" material
-        $0 l "$2" design
-        $0 l "$2" images
-        $0 l "$2" product
-        $0 l "$2" promotion
+        $0 l "$(get_setting_name "$2")" material
+        $0 l "$(get_setting_name "$2")" design
+        $0 l "$(get_setting_name "$2")" images
+        $0 l "$(get_setting_name "$2")" product
+        $0 l "$(get_setting_name "$2")" promotion
         echo ">> load mockup order and information"
-        $0 l "$2" transportation
-        $0 l "$2" order
-        $0 l "$2" orderinfo
+        $0 l "$(get_setting_name "$2")" transportation
+        $0 l "$(get_setting_name "$2")" order
+        $0 l "$(get_setting_name "$2")" orderinfo
         echo ">> other mockup data"
-        $0 l "$2" comment
-        $0 l "$2" token
-        $0 l "$2" site
+        $0 l "$(get_setting_name "$2")" comment
+        $0 l "$(get_setting_name "$2")" token
+        $0 l "$(get_setting_name "$2")" site
     fi
 }
 
@@ -106,7 +114,7 @@ export_database() {
     # $2 = model to export
     # $3 = file export to (optional)
     if [ -n "$file" ]; then
-        $COMMAND manage.py dumpdata --format yaml "$model" "$setting" >> "$file"
+        $COMMAND manage.py dumpdata --format yaml "$model" "$setting" >>"$file"
     else
         $COMMAND manage.py dumpdata --format yaml "$model" "$setting"
     fi
@@ -137,8 +145,8 @@ check() {
     # cause error
     if ! output=$(python manage.py makemigrations --check "$setting" 2>&1); then
         # merge error
-        if grep merge <<< "$output" &>/dev/null; then
-            echo y | $COMMAND manage.py makemigrations --merge "$setting" &&\
+        if grep merge <<<"$output" &>/dev/null; then
+            echo y | $COMMAND manage.py makemigrations --merge "$setting" &&
                 echo "database need to merge. COMPLETE!"
         fi
     fi
@@ -169,10 +177,10 @@ coverage_py() {
     type="report"
     [ -n "$2" ] && type="$2"
 
-    [[ ! "$type" == "report" ]] && directory="$3"
+    [[ $type != "report" ]] && directory="$3"
 
-    [[ "$type" == "xml" ]]  && [ -n "$directory" ] && result_file="-o $directory"
-    [[ "$type" == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
+    [[ $type == "xml" ]] && [ -n "$directory" ] && result_file="-o $directory"
+    [[ $type == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
 
     coverage $type $result_file
 }
@@ -182,24 +190,24 @@ test_ci() {
     [ -d test-reports ] || mkdir test-reports
     setting=$(get_setting "$2")
 
-    [[ "$setting" =~ develop ]] && setting="${SETTING_OPTION}staging"  # on ci test, cannot set env to develop 
-    
+    [[ $setting =~ develop ]] && setting="${SETTING_OPTION}staging" # on ci test, cannot set env to develop
+
     echo "
 ############################################################
-    run: 
-    coverage run 
-        --source=$source 
-        manage.py test 
-        --parallel=4 
-        --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner 
-        --verbosity=3 
-        --debug-sql 
-        $setting 
+    run:
+    coverage run
+        --source=$source
+        manage.py test
+        --parallel=4
+        --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner
+        --verbosity=3
+        --debug-sql
+        $setting
 ############################################################
 "
     coverage run --source=$source manage.py test --parallel=4 --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner --verbosity=3 --debug-sql "$setting" # --traceback
     # coverage report
-    coverage xml 
+    coverage xml
 }
 
 heroku_deploy() {
@@ -212,16 +220,16 @@ heroku_log() {
 }
 
 heroku_imp() {
-    ! command -v heroku &>/dev/null &&\
-        echo "no heroku installed." &&\
+    ! command -v heroku &>/dev/null &&
+        echo "no heroku installed." &&
         exit 1
-    heroku buildpacks | grep weibeld &>/dev/null ||\
+    heroku buildpacks | grep weibeld &>/dev/null ||
         heroku buildpacks:add https://github.com/weibeld/heroku-buildpack-run.git
-    git remote show | grep heroku &>/dev/null ||\
+    git remote show | grep heroku &>/dev/null ||
         git remote add heroku https://git.heroku.com/pairmhai-api.git
 
-    [[ $2 == 'd' ]] && heroku_deploy "$@"  && exit 0
-    [[ $2 == 'l' ]] && heroku_log        && exit 0
+    [[ $2 == 'd' ]] && heroku_deploy "$@" && exit 0
+    [[ $2 == 'l' ]] && heroku_log && exit 0
 }
 
 remove_db() {
@@ -231,21 +239,21 @@ remove_db() {
 
 remove_all() {
     rm -r ./test-reports/* 2>/dev/null && echo "remove report."
-    rm -r ./static/*       2>/dev/null && echo "remove static."
-    rm -r .coverage*       2>/dev/null && echo "remove .coverage*."
-    rm -r coverage*        2>/dev/null && echo "remove coverage*."
-    rm -r *htmlcov*        2>/dev/null && echo "remove htmlcov."
+    rm -r ./static/* 2>/dev/null && echo "remove static."
+    rm -r .coverage* 2>/dev/null && echo "remove .coverage*."
+    rm -r coverage* 2>/dev/null && echo "remove coverage*."
+    rm -r *htmlcov* 2>/dev/null && echo "remove htmlcov."
     return 0
 }
 
 summary_code() {
-    echo "# $(date)" > ./summary-code/information.txt
-    git-summary >> ./summary-code/information.txt
+    echo "# $(date)" >./summary-code/information.txt
+    git-summary >>./summary-code/information.txt
 }
 
 analyze() {
-    ! command -v codeclimate &>/dev/null &&\
-        echo "no codeclimate installed." &&\
+    ! command -v codeclimate &>/dev/null &&
+        echo "no codeclimate installed." &&
         exit 1
 
     format="$2"
@@ -253,7 +261,7 @@ analyze() {
     [ -z "$2" ] && format="html"
     [ -z "$3" ] && file="result.html"
 
-    codeclimate analyze -f "$format" > "$file"
+    codeclimate analyze -f "$format" >"$file"
 }
 
 help() {
@@ -324,24 +332,24 @@ Example Usage:
 # parameter section
 # ---------------------------------
 
-[[ $1 == "a" ]]      && analyze "$@"         && exit 0
-[[ $1 == "e" ]]      && export_database "$@" && exit 0
-[[ $1 == "l" ]]      && load "$@"            && exit 0
-[[ $1 == "mm" ]]     && make_migrate "$@"    && exit 0
-[[ $1 == "m" ]]      && migrate "$@"         && exit 0
-[[ $1 == "s" ]]      && run_server "$@"      && exit 0
-[[ $1 == "c" ]]      && check "$@"           && exit 0
-[[ $1 == "co" ]]     && collect "$@"         && exit 0
-[[ $1 == "cov" ]]    && coverage_py "$@"     && exit 0
-[[ $1 == "d" ]]      && remove_all "$@"      && exit 0
-[[ $1 == "t-ci" ]]   && test_ci "$@"         && exit 0
-[[ $1 == "t" ]]      && test_py "$@"         && exit 0
-[[ $1 == "h" ]]      && heroku_imp "$@"      && exit 0
-[[ $1 == "r" ]]      && remove_db "$@"       && exit 0
-[[ $1 == "sum" ]]    && summary_code "$@"    && exit 0
+[[ $1 == "a" ]] && analyze "$@" && exit 0
+[[ $1 == "e" ]] && export_database "$@" && exit 0
+[[ $1 == "l" ]] && load "$@" && exit 0
+[[ $1 == "mm" ]] && make_migrate "$@" && exit 0
+[[ $1 == "m" ]] && migrate "$@" && exit 0
+[[ $1 == "s" ]] && run_server "$@" && exit 0
+[[ $1 == "c" ]] && check "$@" && exit 0
+[[ $1 == "co" ]] && collect "$@" && exit 0
+[[ $1 == "cov" ]] && coverage_py "$@" && exit 0
+[[ $1 == "d" ]] && remove_all "$@" && exit 0
+[[ $1 == "t-ci" ]] && test_ci "$@" && exit 0
+[[ $1 == "t" ]] && test_py "$@" && exit 0
+[[ $1 == "h" ]] && heroku_imp "$@" && exit 0
+[[ $1 == "r" ]] && remove_db "$@" && exit 0
+[[ $1 == "sum" ]] && summary_code "$@" && exit 0
 
-[[ $1 == "h" ]]      && help                 && exit 0
-[[ $1 == "-h" ]]     && help                 && exit 0
-[[ $1 == "help" ]]   && help                 && exit 0
-[[ $1 == "-help" ]]  && help                 && exit 0
-[[ $1 == "--help" ]] && help                 && exit 0
+[[ $1 == "h" ]] && help && exit 0
+[[ $1 == "-h" ]] && help && exit 0
+[[ $1 == "help" ]] && help && exit 0
+[[ $1 == "-help" ]] && help && exit 0
+[[ $1 == "--help" ]] && help && exit 0
