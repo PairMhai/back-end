@@ -109,10 +109,10 @@ class Product(models.Model):
     def get_quantity(self):
         if self.material == None:
             import math
-            return math.floor(self.design.yard / self.design.material.quantity)
+            return math.floor(self.design.material.quantity / self.design.yard)
         else:
             return self.material.quantity
-          
+
     def get_object(self):
         return self.design if self.material == None else self.material
 
