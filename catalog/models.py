@@ -130,8 +130,8 @@ class Promotion(models.Model):
     discount = models.DecimalField(
         max_digits=8, decimal_places=2, default=0.00)
     status = models.BooleanField(default=False)
-    start_date = models.DateTimeField(auto_now_add=True, null=True)
-    end_date = models.DateTimeField(auto_now_add=True, null=True)
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     description = models.CharField(max_length=150, default=0)
     products = models.ManyToManyField(Product)
     created_at = models.DateTimeField(auto_now_add=True)
