@@ -251,6 +251,17 @@ class MembershipTestCase(ImpTestCase):
         }
 
 
+class MembershipTestUtils:
+    """Need `ImpTestCase`"""
+
+    def random_token(self):
+        tokens = []
+        for t in Token.objects.all():
+            tokens += [t.key]
+
+        return self.random_class.random_element_in_list(tokens)
+
+
 class CatalogTestCase(ImpTestCase):
     fixtures = CatalogFixture.fixtures
 
@@ -262,7 +273,7 @@ class CatalogTestCase(ImpTestCase):
         return self.random_class.random_element_in_list(products)
 
 
-class CartTestCase(CatalogTestCase):
+class CartTestCase(CatalogTestCase, MembershipTestUtils):
     fixtures = CatalogFixture.fixtures + CartFixture.fixtures
 
     def run_calculate(self, data, test_code=None):
@@ -282,13 +293,6 @@ class CartTestCase(CatalogTestCase):
             "pid": pid,
             "quantity": quantity
         }
-
-    def random_token(self):
-        tokens = []
-        for t in Token.objects.all():
-            tokens += [t.key]
-
-        return self.random_class.random_element_in_list(tokens)
 
     def random_buyer(self):
         return self.gen_buyer_json(self.random_token())
