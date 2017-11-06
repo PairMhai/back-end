@@ -1,6 +1,6 @@
 from .base import *
 
-VERSION = "1.1.3"
+VERSION = "1.1.4"
 
 ACCOUNT_EMAIL_REQUIRED = 'true'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # | optional
