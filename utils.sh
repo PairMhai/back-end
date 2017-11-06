@@ -18,14 +18,6 @@ if [[ $1 == "setup" ]]; then
     exit 0
 fi
 
-if [[ $1 == "teardown" ]]; then
-    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
-    for a in ${app[@]}; do
-        echo "y" | pip uninstall "${a%%==*}"
-    done
-    exit 0
-fi
-
 # if conda available
 if command -v conda &>/dev/null; then
     conda info | grep pairmhai &>/dev/null ||
@@ -33,6 +25,23 @@ if command -v conda &>/dev/null; then
         source activate pairmhai
 else
     echo "no conda"
+fi
+
+# upgrade project
+if [[ $1 == "upgrade" ]]; then
+    source activate pairmhai
+    echo ">> upgrade dependencies."
+    echo "$2" | pip-upgrade --skip-package-installation requirements.txt
+    exit 0
+fi
+
+# uninstall project
+if [[ $1 == "teardown" ]]; then
+    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
+    for a in ${app[@]}; do
+        echo "y" | pip uninstall "${a%%==*}"
+    done
+    exit 0
 fi
 
 COMMAND="python"
@@ -300,8 +309,12 @@ Feature:
 Help Command:
     # Setting
         1. setup    - setup project after you download new project down.
-        2. teardown - uninstall all library, installed by this project.
-        2. sum      - summary repository and write to file 'summary-code/information.txt'
+        2. upgrade  - upgrade library of this project.
+                      - @params 1 - (optional) action after run upgrading
+                        1. 'all' - upgrade all outdated library
+                        2. 'x'   - dry run (don't do nothing)
+        3. teardown - uninstall all library, installed by this project.
+        4. sum      - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
         1. s        - run server (default port 8000)
