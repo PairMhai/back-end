@@ -66,9 +66,19 @@
 - model: catalog.promotion
   pk: 6
   fields:
-    name: Test Data 
+    name: Always enable
     image_name: test_promotion.png
-    discount: 87.654
+    discount: 6.351
+    status: True
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+
+- model: catalog.promotion
+  pk: 7
+  fields:
+    name: Test 
+    image_name: test_promotion.png
+    discount: 56.123
     status: False
     start_date: '2017-01-01 00:00:00.000000+07:00'
     end_date: '2018-01-01 00:00:00.000000+07:00'
