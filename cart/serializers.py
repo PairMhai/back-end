@@ -82,7 +82,7 @@ class HistorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('id', 'final_price', 'products', 'updated_at')
+        fields = ('id', 'final_price', 'products', 'created_at', 'updated_at')
 
 
 class TransportationSerializer(serializers.ModelSerializer):

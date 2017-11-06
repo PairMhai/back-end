@@ -1,5 +1,7 @@
 from django.db import models
 
+from catalog.models import Promotion
+
 # App flow #
 # create order without `total_product` and `final_price`
 # create each orderinfo
@@ -7,8 +9,8 @@ from django.db import models
 
 
 class OrderInfo(models.Model):
-    quantity = models.IntegerField(default=0)
-    remarks = models.TextField(max_length=100, default=0)
+    quantity = models.IntegerField()
+    remarks = models.TextField(max_length=100, default="")
     order = models.ForeignKey(
         'cart.Order',
         related_name='products',
@@ -18,17 +20,26 @@ class OrderInfo(models.Model):
         'catalog.Product',
         on_delete=models.CASCADE
     )
+    associate_promotion = models.ManyToManyField(Promotion)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return "{}-{}".format(self.id, self.product)
+        return "id={}: {}".format(self.id, self.product)
+
+    def get_price(self):
+        return self.product.get_price() * self.quantity
+
+    # TODO: cannot get discount price, because no event are saved.
+    def get_discount_price(self):
+        return self.product.get_price() * self.quantity
 
 
 class Order(models.Model):
-    total_product = models.IntegerField(default=0)
+    total_product = models.IntegerField()  # default=0
     final_price = models.DecimalField(
-        max_digits=8, decimal_places=2, default=0.00)
+        max_digits=8, decimal_places=2)  # default=0.00
     customer = models.ForeignKey(
         'membership.Customer',
         on_delete=models.CASCADE
@@ -58,10 +69,10 @@ class Order(models.Model):
         full_price = 0
         customer_discount = 0
         total_price = 0
-        product_event_price = 0
+        # product_event_price = 0
 
         for orderinfo in self.get_orderinfos():
-            print(orderinfo)
+            print(orderinfo.get_price())
 
         final_price = total_price + self.transportation.price
         return {

@@ -30,26 +30,24 @@ class FullImageSerializer(serializers.ModelSerializer):
 
 
 class MiniMaterialSerializer(serializers.ModelSerializer):
-    product_id = serializers.IntegerField(source='get_product_id')
 
     class Meta:
         model = Material
-        fields = ('product_id', 'id', 'name',
-                  'description', 'color',
-                  'image_name')
+        fields = ('id', 'name', 'color',
+                  'price', 'image_name')
 
-        
+
 class MiniDesignSerializer(serializers.ModelSerializer):
-    product_id = serializers.IntegerField(source='get_product_id')
+    price = serializers.IntegerField(source='get_price')
     images = ImageSerializer(many=True)
     material = MiniMaterialSerializer()
 
     class Meta:
         model = Design
-        fields = ('product_id', 'id', 'name', 'description', 'material',
-                  'images')
+        fields = ('id', 'name', 'material',
+                  'price', 'images')
 
-        
+
 class ListMaterialSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField(source='get_product_id')
     discounted_price = serializers.CharField(source='get_discount_price')
