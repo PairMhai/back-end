@@ -115,7 +115,7 @@
         }
         ```
 
-### History Detail **(v0.13.0)**
+### History Detail **(v1.1.4)**
 - Path: `^cart/history/(?P<token>\w+)$`
 - Description: get history of customer by `token`
 1. **Request**
@@ -128,17 +128,57 @@
         ```json
         [
             {
-                "id": 2,
+                "id": 1,
+                "final_price": "1000.00",
                 "products": [
                     {
                         "product": {
-                            "id": 3,
-                            "design": 3,
-                            "material": null
+                            "id": 1,
+                            "design": {
+                                "id": 2,
+                                "name": "Dark Blue Dress",
+                                "material": {
+                                    "id": 2,
+                                    "name": "Tasar",
+                                    "color": "blue",
+                                    "price": "1500.00",
+                                    "image_name": "darkblue.jpg"
+                                },
+                                "price": 3000,
+                                "images": [
+                                    {
+                                        "id": 4,
+                                        "file_name": "darkblue-dress.jpg"
+                                    }
+                                ]
+                            }
                         },
-                        "quantity": 1
+                        "quantity": 2
                     }
-                ]
+                ],
+                "created_at": "2017-01-01T00:00:00+07:00",
+                "updated_at": "2017-01-01T00:00:00+07:00"
+            },
+            {
+                "id": 5,
+                "final_price": "8000.00",
+                "products": [
+                    {
+                        "product": {
+                            "id": 2,
+                            "material": {
+                                "id": 2,
+                                "name": "Tasar",
+                                "color": "blue",
+                                "price": "1500.00",
+                                "image_name": "darkblue.jpg"
+                            },
+                        },
+                        "quantity": 2
+                    }
+                ],
+                "created_at": "2017-01-01T00:00:00+07:00",
+                "updated_at": "2017-01-01T00:00:00+07:00"
             }
         ]
         ```
@@ -150,5 +190,3 @@
             "detail": "get individual customer must have token"
         }
         ```
-=======
->>>>>>> master
