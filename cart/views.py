@@ -130,9 +130,18 @@ class OrderCalculateView(APIView):
             if (total_price < 0):
                 total_price = 0
             # "event_price": product_event_price, # can calculate by `event_discount`
+            error_msg = "Doesn't have enough stock."
+            detail = []
             if len(error_products) > 0:
-                detail = str(error_products) + " doesn't have enough stocks."
+                for p in error_products:
+                    # print(type(detail))
+                    detail.append({
+                        "id": p.id,
+                        "name": p.get_object().name,
+                        "message": error_msg
+                    })
                 return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
+
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
@@ -143,28 +152,12 @@ class OrderCalculateView(APIView):
                 "total_price": total_price
             }
 
-            # Example data
-            # {
-            #       'calculate_id': UUID('4bf1b714-4938-47c6-b85f-3aff18c86e54'),
-            #       'customer_id': 2,
-            #       'products_id':
-            #               {
-            #                   1: 3,
-            #                   2: 4
-            #               },
-            #       'full_price': Decimal('36000.0000'),
-            #       'customer_discount': Decimal('5400.0000000'),
-            #       'event_discount': Decimal('34271.00000000'),
-            #       'total_price': 0
-            # }
-
             # save calculation price
             cache.set("order-{}".format(data.get('calculate_id')),
                       data, timeout=60 * 10)  # second 60 * 10
             # remove unneccessary key
             data.pop('customer_id', None)
             data.pop('products_id', None)
-
             return Response(data)
         else:
             return Response({"detail": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)

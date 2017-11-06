@@ -113,6 +113,38 @@ class ImpTestCase(TestCase):
                 dict_key
             )
 
+    def assertResponseListLength(self, response, key, len_list):
+        """ len(response.data.get(key)) == len_list """
+        self.assertEqual(
+            len(response.data.get(key)),
+            len_list,
+            msg=response.data
+        )
+
+    def assertResponse2ListLength(self, response, key1, key2, len_list):
+        """ len(response.data.get(key1).get(key2)) == len_list """
+        self.assertEqual(
+            len(response.data.get(key1).get(key2)),
+            len_list,
+            msg=response.data
+        )
+
+    def assertResponseErrorDetailList(self, response, number, expected):
+        """ response.data.get('detail')[number] == expected """
+        self.assertEqual(
+            response.data.get('detail')[number],
+            expected,
+            msg=response.data
+        )
+
+    def assertResponseErrorDetailListKey(self, response, number, key, expected):
+        """ response.data.get('detail')[number].get(key) == expected """
+        self.assertEqual(
+            response.data.get('detail')[number].get(key),
+            expected,
+            msg=response.data
+        )
+
     def assertResponseCode200(self, response):
         self.assertResponseCode(response, status.HTTP_200_OK)
 
@@ -280,6 +312,7 @@ class CartTestCase(CatalogTestCase):
         )
 
     def add_invalid_product_to_buy(self, buyer, wrong_id=False):
+        """ add invalid product (This method will return product id) """
         p = self.random_product()            # random product
         self.not_exist_product_id = 123456        # assume that this id will not exist
         # get quantity and plus 2 (wrong quantity)
@@ -293,6 +326,7 @@ class CartTestCase(CatalogTestCase):
                     large_quantity
                 )
             )  # add every bad product data
+            return self.not_exist_product_id
         else:
             self.add_product(
                 buyer,
@@ -301,3 +335,4 @@ class CartTestCase(CatalogTestCase):
                     large_quantity
                 )
             )
+            return p.id

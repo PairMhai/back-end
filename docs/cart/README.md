@@ -70,13 +70,19 @@
         - customer_discount -> discount by customer class (unit: baht)
         - event_discount -> discount by event class (unit: baht)
         - total_price -> final price but no include transport yet.
-    1. Failure
+    2. Failure
         - code: `400_BAD_REQUEST`
-        - body:
-        ```json
-        {
-             "detail": "error message/object"
-        }
+        - body: 
+        ```json 
+            {
+                "detail": [
+                    {
+                        "id": 15, 
+                        "name": "Light Purple Dress", 
+                        "message": "Doesn't have enough stock."
+                    }
+                ]
+            }
         ```
 
 ### Order Creator **(v0.13.0)**
