@@ -5,12 +5,24 @@
 if [[ $1 == "setup" ]]; then
     ! command -v conda &>/dev/null && echo "conda required to setup project!" && exit 1
 
-    echo ">> install conda dependencies."
-    conda create --name pairmhai --file requirements_conda.txt
+    if [ $(conda info --envs | grep pairmhai -q) ]; then
+        source activate pairmhai
+    else
+        conda create --name pairmhai --file requirements_conda.txt
+        echo ">> install conda dependencies."
+        source activate pairmhai
+    fi
 
     echo ">> install dependencies."
     pip install -r requirements.txt
+    exit 0
+fi
 
+if [[ $1 == "teardown" ]]; then
+    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
+    for a in ${app[@]}; do
+        echo "y" | pip uninstall "${a%%==*}"
+    done
     exit 0
 fi
 
@@ -287,44 +299,45 @@ Feature:
 
 Help Command:
     # Setting
-        1. setup   - setup project after you download new project down.
-        2. sum     - summary repository and write to file 'summary-code/information.txt'
+        1. setup    - setup project after you download new project down.
+        2. teardown - uninstall all library, installed by this project.
+        2. sum      - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
-        1. s       - run server (default port 8000)
-                     - @params 1 - (optional) port number
+        1. s        - run server (default port 8000)
+                      - @params 1 - (optional) port number
 
     # Deploy
-        1. h       - heroku short command
-                     1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
-                          - @params 1 - (optional) branch to deploy (default is current branch)
-                     2. l - logs all action in heroku container
-        2. co      - collect static file
+        1. h        - heroku short command
+                      1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
+                           - @params 1 - (optional) branch to deploy (default is current branch)
+                      2. l - logs all action in heroku container
+        2. co       - collect static file
 
     # Database
-        1. c       - check database problem
-        2. mm      - make migrations of new models
-        3. m       - migrate database
-        4. l       - load all fixture (test data)
-                     - @params 1 - (optional) fixture name (without init_*)
-        5. e       - dump currently database to file-name (if no file-name print as 'stout')
-                     - @params 1 - models to export
-                     - @params 2 - (optional) file name
+        1. c        - check database problem
+        2. mm       - make migrations of new models
+        3. m        - migrate database
+        4. l        - load all fixture (test data)
+                      - @params 1 - (optional) fixture name (without init_*)
+        5. e        - dump currently database to file-name (if no file-name print as 'stout')
+                      - @params 1 - models to export
+                      - @params 2 - (optional) file name
 
     # Testing
-        1. a       - analyze using 'codeclimate'
-                     - @params 1 - (optional) output format (default=html)
-                     - @params 2 - (optional) output file   (default=result.html)
-        2. t       - test all testcase
-                     - @params 1 - (optional) module.testcase.method is allow to spectify test
-        3. t-ci    - test all testcase with full debug printing and report coverage as xml
-        4. cov     - report coverage with specify parameter
-                     - @params 1 - (optional) output type [report|html|xml] (default=report)
-                     - @params 2 - (optional) output directory (html) / file (xml)
+        1. a        - analyze using 'codeclimate'
+                      - @params 1 - (optional) output format (default=html)
+                      - @params 2 - (optional) output file   (default=result.html)
+        2. t        - test all testcase
+                      - @params 1 - (optional) module.testcase.method is allow to spectify test
+        3. t-ci     - test all testcase with full debug printing and report coverage as xml
+        4. cov      - report coverage with specify parameter
+                      - @params 1 - (optional) output type [report|html|xml] (default=report)
+                      - @params 2 - (optional) output directory (html) / file (xml)
 
     # Clean project
-        1. r       - remove currently database
-        1. d       - delete all file/folder in gitignore
+        1. r        - remove currently database
+        1. d        - delete all file/folder in gitignore
 
 Example Usage:
 1. './utils.sh s production 1234' - run server production on port 1234
