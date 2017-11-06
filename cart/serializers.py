@@ -19,6 +19,7 @@ class OrderInfoSerializer(serializers.ModelSerializer):
         model = OrderInfo
         fields = ('product', 'pid', 'quantity')
 
+
 class OrderInfoDetailSerializer(serializers.ModelSerializer):
     product = ProductDetailSerializer(read_only=True)
     pid = serializers.PrimaryKeyRelatedField(
@@ -28,16 +29,20 @@ class OrderInfoDetailSerializer(serializers.ModelSerializer):
         model = OrderInfo
         fields = ('product', 'pid', 'quantity')
 
+
 class CalculateOrderSerializer(serializers.Serializer):
     customer = serializers.CharField(max_length=200)
     products = OrderInfoSerializer(many=True)
 
     def validate_customer(self, value):
         try:
-            return Customer.objects.get(id=Token.objects.get(key=value).user_id)
+            return Customer.objects.get(user_id=Token.objects.get(key=value).user_id)
         except Token.DoesNotExist:
             raise serializers.ValidationError(
                 "customer key accept either id or token.")
+        except Customer.DoesNotExist:
+            raise serializers.ValidationError(
+                "you are no our customer.")
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -71,12 +76,14 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('uuid', 'creditcard', 'transportation')
 
+
 class HistorySerializer(serializers.ModelSerializer):
     products = OrderInfoDetailSerializer(many=True, read_only=True)
-    
+
     class Meta:
         model = Order
-        fields = ('id', 'final_price', 'products', 'updated_at')
+        fields = ('id', 'final_price', 'products', 'created_at', 'updated_at')
+
 
 class TransportationSerializer(serializers.ModelSerializer):
 

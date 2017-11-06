@@ -1,61 +1,6 @@
-# https://docs.djangoproject.com/en/1.11/topics/testing/
-from django.contrib.messages import get_messages
-from django.contrib.auth.hashers import make_password
+from utilities.testcaseutils import MembershipTestCase
 
-from rest_framework.test import APIClient
-from membership.models import User
-
-from rest_framework import status
-from django.core.urlresolvers import reverse
-
-from random import uniform, randrange
-
-from membership.models import User, Customer, Class
-
-from Backend.test_utils import ImpRandomNumber, ImpTestCase
-
-
-class MembershipTestCase(ImpTestCase):
-    fixtures = ['init_class.yaml', 'init_user.yaml', 'init_email.yaml']
-
-    def setUp(self):
-        self.client = APIClient()
-        self.random_class = ImpRandomNumber()
-
-        self.set_constants()
-
-    def set_constants(self):
-        print("no implemented yet!")
-
-    def get_user(self, username):
-        return User.objects.get(username=username)
-
-    def get_user_by_id(self, id):
-        return User.objects.get(pk=id)
-
-    def get_customer(self, username):
-        return Customer.objects.get(user=self.get_user(username))
-
-    def get_default_customer(self):
-        password = self.random_class.random_password()
-        return {
-            "user": {
-                "username": self.random_class.random_username("good-user"),
-                "first_name": self.random_class.random_first_name(),
-                "last_name": self.random_class.random_last_name(),
-                "email": self.random_class.random_email()
-            },
-            "password1": password,
-            "password2": password
-        }
-
-    def get_default_credit_card(self):
-        return {
-            "owner": self.random_class.random_username("owner"),
-            "credit_no": self.random_class.random_credit_no(),
-            "ccv": self.random_class.random_ccv(),
-            "expire_date": "2022-02-01"
-        }
+from membership.models import Class
 
 
 class SimpleTestCase(MembershipTestCase):
@@ -73,32 +18,16 @@ class SimpleTestCase(MembershipTestCase):
 
     def test_api_bad_request_no_first_last_email(self):
         """firstname lastname and email are required to filled."""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.bad_user,
-            format="json"
-        )
-
+        response = self.run_create_membership(self.bad_user)
         self.assertResponseCode400(response)
 
     def test_register_customer(self):
         """if client don't specify class, use default bronze class."""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
-        )
-
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.good_user)
 
     def test_info_saved(self):
         """test if customer really stores in the db"""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.good_user)
 
         customer = self.get_customer(
             self.good_user.get("user").get("username"))
@@ -112,30 +41,18 @@ class SimpleTestCase(MembershipTestCase):
 
     def test_cannot_register_two_times(self):
         """test if customer register twist"""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.good_user)  # run and test
 
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
-        )
+        response = self.run_create_membership(
+            self.good_user)  # run second time
+
         self.assertResponseCode400(response)
         self.assertResponseData2(response, "user", "username", [
                                  'A user with that username already exists.'])
 
     def test_api_autocomplete_class_in_customer(self):
         """if client don't specify class, use default none class."""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.good_user,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership(self.good_user)
         customer = self.get_customer(
             self.good_user.get("user").get("username"))
 
@@ -153,13 +70,7 @@ class OptionalTestCase(MembershipTestCase):
 
     def test_api_specify_class_in_customer(self):
         """create customer randomly."""
-
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_class,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.user_with_class)
 
         customer = self.get_customer(
             self.user_with_class.get("user").get("username"))
@@ -169,12 +80,8 @@ class OptionalTestCase(MembershipTestCase):
     def test_register_with_optional_telephone(self):
         telephone = "081-111-1111"
         self.user_with_optional_params.get('user')['telephone'] = telephone
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_optional_params,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+
+        self.run_create_membership_and_test(self.user_with_optional_params)
 
         customer = self.get_customer(
             self.user_with_optional_params.get("user").get("username"))
@@ -183,12 +90,8 @@ class OptionalTestCase(MembershipTestCase):
     def test_register_with_optional_address(self):
         address = "42 Phaholyothin Road 11100"
         self.user_with_optional_params.get('user')['address'] = address
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_optional_params,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+
+        self.run_create_membership_and_test(self.user_with_optional_params)
 
         customer = self.get_customer(
             self.user_with_optional_params.get("user").get("username"))
@@ -201,12 +104,8 @@ class OptionalTestCase(MembershipTestCase):
         date_of_birth = "{}-{}-{}".format(year, month, day)
         self.user_with_optional_params.get(
             'user')['date_of_birth'] = date_of_birth
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_optional_params,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+
+        self.run_create_membership_and_test(self.user_with_optional_params)
 
         customer = self.get_customer(
             self.user_with_optional_params.get("user").get("username"))
@@ -217,12 +116,8 @@ class OptionalTestCase(MembershipTestCase):
     def test_register_with_optional_gender(self):
         gender = "female"
         self.user_with_optional_params.get('user')['gender'] = gender
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_optional_params,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+
+        self.run_create_membership_and_test(self.user_with_optional_params)
 
         customer = self.get_customer(
             self.user_with_optional_params.get("user").get("username"))
@@ -238,12 +133,8 @@ class CreditOptionalTestCase(MembershipTestCase):
 
     def test_register_with_credit_card(self):
         """single credit card"""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_credit_card,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.user_with_credit_card)
+
         customer = self.get_customer(
             self.user_with_credit_card.get("user").get("username"))
         credit_no = customer.get_credit_card(0).credit_no
@@ -263,12 +154,7 @@ class CreditOptionalTestCase(MembershipTestCase):
             self.user_with_credit_card[
                 'credit_cards'] += [self.get_default_credit_card(), ]
 
-        response = self.client.post(
-            reverse('rest_register'),
-            self.user_with_credit_card,
-            format="json"
-        )
-        self.assertResponseCode201(response)
+        self.run_create_membership_and_test(self.user_with_credit_card)
 
         customer = self.get_customer(
             self.user_with_credit_card.get("user").get("username"))
@@ -293,9 +179,6 @@ class FailureTestCase(MembershipTestCase):
 
     def test_api_dismatch_password(self):
         """wrong password cannot login"""
-        response = self.client.post(
-            reverse('rest_register'),
-            self.bad_user_wrong_password,
-            format="json"
-        )
+
+        response = self.run_create_membership(self.bad_user_wrong_password)
         self.assertResponseCode400(response)

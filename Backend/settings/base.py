@@ -44,7 +44,6 @@ ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'ngrok.io', '.ngrok.io', 'localho
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
 TEST_OUTPUT_VERBOSE = 2
-TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-' + str(round(time.time())) + '.xml'
 
 CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
 
