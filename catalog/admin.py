@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django import forms
+from django.utils import timezone
+from utilities.methods.other import is_between_date
 from .models import Design, Material, Product, Promotion, Image
 
 class DesignAdmin(admin.ModelAdmin):
@@ -32,7 +34,7 @@ class PromotionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(PromotionForm, self).__init__(*args, **kwargs)
-        if self.instance.start_date is None and self.instance.end_date is None:
+        if self.instance.start_date is not None and self.instance.end_date is not None:
             self.fields['status'].disabled = True
 
 class PromotionAdmin(admin.ModelAdmin):

@@ -158,5 +158,9 @@ class Promotion(models.Model):
         else:
             # print("update status => False")
             self.status = False
-        self.save()
+        # self.save()
         return self.status
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        self.update_status()
+        super(Promotion, self).save(force_insert, force_update, *args, **kwargs)
