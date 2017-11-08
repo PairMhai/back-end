@@ -1,9 +1,12 @@
+
+from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from catalog.models import Material, Design, Promotion
 from catalog.serializers import ListMaterialSerializer, MaterialSerializer, DesignSerializer, PromotionSerializer
 
-from Backend.utils import update_all_status_promotions
-
-from rest_framework import generics
+from utilities.methods.database import update_all_status_promotions
 
 
 class MaterialList(generics.ListAPIView):
@@ -34,6 +37,14 @@ class PromotionList(generics.ListAPIView):
         return update_all_status_promotions(queryset)
 
 
+from cart.models import Order
+
+
+class TestView(APIView):
+
+    def get(self, request, format=None):
+        order = Order.objects.get(pk=2)
+        return Response(order.get_prices())
 # class PromotionDetail(generics.RetrieveAPIView):
 #     queryset = Promotion.objects.all()
 #     serializer_class = PromotionSerializer

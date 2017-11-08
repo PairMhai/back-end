@@ -1,7 +1,8 @@
 from catalog.models import Material, Design, Image, Product, Promotion
 from rest_framework import serializers
 
-from Backend.utils import ThaiDateTimeField
+from collections import OrderedDict
+from utilities.classes.database import ThaiDateTimeField
 
 
 class PromotionSerializer(serializers.ModelSerializer):
@@ -10,7 +11,8 @@ class PromotionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Promotion
-        fields = ('name', 'image_name', 'status', 'start', 'end')  # , 'id'
+        fields = ('name', 'description', 'discount', 'image_name',
+                  'status', 'start', 'end')  # , 'id'
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -28,13 +30,22 @@ class FullImageSerializer(serializers.ModelSerializer):
 
 
 class MiniMaterialSerializer(serializers.ModelSerializer):
-    product_id = serializers.IntegerField(source='get_product_id')
 
     class Meta:
         model = Material
-        fields = ('product_id', 'id', 'name',
-                  'description', 'color',
-                  'image_name')
+        fields = ('id', 'name', 'color',
+                  'price', 'image_name')
+
+
+class MiniDesignSerializer(serializers.ModelSerializer):
+    price = serializers.IntegerField(source='get_price')
+    images = ImageSerializer(many=True)
+    material = MiniMaterialSerializer()
+
+    class Meta:
+        model = Design
+        fields = ('id', 'name', 'material',
+                  'price', 'images')
 
 
 class ListMaterialSerializer(serializers.ModelSerializer):
@@ -91,3 +102,17 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ('id', 'design', 'material')
+
+
+class ProductDetailSerializer(serializers.ModelSerializer):
+    design = MiniDesignSerializer(required=False)
+    material = MiniMaterialSerializer(required=False)
+
+    class Meta:
+        model = Product
+        fields = ('id', 'design', 'material')
+
+    def to_representation(self, instance):
+        result = super(ProductDetailSerializer,
+                       self).to_representation(instance)
+        return OrderedDict([(key, result[key]) for key in result if result[key] is not None])

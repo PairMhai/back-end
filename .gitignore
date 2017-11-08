@@ -43,3 +43,7 @@ tags
 # **/migrations/[0-9]*.py
 
 test-reports
+**/*coverage*
+**/*htmlcov*
+
+result.html

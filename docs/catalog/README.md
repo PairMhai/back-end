@@ -191,7 +191,7 @@
         }
         ```
 
-### Promotion list **(v0.11.0)**
+### Promotion list **(v1.0.1)**
 - Path: ^catalog/promotions$
 - Description: List all promotions
 1. **Request**
@@ -204,38 +204,13 @@
         ```json
         [
             {
-                "product": 1,
-                "name": "pro1",
-                "description": "something1",
-                "discount": "10.00",
-                "image_name": "something1.png"
-            },
-            {
-                "product": 3,
-                "name": "pro2",
-                "description": "something2",
-                "discount": "0.00",
-                "image_name": "something2.png"
+                "name": "Test Data",
+                "description": "some-text",
+                "discount": "87.65",
+                "image_name": "test_promotion.png",
+                "status": true,
+                "start": "2017-01-01T00:00:00+07:00",
+                "end": "2018-01-01T00:00:00+07:00"
             }
         ]
-        ```
-
-### Promotion Detail **(Deprecate @ v0.11.0)**
-- Path: ^catalog/promotion/(?P<pk>[0-9]+)$
-- Description: Get individual promotion by `promotion id`
-1. **Request**
-    - method: `GET`
-    - body: [none]
-2. **Response**
-    1. Successfully
-        - code: `200_OK`
-        - body:
-        ```json
-        {
-            "product": 1,
-            "name": "pro1",
-            "description": "something1",
-            "discount": "10.00",
-            "image_name": "something1.png"
-        }
         ```

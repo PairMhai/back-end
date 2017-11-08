@@ -1,6 +1,6 @@
 from .base import *
 
-VERSION = "1.0.0-beta.1"
+VERSION = "1.2.0-beta.5"
 
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Email validation by gmail
@@ -10,6 +10,8 @@ EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 DEBUG = True
+
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-DEVELOP-' + str(round(time.time())) + '.xml'
 
 DATABASES = {
     'default': {
