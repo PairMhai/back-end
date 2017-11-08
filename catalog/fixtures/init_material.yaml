@@ -56,11 +56,110 @@
 - model: catalog.material
   pk: 6
   fields:
+    name: Chiffon
+    description: Chiffon is a lightweight, balanced plain-woven sheer fabric woven of alternate S- and Z-twist crepe yarns.
+    quantity: 15
+    price: 450
+    color: cream
+    image_name: chiffon_cream.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 7
+  fields:
+    name: Satin
+    description: Satin is a fabric made using a satin weave structure but made with spun yarns instead of filament.
+    quantity: 15
+    price: 500
+    color: purple
+    image_name: satinpurp.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 8
+  fields:
     name: Spider
     description: Spider silk is resistant to extreme temperature and humidity.
     quantity: 10
     price: 500
     color: green
     image_name: lightgreen.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 9
+  fields:
+    name: Velvet
+    description: Velvet is a type of woven tufted fabric in which the cut threads are evenly distributed, with a short dense pile, giving it a distinctive soft feel.
+    quantity: 15
+    price: 350
+    color: red
+    image_name: velveties.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 10
+  fields:
+    name: Poplin
+    description: Poplin is now made with wool, cotton, silk, rayon, polyester or a mixture of these.
+    quantity: 10
+    price: 300
+    color: green
+    image_name: darkgreen.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 11
+  fields:
+    name: Habutai
+    description: Habutai or habotai is one of the most basic plain weaves of silk fabric.
+    quantity: 20
+    price: 450
+    color: pink
+    image_name: lightpinky.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 12
+  fields:
+    name: Damask
+    description: Damask is a reversible figured fabric of silk, wool, linen, cotton, or synthetic fibres, with a pattern formed by weaving.
+    quantity: 15
+    price: 450
+    color: gold
+    image_name: gold_damask.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 13
+  fields:
+    name: Charmeuse
+    description: Charmeuse is a lightweight fabric woven with a satin weave, in which the warp threads cross over four or more of the backing threads.
+    quantity: 20
+    price: 500
+    color: purple
+    image_name: charme-purp.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 14
+  fields:
+    name: Organza
+    description: Organza is a thin, plain weave, sheer fabric traditionally made from silk.
+    quantity: 15
+    price: 300
+    color: blue
+    image_name: bluesky.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 15
+  fields:
+    name: Muga
+    description: Muga silk is a variety of wild silk geographically tagged to the state of Assam in India.
+    quantity: 15
+    price: 500
+    color: gold
+    image_name: gold_muga.jpg
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
