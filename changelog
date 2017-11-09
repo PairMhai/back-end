@@ -1,6 +1,45 @@
-1.1.5 - Update library
 
-1.1.4 - update catalog cart and promotion
-      - improve documents
+v1.2.3.4.5 / 2017-11-09
+=======================
 
-1.1.3 - add new feature, decrease quantity when buying
+  * :loud_sound: add log in release command
+  * :sparkles: Add new options
+  * :loud_sound: Add change log and temp files
+  * :bug: remove macOS temp files
+  * add material & product
+  * redo customer
+  * add more orderinfo & change some promotions
+  * update promotion with many-to-many
+
+v1.1.4 / 2017-11-06
+===================
+
+  * :heavy_plus_sign: add auto update dependency
+  * :card_file_box: update fixture of promotion
+  * :memo: update utils docs
+  * :arrow_up: upgrade library and add upgrade script
+  * :sparkles: Add teardown project in utils
+  * :bookmark: Dump version
+  * :memo: update history docs
+  * :white_check_mark: add history test
+
+v1.1.3 / 2017-11-06
+===================
+
+  * :heavy_plus_sign: add quantity when buying
+
+v1.1.2 / 2017-10-30
+===================
+
+  * Dump version v1.1.2 (#61)
+  * Dev (#58)
+
+v1.0.0 / 2017-10-27
+===================
+
+  * Dev (#47)
+
+v1.1.1 / 2017-10-30
+===================
+
+  * 📝 fix document
