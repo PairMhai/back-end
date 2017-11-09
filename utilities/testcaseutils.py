@@ -302,7 +302,7 @@ class CartTestCase(CatalogTestCase, MembershipTestUtils):
             transportations += [p]
 
         return self.random_class.random_element_in_list(transportations)
-
+      
     def add_product(self, buyer, product_json):
         if 'products' in buyer:
             buyer['products'] += [product_json]

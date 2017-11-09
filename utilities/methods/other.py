@@ -40,7 +40,7 @@ def is_between_date(start, end, current):
 def change_default_timezone(date):
     from django.utils import timezone
     return timezone.localtime(date)
-
+  
 def round_money(x, base=25):
     """
     https://stackoverflow.com/questions/2272149/round-to-5-or-other-number-in-python

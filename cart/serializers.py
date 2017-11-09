@@ -96,10 +96,10 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ('uuid', 'creditcard')
 
 
+
 class HistorySerializer(serializers.ModelSerializer):
     products = OrderInfoDetailSerializer(many=True, read_only=True)
 
     class Meta:
         model = Order
         fields = ('id', 'final_price', 'products', 'created_at', 'updated_at')
-
