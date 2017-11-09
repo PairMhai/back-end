@@ -158,7 +158,7 @@ class OrderCalculateView(APIView):
                 "customer_discount": customer_discount,
                 "event_discount": full_price - product_event_price,
                 "total_price": total_price,
-                "transportation": transportation.price,
+                "transportation_price": transportation.price,
                 "transportation_obj": transportation,
                 "final_price": final_price
             }
