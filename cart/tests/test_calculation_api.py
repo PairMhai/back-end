@@ -15,11 +15,25 @@ class CalculationApiTestCase(CartTestCase):
 
     def test_calculation_correctly(self):
         """test, is calculation can completed"""
+        self.add_transportation(self.buyer)
         self.add_valid_product_to_buy(self.buyer)
         self.run_calculate(self.buyer, self.good_response)
 
+    def test_transportation_is_required(self):
+        """ error, if no transportation sent"""
+        self.add_valid_product_to_buy(self.buyer)
+        response = self.run_calculate(self.buyer, self.bad_response)
+        self.assertResponseData2KeyExist(response, 'detail', 'transportation')
+
+    def test_product_is_required(self):
+        """ error, if no product sent"""
+        self.add_transportation(self.buyer)
+        response = self.run_calculate(self.buyer, self.bad_response)
+        self.assertResponseData2KeyExist(response, 'detail', 'products')
+
     def test_calculation_key_valid(self):
         """test, is calculation return data as expected"""
+        self.add_transportation(self.buyer)
         self.add_valid_product_to_buy(self.buyer)
         self.add_valid_product_to_buy(self.buyer)
 
@@ -34,6 +48,7 @@ class CalculationApiTestCase(CartTestCase):
     def test_invalid_customer(self):
         """test, if fake customer try to order"""
         self.buyer = self.gen_buyer_json("fake-token")
+        self.add_transportation(self.buyer)
         self.add_valid_product_to_buy(self.buyer)
 
         response = self.run_calculate(self.buyer, self.bad_response)
@@ -46,6 +61,7 @@ class CalculationApiTestCase(CartTestCase):
 
     def test_invalid_product_id(self):
         """ test. if order invalid product id """
+        self.add_transportation(self.buyer)
         self.add_invalid_product_to_buy(self.buyer, wrong_id=True)
         response = self.run_calculate(self.buyer, self.bad_response)
         self.assertResponseData2(response,
@@ -61,6 +77,7 @@ class CalculationApiTestCase(CartTestCase):
 
     def test_invalid_product_quanity(self):
         """ test. if order out of stock """
+        self.add_transportation(self.buyer)
         pid = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
         response = self.run_calculate(self.buyer, self.bad_response)
 
@@ -73,6 +90,7 @@ class CalculationApiTestCase(CartTestCase):
 
     def test_multiple_invalid_product_quanity(self):
         """ test. if order out of stock multiple times """
+        self.add_transportation(self.buyer)
         pid1 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
         pid2 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
         pid3 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)

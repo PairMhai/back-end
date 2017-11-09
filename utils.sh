@@ -291,6 +291,49 @@ analyze() {
     codeclimate analyze -f "$format" >"$file"
 }
 
+release() {
+    printf "update to => dev=%s       \n" "$2"
+    printf "          => pro=%s [Y|n] " "$3"
+    read -rn 1 ans
+    if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
+        DUMP=":bookmark: Dump version: $3"
+        IMPORT="from .base import *"
+        D_VERSION="VERSION = \"$2-beta.1\""
+        S_VERSION="VERSION = \"$3-test.1\""
+        P_VERSION="VERSION = \"$3\""
+
+        echo "run..."
+        echo "developing..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
+        printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
+        cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
+        
+        echo "staging..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
+        printf "%s\n\n" "$S_VERSION" >> ./Backend/settings/staging.py
+        cat ./Backend/settings/temp/stemp.py >> ./Backend/settings/staging.py
+
+        echo "producting..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/production.py
+        printf "%s\n\n" "$P_VERSION" >> ./Backend/settings/production.py
+        cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
+
+        echo "creating changelog..."
+        git changelog --no-merges --tag "$3"
+
+        echo "git adding..."
+        git add .
+        echo "git committing..."
+        git commit -am "$DUMP"
+        echo "git tagging..."
+        git tag "$3"
+        echo "git pushing..."
+        git push --tag
+    else
+        echo "stop!"
+    fi
+}
+
 help() {
     echo "
 Description:
@@ -326,6 +369,9 @@ Help Command:
                            - @params 1 - (optional) branch to deploy (default is current branch)
                       2. l - logs all action in heroku container
         2. co       - collect static file
+        3. v        - release new version
+                      - @param 1 - text of develop version
+                      - @param 2 - text of staging and production version in git tag
 
     # Database
         1. c        - check database problem
@@ -379,6 +425,7 @@ Example Usage:
 [[ $1 == "h" ]] && heroku_imp "$@" && exit 0
 [[ $1 == "r" ]] && remove_db "$@" && exit 0
 [[ $1 == "sum" ]] && summary_code "$@" && exit 0
+[[ $1 == "v" ]] && release "$@" && exit 0
 
 [[ $1 == "h" ]] && help && exit 0
 [[ $1 == "-h" ]] && help && exit 0

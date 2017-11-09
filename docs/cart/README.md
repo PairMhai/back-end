@@ -27,7 +27,7 @@
         ]
         ```
 
-### Calculate **(v0.13.0)**
+### Calculate **(v1.2.0)**
 - Path: `^cart/calculate$`
 - Description: calculate price of ordering product
 1. **Request**
@@ -49,7 +49,8 @@
                 "pid": 1,
                 "quantity": 1
             }
-        ]
+        ],
+        "transportation": 1
     }
     ```
 2. **Response**
@@ -62,6 +63,7 @@
             "full_price": 36000,
             "customer_discount": 5400,
             "event_discount": 34271,
+            "transportation_price": 1234,
             "total_price": 0
         }
         ```
@@ -70,6 +72,7 @@
         - customer_discount -> discount by customer class (unit: baht)
         - event_discount -> discount by event class (unit: baht)
         - total_price -> final price but no include transport yet.
+        - transportation_price -> price of input shipment
     2. Failure
         - code: `400_BAD_REQUEST`
         - body: 
@@ -85,7 +88,7 @@
             }
         ```
 
-### Order Creator **(v0.13.0)**
+### Order Creator **(v1.2.0)**
 - Path: `^cart/$`
 - Description: create ordering in customer cart
 1. **Request**
@@ -94,8 +97,7 @@
     ```json
     {
         "uuid": "ea2747f2-8b6c-4c74-9abb-139b35210e7d",
-        "creditcard": 1,
-        "transportation": 1
+        "creditcard": 1
     }
     ```
     - uuid -> get from calculate_id in calculation APIs

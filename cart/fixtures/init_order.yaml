@@ -53,3 +53,59 @@
     address: Bangkok, Thailand
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.order
+  pk: 6
+  fields:
+    total_product: 1
+    final_price: 9500
+    customer: 3
+    creditcard: 1
+    transportation: 3
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.order
+  pk: 7
+  fields:
+    total_product: 2
+    final_price: 10000
+    customer: 2
+    creditcard: 1
+    transportation: 3
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.order
+  pk: 8
+  fields:
+    total_product: 3
+    final_price: 20000
+    customer: 1
+    creditcard: 1
+    transportation: 2
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.order
+  pk: 9
+  fields:
+    total_product: 1
+    final_price: 5000
+    customer: 2
+    creditcard: 1
+    transportation: 1
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.order
+  pk: 10
+  fields:
+    total_product: 4
+    final_price: 28000
+    customer: 3
+    creditcard: 1
+    transportation: 2
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+

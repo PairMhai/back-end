@@ -33,6 +33,10 @@ class Design(models.Model):
     def get_price(self):
         return self.material.price * self.yard
 
+    def get_quantity(self):
+        import math
+        return math.floor(self.material.quantity / self.yard)
+
     def get_discount_price(self):
         sets = self.get_associate_promotion()
         price = self.get_price()
@@ -104,7 +108,13 @@ class Product(models.Model):
     )
 
     def __str__(self):
-        return "Design {} object".format(self.design.id) if self.material == None else "Material {} object".format(self.material.id)
+        return "Design {} object".format(self.design.id) if self.material is None else "Material {} object".format(self.material.id)
+
+    def get_quantity(self):
+        return self.design.get_quantity() if self.material is None else self.material.quantity
+
+    def get_object(self):
+        return self.design if self.material is None else self.material
 
     def get_quantity(self):
         if self.material == None:
@@ -117,10 +127,10 @@ class Product(models.Model):
         return self.design if self.material == None else self.material
 
     def get_price(self):
-        return self.design.get_price() if self.material == None else self.material.price
+        return self.design.get_price() if self.material is None else self.material.price
 
     def get_discount_price(self):
-        return self.design.get_discount_price() if self.material == None else self.material.get_discount_price()
+        return self.design.get_discount_price() if self.material is None else self.material.get_discount_price()
 
 
 class Promotion(models.Model):
