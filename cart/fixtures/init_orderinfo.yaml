@@ -28,7 +28,7 @@
 - model: cart.orderinfo
   pk: 4
   fields:
-    quantity: 4
+    quantity: 1
     order: 2
     product: 6
     remarks: size
@@ -37,10 +37,101 @@
 - model: cart.orderinfo
   pk: 5
   fields:
-    quantity: 1
-    order: 3
+    quantity: 2
+    order: 1
     product: 3
     remarks: size
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 6
+  fields:
+    quantity: 2
+    order: 4
+    product: 10
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 7
+  fields:
+    quantity: 1
+    order: 5
+    product: 13
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 8
+  fields:
+    quantity: 1
+    order: 6
+    product: 7
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 9
+  fields:
+    quantity: 1
+    order: 7
+    product: 2
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 10
+  fields:
+    quantity: 1
+    order: 8
+    product: 4
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 11
+  fields:
+    quantity: 2
+    order: 8
+    product: 6
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 12
+  fields:
+    quantity: 1
+    order: 9
+    product: 10
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 13
+  fields:
+    quantity: 2
+    order: 10
+    product: 9
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 14
+  fields:
+    quantity: 2
+    order: 10
+    product: 8
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: cart.orderinfo
+  pk: 15
+  fields:
+    quantity: 1
+    order: 10
+    product: 11
+    remarks: size
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+
 

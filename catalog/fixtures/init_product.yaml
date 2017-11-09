@@ -82,3 +82,39 @@
   pk: 21
   fields:
     design: 15
+- model: catalog.product
+  pk: 22
+  fields:
+    material: 7
+- model: catalog.product
+  pk: 23
+  fields:
+    material: 8
+- model: catalog.product
+  pk: 24
+  fields:
+    material: 9
+- model: catalog.product
+  pk: 25
+  fields:
+    material: 10
+- model: catalog.product
+  pk: 26
+  fields:
+    material: 11
+- model: catalog.product
+  pk: 27
+  fields:
+    material: 12
+- model: catalog.product
+  pk: 28
+  fields:
+    material: 13
+- model: catalog.product
+  pk: 29
+  fields:
+    material: 14
+- model: catalog.product
+  pk: 30
+  fields:
+    material: 15
