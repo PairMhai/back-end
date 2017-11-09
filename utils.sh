@@ -291,6 +291,41 @@ analyze() {
     codeclimate analyze -f "$format" >"$file"
 }
 
+release() {
+    printf "update to => %s [Y|n] " "$2"
+    read -rn 1 ans
+    if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
+        DUMP=":bookmark: Dump version: $2"
+        IMPORT="from .base import *"
+        D_VERSION="VERSION = \"$2-beta.1\""
+        S_VERSION="VERSION = \"$3-test.1\""
+        P_VERSION="VERSION = \"$4\""
+
+        echo "run..."
+        echo "developing..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
+        printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
+        cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
+        
+        echo "staging..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
+        printf "%s\n\n" "$S_VERSION" >> ./Backend/settings/staging.py
+        cat ./Backend/settings/temp/stemp.py >> ./Backend/settings/staging.py
+
+        echo "producting..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/production.py
+        printf "%s\n\n" "$P_VERSION" >> ./Backend/settings/production.py
+        cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
+
+        # git add .
+        # git commit -am "$DUMP"
+        # gt tag "$4"
+        # git push --tag
+    else
+        echo "stop!"
+    fi
+}
+
 help() {
     echo "
 Description:
@@ -326,6 +361,10 @@ Help Command:
                            - @params 1 - (optional) branch to deploy (default is current branch)
                       2. l - logs all action in heroku container
         2. co       - collect static file
+        3. v        - release new version
+                      - @param 1 - text of develop version
+                      - @param 2 - text of staging version
+                      - @param 3 - text of production version in git tag
 
     # Database
         1. c        - check database problem
@@ -379,6 +418,7 @@ Example Usage:
 [[ $1 == "h" ]] && heroku_imp "$@" && exit 0
 [[ $1 == "r" ]] && remove_db "$@" && exit 0
 [[ $1 == "sum" ]] && summary_code "$@" && exit 0
+[[ $1 == "v" ]] && release "$@" && exit 0
 
 [[ $1 == "h" ]] && help && exit 0
 [[ $1 == "-h" ]] && help && exit 0
