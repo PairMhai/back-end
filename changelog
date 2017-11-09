@@ -1,4 +1,11 @@
 
+v1.2.1 / 2017-11-09
+===================
+
+  * :card_file_box: Increase stock of catalog product
+  * :children_crossing: Add quantity to design APIs
+  * :hammer: clean code and fix lint warning
+
 v1.2.0 / 2017-11-09
 ===================
 

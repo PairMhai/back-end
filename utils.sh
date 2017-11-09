@@ -292,7 +292,8 @@ analyze() {
 }
 
 release() {
-    printf "update to => %s [Y|n] " "$2"
+    printf "update to => dev=%s       \n" "$2"
+    printf "          => pro=%s [Y|n] " "$3"
     read -rn 1 ans
     if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
         DUMP=":bookmark: Dump version: $3"
