@@ -317,10 +317,14 @@ release() {
         printf "%s\n\n" "$P_VERSION" >> ./Backend/settings/production.py
         cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
 
-        # git add .
-        # git commit -am "$DUMP"
-        # gt tag "$4"
-        # git push --tag
+        echo "git adding..."
+        git add .
+        echo "git committing..."
+        git commit -am "$DUMP"
+        echo "git tagging..."
+        git tag "$4"
+        echo "git pushing..."
+        git push --tag
     else
         echo "stop!"
     fi
