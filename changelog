@@ -2,6 +2,18 @@
 v1.2.0 / 2017-11-09
 ===================
 
+  * :bug: release command bug
+  * :art: Update view and docs
+  * :children_crossing: Move transportation to calculation APIs
+  * :sparkles: introduce changelog file
+  * :bug: Update and fix release command
+  * :sparkles: Add new options
+  * :loud_sound: Add change log and temp files
+  * :bug: remove macOS temp files
+
+v1.2.0 / 2017-11-09
+===================
+
   * :art: Update view and docs
   * :children_crossing: Move transportation to calculation APIs
   * :sparkles: introduce changelog file
