@@ -164,4 +164,13 @@ tags
 !.vscode/extensions.json
 .history
 
-# End of https://www.gitignore.io/api/vim,django,python,osx,atom,visualstudiocode
+# End of https://www.gitignore.io/api/django,vim,visualstudiocode
+.idea
+
+# **/migrations/[0-9]*.py
+
+test-reports
+**/*coverage*
+**/*htmlcov*
+
+result.html

@@ -118,7 +118,6 @@
         ```
 
 ### History Detail **(v1.1.4)**
-
 - Path: `^cart/history/(?P<token>\w+)$`
 - Description: get history of customer by `token`
 1. **Request**

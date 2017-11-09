@@ -116,6 +116,16 @@ class Product(models.Model):
     def get_object(self):
         return self.design if self.material is None else self.material
 
+    def get_quantity(self):
+        if self.material == None:
+            import math
+            return math.floor(self.design.material.quantity / self.design.yard)
+        else:
+            return self.material.quantity
+
+    def get_object(self):
+        return self.design if self.material == None else self.material
+
     def get_price(self):
         return self.design.get_price() if self.material is None else self.material.price
 

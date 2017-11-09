@@ -149,7 +149,6 @@ class OrderCalculateView(APIView):
             # round final price
             final_price = total_price + transportation.price
             final_price = round_money(final_price * 100) / 100 # round to .25 .50 .75
-
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
