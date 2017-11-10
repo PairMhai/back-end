@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 
 from membership.models import User, Customer, Class
 from catalog.models import Product
+from cart.models import Transportation
 
 from .methods.database import (get_user_id_by_token,
                                get_token_by_user,
@@ -261,7 +262,6 @@ class MembershipTestUtils:
 
         return self.random_class.random_element_in_list(tokens)
 
-
 class CatalogTestCase(ImpTestCase):
     fixtures = CatalogFixture.fixtures
 
@@ -271,7 +271,6 @@ class CatalogTestCase(ImpTestCase):
             products += [p]
 
         return self.random_class.random_element_in_list(products)
-
 
 class CartTestCase(CatalogTestCase, MembershipTestUtils):
     fixtures = CatalogFixture.fixtures + CartFixture.fixtures
@@ -297,11 +296,21 @@ class CartTestCase(CatalogTestCase, MembershipTestUtils):
     def random_buyer(self):
         return self.gen_buyer_json(self.random_token())
 
+    def random_trans(self):
+        transportations = []
+        for p in Transportation.objects.all():
+            transportations += [p]
+
+        return self.random_class.random_element_in_list(transportations)
+      
     def add_product(self, buyer, product_json):
         if 'products' in buyer:
             buyer['products'] += [product_json]
         else:
             buyer['products'] = [product_json]
+
+    def add_transportation(self, buyer):
+        buyer['transportation'] = self.random_trans().id
 
     def add_valid_product_to_buy(self, buyer):
         """ get buyer from random_buyer """

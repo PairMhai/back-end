@@ -9,6 +9,17 @@ from payment.models import CreditCard
 from membership.serializers import FullCustomerSerializer
 from catalog.serializers import ProductSerializer, ProductDetailSerializer
 
+class TransportationSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Transportation
+        fields = ('id', 'name', 'description', 'price')
+
+class TransportationIDSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Transportation
+        fields = ('id')
 
 class OrderInfoSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
@@ -33,6 +44,7 @@ class OrderInfoDetailSerializer(serializers.ModelSerializer):
 class CalculateOrderSerializer(serializers.Serializer):
     customer = serializers.CharField(max_length=200)
     products = OrderInfoSerializer(many=True)
+    transportation = serializers.IntegerField()
 
     def validate_customer(self, value):
         try:
@@ -43,6 +55,13 @@ class CalculateOrderSerializer(serializers.Serializer):
         except Customer.DoesNotExist:
             raise serializers.ValidationError(
                 "you are no our customer.")
+
+    def validate_transportation(self, value):
+        try: 
+            return Transportation.objects.get(pk=value)
+        except Transportation.DoesNotExist:
+            raise serializers.ValidationError(
+                "transportation id invalid.")
 
 
 class OrderCreateSerializer(serializers.ModelSerializer):
@@ -69,12 +88,13 @@ class OrderSerializer(serializers.ModelSerializer):
     uuid = serializers.CharField(max_length=100)
     creditcard = serializers.PrimaryKeyRelatedField(
         queryset=CreditCard.objects.all(), write_only=True)
-    transportation = serializers.PrimaryKeyRelatedField(
-        queryset=Transportation.objects.all(), write_only=True)
+    # transportation = serializers.PrimaryKeyRelatedField(
+        # queryset=Transportation.objects.all(), write_only=True)
 
     class Meta:
         model = Order
-        fields = ('uuid', 'creditcard', 'transportation')
+        fields = ('uuid', 'creditcard')
+
 
 
 class HistorySerializer(serializers.ModelSerializer):
@@ -83,10 +103,3 @@ class HistorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'final_price', 'products', 'created_at', 'updated_at')
-
-
-class TransportationSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Transportation
-        fields = ('id', 'name', 'description', 'price')
