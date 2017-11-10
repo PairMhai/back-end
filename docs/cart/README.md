@@ -97,7 +97,8 @@
     ```json
     {
         "uuid": "ea2747f2-8b6c-4c74-9abb-139b35210e7d",
-        "creditcard": 1
+        "creditcard": 1,
+        "address": "Bangkok, Thailand"
     }
     ```
     - uuid -> get from calculate_id in calculation APIs
