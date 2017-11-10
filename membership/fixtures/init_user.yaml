@@ -9,7 +9,7 @@
     telephone: 088-888-8888
     is_staff: true
     is_active: true
-    address: 'pairmhai'
+    address: 'Bangkok, Thailand'
     gender: 'male'
     date_of_birth: 1996-11-08
     groups: []
@@ -23,7 +23,7 @@
     last_name: 'User'
     telephone: 087-654-3210
     is_active: true
-    address: 'test country'
+    address: 'Bangkok, Thailand'
     gender: 'female'
     date_of_birth: 1919-09-18
 - model: membership.user
@@ -35,7 +35,7 @@
     last_name: 'Wrong-tel.'
     telephone: 032-999-1010
     is_active: true
-    address: ''
+    address: 'Bangkok, Thailand'
     gender: 'male'
     date_of_birth: 1998-07-29
 - model: membership.user
@@ -48,6 +48,7 @@
     telephone: 099-888-9999
     is_staff: true
     is_active: true
+    address: 'Bangkok, Thailand'
     gender: 'female'
     date_of_birth: 2000-04-05
 - model: membership.user
@@ -59,6 +60,7 @@
     last_name: 'NorthUS'
     telephone: 099-099-1996
     is_active: true
+    address: 'Bangkok, Thailand'
     gender: 'male'
     date_of_birth: 1400-01-23
 - model: membership.user
@@ -70,5 +72,6 @@
     last_name: 'Downey'
     telephone: 081-456-2455
     is_active: true
+    address: 'Bangkok, Thailand'
     gender: 'male'
     date_of_birth: 1996-12-01
