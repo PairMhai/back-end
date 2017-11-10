@@ -57,7 +57,7 @@ class CalculateOrderSerializer(serializers.Serializer):
                 "you are no our customer.")
 
     def validate_transportation(self, value):
-        try: 
+        try:
             return Transportation.objects.get(pk=value)
         except Transportation.DoesNotExist:
             raise serializers.ValidationError(
@@ -70,7 +70,7 @@ class OrderCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('products', 'total_product', 'final_price',
-                  'customer', 'creditcard', 'transportation')
+                  'customer', 'creditcard', 'transportation', 'address')
 
     def create(self, validated_data):
         orders_info = validated_data.pop('products')
@@ -93,7 +93,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('uuid', 'creditcard')
+        fields = ('uuid', 'creditcard', 'address')
 
 
 
