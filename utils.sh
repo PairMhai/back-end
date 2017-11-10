@@ -5,12 +5,16 @@
 if [[ $1 == "setup" ]]; then
     ! command -v conda &>/dev/null && echo "conda required to setup project!" && exit 1
 
-    echo ">> install conda dependencies."
-    conda create --name pairmhai --file requirements_conda.txt
+    if [ $(conda info --envs | grep pairmhai -q) ]; then
+        source activate pairmhai
+    else
+        conda create --name pairmhai --file requirements_conda.txt
+        echo ">> install conda dependencies."
+        source activate pairmhai
+    fi
 
     echo ">> install dependencies."
     pip install -r requirements.txt
-
     exit 0
 fi
 
@@ -21,6 +25,23 @@ if command -v conda &>/dev/null; then
         source activate pairmhai
 else
     echo "no conda"
+fi
+
+# upgrade project
+if [[ $1 == "upgrade" ]]; then
+    source activate pairmhai
+    echo ">> upgrade dependencies."
+    echo "$2" | pip-upgrade --skip-package-installation requirements.txt
+    exit 0
+fi
+
+# uninstall project
+if [[ $1 == "teardown" ]]; then
+    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
+    for a in ${app[@]}; do
+        echo "y" | pip uninstall "${a%%==*}"
+    done
+    exit 0
 fi
 
 COMMAND="python"
@@ -270,6 +291,49 @@ analyze() {
     codeclimate analyze -f "$format" >"$file"
 }
 
+release() {
+    printf "update to => dev=%s       \n" "$2"
+    printf "          => pro=%s [Y|n] " "$3"
+    read -rn 1 ans
+    if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
+        DUMP=":bookmark: Dump version: $3"
+        IMPORT="from .base import *"
+        D_VERSION="VERSION = \"$2-beta.1\""
+        S_VERSION="VERSION = \"$3-test.1\""
+        P_VERSION="VERSION = \"$3\""
+
+        echo "run..."
+        echo "developing..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
+        printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
+        cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
+        
+        echo "staging..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
+        printf "%s\n\n" "$S_VERSION" >> ./Backend/settings/staging.py
+        cat ./Backend/settings/temp/stemp.py >> ./Backend/settings/staging.py
+
+        echo "producting..."
+        printf "%s\n\n" "$IMPORT" > ./Backend/settings/production.py
+        printf "%s\n\n" "$P_VERSION" >> ./Backend/settings/production.py
+        cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
+
+        echo "creating changelog..."
+        git changelog --no-merges --tag "$3"
+
+        echo "git adding..."
+        git add .
+        echo "git committing..."
+        git commit -am "$DUMP"
+        echo "git tagging..."
+        git tag "$3"
+        echo "git pushing..."
+        git push --tag
+    else
+        echo "stop!"
+    fi
+}
+
 help() {
     echo "
 Description:
@@ -287,44 +351,52 @@ Feature:
 
 Help Command:
     # Setting
-        1. setup   - setup project after you download new project down.
-        2. sum     - summary repository and write to file 'summary-code/information.txt'
+        1. setup    - setup project after you download new project down.
+        2. upgrade  - upgrade library of this project.
+                      - @params 1 - (optional) action after run upgrading
+                        1. 'all' - upgrade all outdated library
+                        2. 'x'   - dry run (don't do nothing)
+        3. teardown - uninstall all library, installed by this project.
+        4. sum      - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
-        1. s       - run server (default port 8000)
-                     - @params 1 - (optional) port number
+        1. s        - run server (default port 8000)
+                      - @params 1 - (optional) port number
 
     # Deploy
-        1. h       - heroku short command
-                     1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
-                          - @params 1 - (optional) branch to deploy (default is current branch)
-                     2. l - logs all action in heroku container
-        2. co      - collect static file
+        1. h        - heroku short command
+                      1. d - deploy code to heroku (@deprecated - pull to master for update production automatically)
+                           - @params 1 - (optional) branch to deploy (default is current branch)
+                      2. l - logs all action in heroku container
+        2. co       - collect static file
+        3. v        - release new version
+                      - @param 1 - text of develop version
+                      - @param 2 - text of staging and production version in git tag
 
     # Database
-        1. c       - check database problem
-        2. mm      - make migrations of new models
-        3. m       - migrate database
-        4. l       - load all fixture (test data)
-                     - @params 1 - (optional) fixture name (without init_*)
-        5. e       - dump currently database to file-name (if no file-name print as 'stout')
-                     - @params 1 - models to export
-                     - @params 2 - (optional) file name
+        1. c        - check database problem
+        2. mm       - make migrations of new models
+        3. m        - migrate database
+        4. l        - load all fixture (test data)
+                      - @params 1 - (optional) fixture name (without init_*)
+        5. e        - dump currently database to file-name (if no file-name print as 'stout')
+                      - @params 1 - models to export
+                      - @params 2 - (optional) file name
 
     # Testing
-        1. a       - analyze using 'codeclimate'
-                     - @params 1 - (optional) output format (default=html)
-                     - @params 2 - (optional) output file   (default=result.html)
-        2. t       - test all testcase
-                     - @params 1 - (optional) module.testcase.method is allow to spectify test
-        3. t-ci    - test all testcase with full debug printing and report coverage as xml
-        4. cov     - report coverage with specify parameter
-                     - @params 1 - (optional) output type [report|html|xml] (default=report)
-                     - @params 2 - (optional) output directory (html) / file (xml)
+        1. a        - analyze using 'codeclimate'
+                      - @params 1 - (optional) output format (default=html)
+                      - @params 2 - (optional) output file   (default=result.html)
+        2. t        - test all testcase
+                      - @params 1 - (optional) module.testcase.method is allow to spectify test
+        3. t-ci     - test all testcase with full debug printing and report coverage as xml
+        4. cov      - report coverage with specify parameter
+                      - @params 1 - (optional) output type [report|html|xml] (default=report)
+                      - @params 2 - (optional) output directory (html) / file (xml)
 
     # Clean project
-        1. r       - remove currently database
-        1. d       - delete all file/folder in gitignore
+        1. r        - remove currently database
+        1. d        - delete all file/folder in gitignore
 
 Example Usage:
 1. './utils.sh s production 1234' - run server production on port 1234
@@ -353,6 +425,7 @@ Example Usage:
 [[ $1 == "h" ]] && heroku_imp "$@" && exit 0
 [[ $1 == "r" ]] && remove_db "$@" && exit 0
 [[ $1 == "sum" ]] && summary_code "$@" && exit 0
+[[ $1 == "v" ]] && release "$@" && exit 0
 
 [[ $1 == "h" ]] && help && exit 0
 [[ $1 == "-h" ]] && help && exit 0

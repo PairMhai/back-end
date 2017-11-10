@@ -1,6 +1,7 @@
 from .base import *
 
-VERSION = "1.1.0-beta.3"
+VERSION = "v1.3.0-beta.1"
+
 
 ACCOUNT_EMAIL_VERIFICATION = 'optional'
 # Email validation by gmail

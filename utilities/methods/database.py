@@ -23,7 +23,7 @@ def get_user_by_username(username):
 
 
 def get_customer_by_token(token):
-    return Customer.objects.get(user=get_user_by_token(token))
+    return Customer.objects.get(user_id=get_user_id_by_token(token))
 
 
 def get_customer_by_uid(userid):

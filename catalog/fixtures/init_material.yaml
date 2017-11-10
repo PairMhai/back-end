@@ -3,7 +3,7 @@
   fields:
     name: Mulberry
     description: Mulberry silk is the main type of commercial silk available in the market today. It gets its name from a silkworm that lives and feeds exclusively on the leaves of the mulberry plant. This type of silk is the strongest natural fiber known to man and can last for many years.
-    quantity: 3
+    quantity: 51
     price: 1000
     color: red
     image_name: red.jpg
@@ -14,7 +14,7 @@
   fields:
     name: Tasar
     description: Tasar silk is easy to recognize because of its copperish color. It is this color that makes it ideal for interior decor and furnishing.
-    quantity: 2
+    quantity: 45
     price: 1500
     color: blue
     image_name: darkblue.jpg
@@ -25,7 +25,7 @@
   fields:
     name: Eri
     description: Silk. Its texture can be coarse or fine, and it is mainly cream in color, although it’s not as shiny as many other types. It is also strong and quite elastic. Furthermore, it is heavier than most other types.
-    quantity: 6
+    quantity: 71
     price: 2000
     color: brown
     image_name: rosegold.jpg
@@ -36,7 +36,7 @@
   fields:
     name: Muga
     description: The quantity of muga silk produced is quite small, which means that most of it is used within the areas where it is produced, such as Assam in India, where it is used to make traditional dresses.
-    quantity: 12
+    quantity: 81
     price: 2000
     color: black
     image_name: black.jpg
@@ -47,7 +47,7 @@
   fields:
     name: Anaphe
     description: In Africa, anaphe silk is the most common type. It is usually soft and quite lustrous. In southern and central Africa, a number of communities use anaphe silk to make velvet due to its strength and elasticity.
-    quantity: 10
+    quantity: 34
     price: 2000
     color: pink
     image_name: lightpink.jpg
@@ -56,11 +56,110 @@
 - model: catalog.material
   pk: 6
   fields:
+    name: Chiffon
+    description: Chiffon is a lightweight, balanced plain-woven sheer fabric woven of alternate S- and Z-twist crepe yarns.
+    quantity: 27
+    price: 450
+    color: cream
+    image_name: chiffon_cream.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 7
+  fields:
+    name: Satin
+    description: Satin is a fabric made using a satin weave structure but made with spun yarns instead of filament.
+    quantity: 90
+    price: 500
+    color: purple
+    image_name: satinpurp.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 8
+  fields:
     name: Spider
     description: Spider silk is resistant to extreme temperature and humidity.
-    quantity: 10
+    quantity: 5
     price: 500
     color: green
     image_name: lightgreen.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 9
+  fields:
+    name: Velvet
+    description: Velvet is a type of woven tufted fabric in which the cut threads are evenly distributed, with a short dense pile, giving it a distinctive soft feel.
+    quantity: 72
+    price: 350
+    color: red
+    image_name: velveties.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 10
+  fields:
+    name: Poplin
+    description: Poplin is now made with wool, cotton, silk, rayon, polyester or a mixture of these.
+    quantity: 120
+    price: 300
+    color: green
+    image_name: darkgreen.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 11
+  fields:
+    name: Habutai
+    description: Habutai or habotai is one of the most basic plain weaves of silk fabric.
+    quantity: 58
+    price: 450
+    color: pink
+    image_name: lightpinky.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 12
+  fields:
+    name: Damask
+    description: Damask is a reversible figured fabric of silk, wool, linen, cotton, or synthetic fibres, with a pattern formed by weaving.
+    quantity: 76
+    price: 450
+    color: gold
+    image_name: gold_damask.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 13
+  fields:
+    name: Charmeuse
+    description: Charmeuse is a lightweight fabric woven with a satin weave, in which the warp threads cross over four or more of the backing threads.
+    quantity: 32
+    price: 500
+    color: purple
+    image_name: charme-purp.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 14
+  fields:
+    name: Organza
+    description: Organza is a thin, plain weave, sheer fabric traditionally made from silk.
+    quantity: 150
+    price: 300
+    color: blue
+    image_name: bluesky.jpg
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+- model: catalog.material
+  pk: 15
+  fields:
+    name: Muga
+    description: Muga silk is a variety of wild silk geographically tagged to the state of Assam in India.
+    quantity: 99
+    price: 500
+    color: gold
+    image_name: gold_muga.jpg
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'

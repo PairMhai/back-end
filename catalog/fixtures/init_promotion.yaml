@@ -14,7 +14,7 @@
 - model: catalog.promotion
   pk: 2
   fields:
-    name: New Year's Day
+    name: New Year's Festival
     image_name: promotion_new.png
     discount: 30
     status: False
@@ -44,31 +44,41 @@
     image_name: promotion_mother.png
     discount: 5
     status: False
-    start_date: '2018-08-12 00:00:00.000000+07:00'
+    start_date: '2018-08-10 00:00:00.000000+07:00'
     end_date: '2018-08-12 00:00:00.000000+07:00'
-    description:  Mother's Day promotion is August 12
+    description:  Mother's Day promotion is August 10-12
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
 - model: catalog.promotion
   pk: 5
   fields:
-    name: Halloween Day
-    image_name: promotion_hallow.png
+    name: Loy Kathong
+    image_name: promotion_loy.png
     discount: 10
     status: False
-    start_date: '2017-10-28 00:00:00.000000+07:00'
-    end_date: '2017-10-31 00:00:00.000000+07:00'
-    description:  Halloween's promotion begin on October 28, the last day is October 31
+    start_date: '2017-11-1 00:00:00.000000+07:00'
+    end_date: '2017-11-3 00:00:00.000000+07:00'
+    description:  Loy Kathong's promotion begin on November 1, the last day is November 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 
 - model: catalog.promotion
   pk: 6
   fields:
-    name: Test Data 
+    name: Always enable
     image_name: test_promotion.png
-    discount: 87.654
+    discount: 6.351
+    status: True
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+
+- model: catalog.promotion
+  pk: 7
+  fields:
+    name: Test
+    image_name: test_promotion.png
+    discount: 56.123
     status: False
     start_date: '2017-01-01 00:00:00.000000+07:00'
     end_date: '2018-01-01 00:00:00.000000+07:00'

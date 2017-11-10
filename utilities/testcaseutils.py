@@ -7,6 +7,7 @@ from rest_framework.authtoken.models import Token
 
 from membership.models import User, Customer, Class
 from catalog.models import Product
+from cart.models import Transportation
 
 from .methods.database import (get_user_id_by_token,
                                get_token_by_user,
@@ -112,6 +113,38 @@ class ImpTestCase(TestCase):
                 response.data.get(response_key),
                 dict_key
             )
+
+    def assertResponseListLength(self, response, key, len_list):
+        """ len(response.data.get(key)) == len_list """
+        self.assertEqual(
+            len(response.data.get(key)),
+            len_list,
+            msg=response.data
+        )
+
+    def assertResponse2ListLength(self, response, key1, key2, len_list):
+        """ len(response.data.get(key1).get(key2)) == len_list """
+        self.assertEqual(
+            len(response.data.get(key1).get(key2)),
+            len_list,
+            msg=response.data
+        )
+
+    def assertResponseErrorDetailList(self, response, number, expected):
+        """ response.data.get('detail')[number] == expected """
+        self.assertEqual(
+            response.data.get('detail')[number],
+            expected,
+            msg=response.data
+        )
+
+    def assertResponseErrorDetailListKey(self, response, number, key, expected):
+        """ response.data.get('detail')[number].get(key) == expected """
+        self.assertEqual(
+            response.data.get('detail')[number].get(key),
+            expected,
+            msg=response.data
+        )
 
     def assertResponseCode200(self, response):
         self.assertResponseCode(response, status.HTTP_200_OK)
@@ -219,6 +252,16 @@ class MembershipTestCase(ImpTestCase):
         }
 
 
+class MembershipTestUtils:
+    """Need `ImpTestCase`"""
+
+    def random_token(self):
+        tokens = []
+        for t in Token.objects.all():
+            tokens += [t.key]
+
+        return self.random_class.random_element_in_list(tokens)
+
 class CatalogTestCase(ImpTestCase):
     fixtures = CatalogFixture.fixtures
 
@@ -229,8 +272,7 @@ class CatalogTestCase(ImpTestCase):
 
         return self.random_class.random_element_in_list(products)
 
-
-class CartTestCase(CatalogTestCase):
+class CartTestCase(CatalogTestCase, MembershipTestUtils):
     fixtures = CatalogFixture.fixtures + CartFixture.fixtures
 
     def run_calculate(self, data, test_code=None):
@@ -251,21 +293,24 @@ class CartTestCase(CatalogTestCase):
             "quantity": quantity
         }
 
-    def random_token(self):
-        tokens = []
-        for t in Token.objects.all():
-            tokens += [t.key]
-
-        return self.random_class.random_element_in_list(tokens)
-
     def random_buyer(self):
         return self.gen_buyer_json(self.random_token())
 
+    def random_trans(self):
+        transportations = []
+        for p in Transportation.objects.all():
+            transportations += [p]
+
+        return self.random_class.random_element_in_list(transportations)
+      
     def add_product(self, buyer, product_json):
         if 'products' in buyer:
             buyer['products'] += [product_json]
         else:
             buyer['products'] = [product_json]
+
+    def add_transportation(self, buyer):
+        buyer['transportation'] = self.random_trans().id
 
     def add_valid_product_to_buy(self, buyer):
         """ get buyer from random_buyer """
@@ -280,6 +325,7 @@ class CartTestCase(CatalogTestCase):
         )
 
     def add_invalid_product_to_buy(self, buyer, wrong_id=False):
+        """ add invalid product (This method will return product id) """
         p = self.random_product()            # random product
         self.not_exist_product_id = 123456        # assume that this id will not exist
         # get quantity and plus 2 (wrong quantity)
@@ -293,6 +339,7 @@ class CartTestCase(CatalogTestCase):
                     large_quantity
                 )
             )  # add every bad product data
+            return self.not_exist_product_id
         else:
             self.add_product(
                 buyer,
@@ -301,3 +348,4 @@ class CartTestCase(CatalogTestCase):
                     large_quantity
                 )
             )
+            return p.id

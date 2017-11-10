@@ -1,7 +1,9 @@
 from membership.models import Customer
 from catalog.models import Product, Design
 from cart.models import Order, OrderInfo, Transportation
-from cart.serializers import TransportationSerializer, OrderSerializer, OrderCreateSerializer, HistorySerializer, CalculateOrderSerializer
+from cart.serializers import TransportationSerializer, OrderSerializer
+from cart.serializers import OrderCreateSerializer, HistorySerializer
+from cart.serializers import CalculateOrderSerializer
 
 from rest_framework import generics, status
 from rest_framework.response import Response
@@ -12,6 +14,7 @@ from django.forms.models import model_to_dict
 
 from utilities.methods.database import get_customer_by_uid
 from utilities.classes.database import ImpListByTokenView
+from utilities.methods.other import round_money
 
 
 class TransportationListView(generics.ListAPIView):
@@ -31,13 +34,13 @@ class OrderCreatorView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         uuid = serializer.validated_data.get('uuid')
         creditcard = serializer.validated_data.get('creditcard')
-        transportation = serializer.validated_data.get('transportation')
         ttl = cache.ttl("order-{}".format(uuid))
         # print(ttl)
         if (ttl == 0):
             return Response({"detail": "you order is timeout, try again."}, status=status.HTTP_400_BAD_REQUEST)
 
         order_calculation = cache.get("order-{}".format(uuid))
+        transportation = order_calculation.get('transportation_obj')
         # print(order_calculation)
         products = []
         for pid, quantity in order_calculation.get('products_id').items():
@@ -60,10 +63,10 @@ class OrderCreatorView(generics.CreateAPIView):
                 prd.save()
         data = {
             "customer": order_calculation.get('customer_id'),
-            "products": products,
-            "final_price": order_calculation.get('total_price') + transportation.price,
             'creditcard': creditcard.id,
-            "transportation": transportation.id
+            "transportation": transportation.id,
+            "products": products,
+            "final_price": order_calculation.get('final_price'),
         }
 
         order_serializer = OrderCreateSerializer(data=data)
@@ -78,7 +81,7 @@ class OrderCreatorView(generics.CreateAPIView):
         tran_serializer.is_valid(raise_exception=True)
 
         return Response({
-            'final_price': order_calculation.get('total_price') + transportation.price,
+            'final_price': order_calculation.get('final_price'),
             'total_product': len(products),
             'transportation': tran_serializer.validated_data
         }, status=status.HTTP_201_CREATED, headers=headers)
@@ -100,6 +103,7 @@ class OrderCalculateView(APIView):
             data = serializers.validated_data
             customer = data.get('customer')
             products = data.get('products')
+            transportation = data.get('transportation')
             # dict={1:2, 4,1} PRODUCT_ID:QUANTITY
             products_id = dict()
             error_products = []
@@ -130,9 +134,21 @@ class OrderCalculateView(APIView):
             if (total_price < 0):
                 total_price = 0
             # "event_price": product_event_price, # can calculate by `event_discount`
+            error_msg = "Doesn't have enough stock."
+            detail = []
             if len(error_products) > 0:
-                detail = str(error_products) + " doesn't have enough stocks."
+                for p in error_products:
+                    # print(type(detail))
+                    detail.append({
+                        "id": p.id,
+                        "name": p.get_object().name,
+                        "message": error_msg
+                    })
                 return Response({"detail": detail}, status=status.HTTP_400_BAD_REQUEST)
+
+            # round final price
+            final_price = total_price + transportation.price
+            final_price = round_money(final_price * 100) / 100 # round to .25 .50 .75
             data = {
                 "calculate_id": uuid.uuid4(),
                 "customer_id": customer.id,
@@ -140,23 +156,11 @@ class OrderCalculateView(APIView):
                 "full_price": full_price,
                 "customer_discount": customer_discount,
                 "event_discount": full_price - product_event_price,
-                "total_price": total_price
+                "total_price": total_price,
+                "transportation_price": transportation.price,
+                "transportation_obj": transportation,
+                "final_price": final_price
             }
-
-            # Example data
-            # {
-            #       'calculate_id': UUID('4bf1b714-4938-47c6-b85f-3aff18c86e54'),
-            #       'customer_id': 2,
-            #       'products_id':
-            #               {
-            #                   1: 3,
-            #                   2: 4
-            #               },
-            #       'full_price': Decimal('36000.0000'),
-            #       'customer_discount': Decimal('5400.0000000'),
-            #       'event_discount': Decimal('34271.00000000'),
-            #       'total_price': 0
-            # }
 
             # save calculation price
             cache.set("order-{}".format(data.get('calculate_id')),
@@ -164,7 +168,7 @@ class OrderCalculateView(APIView):
             # remove unneccessary key
             data.pop('customer_id', None)
             data.pop('products_id', None)
-
+            data.pop('transportation_obj', None)
             return Response(data)
         else:
             return Response({"detail": serializers.errors}, status=status.HTTP_400_BAD_REQUEST)

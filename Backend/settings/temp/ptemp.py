@@ -1,6 +1,3 @@
-from .base import *
-
-VERSION = "v1.2.1-test.1"
 
 ACCOUNT_EMAIL_REQUIRED = 'true'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # | optional
@@ -10,9 +7,9 @@ EMAIL_HOST_PASSWORD = 'PWL-XA2-Rfy-r5b'
 # This did the trick
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-DEBUG = True
+DEBUG = False
 
-TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-STAGING-' + str(round(time.time())) + '.xml'
+TEST_OUTPUT_FILE_NAME = 'TEST-OUTPUT-PRODUCTION-' + str(round(time.time())) + '.xml'
 
 DATABASES = {
     'default': {

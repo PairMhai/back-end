@@ -27,7 +27,7 @@
         ]
         ```
 
-### Calculate **(v0.13.0)**
+### Calculate **(v1.2.0)**
 - Path: `^cart/calculate$`
 - Description: calculate price of ordering product
 1. **Request**
@@ -49,7 +49,8 @@
                 "pid": 1,
                 "quantity": 1
             }
-        ]
+        ],
+        "transportation": 1
     }
     ```
 2. **Response**
@@ -62,6 +63,7 @@
             "full_price": 36000,
             "customer_discount": 5400,
             "event_discount": 34271,
+            "transportation_price": 1234,
             "total_price": 0
         }
         ```
@@ -70,16 +72,23 @@
         - customer_discount -> discount by customer class (unit: baht)
         - event_discount -> discount by event class (unit: baht)
         - total_price -> final price but no include transport yet.
-    1. Failure
+        - transportation_price -> price of input shipment
+    2. Failure
         - code: `400_BAD_REQUEST`
-        - body:
-        ```json
-        {
-             "detail": "error message/object"
-        }
+        - body: 
+        ```json 
+            {
+                "detail": [
+                    {
+                        "id": 15, 
+                        "name": "Light Purple Dress", 
+                        "message": "Doesn't have enough stock."
+                    }
+                ]
+            }
         ```
 
-### Order Creator **(v0.13.0)**
+### Order Creator **(v1.2.0)**
 - Path: `^cart/$`
 - Description: create ordering in customer cart
 1. **Request**
@@ -88,8 +97,7 @@
     ```json
     {
         "uuid": "ea2747f2-8b6c-4c74-9abb-139b35210e7d",
-        "creditcard": 1,
-        "transportation": 1
+        "creditcard": 1
     }
     ```
     - uuid -> get from calculate_id in calculation APIs
@@ -109,7 +117,7 @@
         }
         ```
 
-### History Detail **(v0.13.0)**
+### History Detail **(v1.1.4)**
 - Path: `^cart/history/(?P<token>\w+)$`
 - Description: get history of customer by `token`
 1. **Request**
@@ -122,17 +130,57 @@
         ```json
         [
             {
-                "id": 2,
+                "id": 1,
+                "final_price": "1000.00",
                 "products": [
                     {
                         "product": {
-                            "id": 3,
-                            "design": 3,
-                            "material": null
+                            "id": 1,
+                            "design": {
+                                "id": 2,
+                                "name": "Dark Blue Dress",
+                                "material": {
+                                    "id": 2,
+                                    "name": "Tasar",
+                                    "color": "blue",
+                                    "price": "1500.00",
+                                    "image_name": "darkblue.jpg"
+                                },
+                                "price": 3000,
+                                "images": [
+                                    {
+                                        "id": 4,
+                                        "file_name": "darkblue-dress.jpg"
+                                    }
+                                ]
+                            }
                         },
-                        "quantity": 1
+                        "quantity": 2
                     }
-                ]
+                ],
+                "created_at": "2017-01-01T00:00:00+07:00",
+                "updated_at": "2017-01-01T00:00:00+07:00"
+            },
+            {
+                "id": 5,
+                "final_price": "8000.00",
+                "products": [
+                    {
+                        "product": {
+                            "id": 2,
+                            "material": {
+                                "id": 2,
+                                "name": "Tasar",
+                                "color": "blue",
+                                "price": "1500.00",
+                                "image_name": "darkblue.jpg"
+                            },
+                        },
+                        "quantity": 2
+                    }
+                ],
+                "created_at": "2017-01-01T00:00:00+07:00",
+                "updated_at": "2017-01-01T00:00:00+07:00"
             }
         ]
         ```
@@ -144,5 +192,3 @@
             "detail": "get individual customer must have token"
         }
         ```
-=======
->>>>>>> master
