@@ -23,7 +23,7 @@
 - model: cart.order
   pk: 3
   fields:
-    total_product: 1
+    total_product: 2
     final_price: 2500
     customer: 4
     creditcard: 1
@@ -47,7 +47,7 @@
   fields:
     total_product: 1
     final_price: 8000
-    customer: 2
+    customer: 3
     creditcard: 1
     transportation: 2
     address: Bangkok, Thailand
@@ -108,4 +108,14 @@
     address: Bangkok, Thailand
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-
+- model: cart.order
+  pk: 11
+  fields:
+    total_product: 3
+    final_price: 28000
+    customer: 2
+    creditcard: 1
+    transportation: 2
+    address: Bangkok, Thailand
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
