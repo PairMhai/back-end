@@ -7,7 +7,7 @@
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 3
+    material: 1
 - model: catalog.design
   pk: 2
   fields:
@@ -17,17 +17,17 @@
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 3
+    material: 2
 - model: catalog.design
   pk: 3
   fields:
     name: Cherry Blossom Dress
     description: A good looking design which could make you feel delightful.
     # price: 1500
-    yard: 1.5
+    yard: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 5
+    material: 3
 - model: catalog.design
   pk: 4
   fields:
@@ -37,7 +37,7 @@
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
+    material: 4
 - model: catalog.design
   pk: 5
   fields:
@@ -47,7 +47,7 @@
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 3
+    material: 5
 - model: catalog.design
   pk: 6
   fields:
@@ -57,17 +57,17 @@
     yard: 6
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 5
+    material: 6
 - model: catalog.design
   pk: 7
   fields:
     name: Light Blue Dress
     description: This design will make you feel like a bright and clear sky in winter.
     # price: 2500
-    yard: 2.5
+    yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 6
+    material: 7
 - model: catalog.design
   pk: 8
   fields:
@@ -77,7 +77,7 @@
     yard: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 6
+    material: 8
 - model: catalog.design
   pk: 9
   fields:
@@ -87,7 +87,7 @@
     yard: 4.8
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
+    material: 9
 - model: catalog.design
   pk: 10
   fields:
@@ -97,7 +97,7 @@
     yard: 12
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 5
+    material: 10
 - model: catalog.design
   pk: 11
   fields:
@@ -107,7 +107,7 @@
     yard: 5.9
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
+    material: 11
 - model: catalog.design
   pk: 12
   fields:
@@ -117,7 +117,7 @@
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 1
+    material: 12
 - model: catalog.design
   pk: 13
   fields:
@@ -127,17 +127,17 @@
     yard: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 1
+    material: 13
 - model: catalog.design
   pk: 14
   fields:
     name: Light Pink Dress
     description: A good looking design which could make you feel lovely.
     # price: 1000
-    yard: 2.5
+    yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 5
+    material: 14
 - model: catalog.design
   pk: 15
   fields:
@@ -147,4 +147,4 @@
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
+    material: 15
