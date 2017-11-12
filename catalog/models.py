@@ -140,8 +140,8 @@ class Promotion(models.Model):
     discount = models.DecimalField(
         max_digits=8, decimal_places=2, default=0.00)
     status = models.BooleanField(default=False)
-    start_date = models.DateTimeField(auto_now_add=True, null=True)
-    end_date = models.DateTimeField(auto_now_add=True, null=True)
+    start_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
     description = models.CharField(max_length=150, default=0)
     products = models.ManyToManyField(Product)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -168,5 +168,9 @@ class Promotion(models.Model):
         else:
             # print("update status => False")
             self.status = False
-        self.save()
+        # self.save()
         return self.status
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        self.update_status()
+        super(Promotion, self).save(force_insert, force_update, *args, **kwargs)
