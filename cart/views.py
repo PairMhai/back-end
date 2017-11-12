@@ -34,7 +34,9 @@ class OrderCreatorView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         uuid = serializer.validated_data.get('uuid')
         creditcard = serializer.validated_data.get('creditcard')
+        address = serializer.validated_data.get('address')
         ttl = cache.ttl("order-{}".format(uuid))
+        # print(address)
         # print(ttl)
         if (ttl == 0):
             return Response({"detail": "you order is timeout, try again."}, status=status.HTTP_400_BAD_REQUEST)
@@ -52,13 +54,14 @@ class OrderCreatorView(generics.CreateAPIView):
         for d in products:
             p = Product.objects.get(id=d.get("pid"))
             q = d.get("quantity")
-            prd = p.get_object
+            prd = p.get_object()
             if isinstance(prd, Design):
                 total_quantity = prd.yard * q
                 quantity = prd.material.quantity
                 prd.material.quantity = quantity - total_quantity
                 prd.save()
             else:
+                print(prd)
                 prd.quantity = prd.quantity - q
                 prd.save()
         data = {
@@ -66,7 +69,9 @@ class OrderCreatorView(generics.CreateAPIView):
             'creditcard': creditcard.id,
             "transportation": transportation.id,
             "products": products,
+            'total_product': len(products),
             "final_price": order_calculation.get('final_price'),
+            "address": address,
         }
 
         order_serializer = OrderCreateSerializer(data=data)
