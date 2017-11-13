@@ -7,6 +7,7 @@ class OrderInfoInline(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = [OrderInfoInline]
+    
     class Meta:
         model = Order
 
