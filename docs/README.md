@@ -1,9 +1,11 @@
 # Index of document
+
 This API using [REST architectural style](REST-description.md) and API framework, I choose [Django REST framework](http://www.django-rest-framework.org).
 
 # Document Template
+
 ```markdown
-### Name **(vx.x.x)**
+## Name **(vx.x.x)**
 - Path: API PATH
 - Desciption: DESCRIPTION
 1. **Request**
@@ -29,11 +31,10 @@ This API using [REST architectural style](REST-description.md) and API framework
         ```
 ```
 
-### Path in APIs document will be like `^xx/yy/zz/(...)$ [name='name']`
+## Path in APIs document will be like `^xx/yy/zz/(...)$`
+
 1. ^ - start path with root path e.g. localhost/xx/yy/zz
 2. & - end of path
-3. (...) - dynamic path (it can be some text)
-4. [name='...'] - name of the path (for **developer**)
 
 # Testing guideline
 [guide](TEST_GUIDE.md)
@@ -55,7 +56,7 @@ This app contain api for catalog **add** **update** **remove** `product` and `pr
 This app contain api for `ordering` and getting `transportation`
 
 # Version
-This have 1 url `^version$ [name='version']`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
+This have 1 url `^version$`, This route(url) will return currently version of the API from *setting django* as **JSON** format.
 
 # Announcement
 - test admin username is `admin`
