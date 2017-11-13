@@ -1,3 +1,13 @@
+v1.3.0 / 2017-11-13
+===================
+
+  * able to show order info in admin order using inlines
+  * add address into api when order creates
+  * fix some fixtures
+  * :arrow_up: upgrade djangorestframework -> 3.7.3
+  * able to check status on realtime
+  * able to check when date is null
+  * able to add blank date
 
 v1.2.1 / 2017-11-09
 ===================
