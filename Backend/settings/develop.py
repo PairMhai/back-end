@@ -1,6 +1,6 @@
 from .base import *
 
-VERSION = "v1.3.0-beta.1"
+VERSION = "v1.4.0-beta.1"
 
 
 ACCOUNT_EMAIL_VERIFICATION = 'optional'

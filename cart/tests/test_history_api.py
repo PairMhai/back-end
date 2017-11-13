@@ -14,6 +14,7 @@ class HistoryGetter(ImpTestCase, MembershipTestUtils):
         self.customer = get_customer_by_token(self.token)
 
         self.response = self.run_get('history-detail', [self.token])
+        # print(self.response.data)
 
         self.orders = Order.objects.filter(customer=self.customer)
 

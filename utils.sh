@@ -307,7 +307,7 @@ release() {
         printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
         printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
         cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
-        
+
         echo "staging..."
         printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
         printf "%s\n\n" "$S_VERSION" >> ./Backend/settings/staging.py
@@ -328,6 +328,7 @@ release() {
         echo "git tagging..."
         git tag "$3"
         echo "git pushing..."
+        git push
         git push --tag
     else
         echo "stop!"
@@ -357,7 +358,7 @@ Help Command:
                         1. 'all' - upgrade all outdated library
                         2. 'x'   - dry run (don't do nothing)
         3. teardown - uninstall all library, installed by this project.
-        4. sum      - summary repository and write to file 'summary-code/information.txt'
+        4. summary  - summary repository and write to file 'summary-code/information.txt'
 
     # Develop
         1. s        - run server (default port 8000)
@@ -410,25 +411,25 @@ Example Usage:
 # parameter section
 # ---------------------------------
 
-[[ $1 == "a" ]] && analyze "$@" && exit 0
-[[ $1 == "e" ]] && export_database "$@" && exit 0
-[[ $1 == "l" ]] && load "$@" && exit 0
-[[ $1 == "mm" ]] && make_migrate "$@" && exit 0
-[[ $1 == "m" ]] && migrate "$@" && exit 0
-[[ $1 == "s" ]] && run_server "$@" && exit 0
-[[ $1 == "c" ]] && check "$@" && exit 0
-[[ $1 == "co" ]] && collect "$@" && exit 0
-[[ $1 == "cov" ]] && coverage_py "$@" && exit 0
-[[ $1 == "d" ]] && remove_all "$@" && exit 0
-[[ $1 == "t-ci" ]] && test_ci "$@" && exit 0
-[[ $1 == "t" ]] && test_py "$@" && exit 0
-[[ $1 == "h" ]] && heroku_imp "$@" && exit 0
-[[ $1 == "r" ]] && remove_db "$@" && exit 0
-[[ $1 == "sum" ]] && summary_code "$@" && exit 0
-[[ $1 == "v" ]] && release "$@" && exit 0
+[[ $1 == "a" ]]       && analyze "$@"         && exit 0
+[[ $1 == "e" ]]       && export_database "$@" && exit 0
+[[ $1 == "l" ]]       && load "$@"            && exit 0
+[[ $1 == "mm" ]]      && make_migrate "$@"    && exit 0
+[[ $1 == "m" ]]       && migrate "$@"         && exit 0
+[[ $1 == "s" ]]       && run_server "$@"      && exit 0
+[[ $1 == "c" ]]       && check "$@"           && exit 0
+[[ $1 == "co" ]]      && collect "$@"         && exit 0
+[[ $1 == "cov" ]]     && coverage_py "$@"     && exit 0
+[[ $1 == "d" ]]       && remove_all "$@"      && exit 0
+[[ $1 == "t-ci" ]]    && test_ci "$@"         && exit 0
+[[ $1 == "t" ]]       && test_py "$@"         && exit 0
+[[ $1 == "h" ]]       && heroku_imp "$@"      && exit 0
+[[ $1 == "r" ]]       && remove_db "$@"       && exit 0
+[[ $1 == "summary" ]] && summary_code "$@"    && exit 0
+[[ $1 == "v" ]]       && release "$@"         && exit 0
 
-[[ $1 == "h" ]] && help && exit 0
-[[ $1 == "-h" ]] && help && exit 0
-[[ $1 == "help" ]] && help && exit 0
-[[ $1 == "-help" ]] && help && exit 0
-[[ $1 == "--help" ]] && help && exit 0
+[[ $1 == "h" ]]       && help && exit 0
+[[ $1 == "-h" ]]      && help && exit 0
+[[ $1 == "help" ]]    && help && exit 0
+[[ $1 == "-help" ]]   && help && exit 0
+[[ $1 == "--help" ]]  && help && exit 0

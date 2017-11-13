@@ -12,9 +12,9 @@ from rest_framework.authtoken.models import Token
 
 from django.forms.models import model_to_dict
 
-from utilities.methods.database import get_customer_by_uid
-from utilities.classes.database import ImpListByTokenView
+from utilities.methods.database import get_customer_by_uid, get_customer_by_token
 from utilities.methods.other import round_money
+from utilities.classes.database import ImpListByTokenView
 
 
 class TransportationListView(generics.ListAPIView):
@@ -34,7 +34,9 @@ class OrderCreatorView(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         uuid = serializer.validated_data.get('uuid')
         creditcard = serializer.validated_data.get('creditcard')
+        address = serializer.validated_data.get('address')
         ttl = cache.ttl("order-{}".format(uuid))
+        # print(address)
         # print(ttl)
         if (ttl == 0):
             return Response({"detail": "you order is timeout, try again."}, status=status.HTTP_400_BAD_REQUEST)
@@ -52,13 +54,14 @@ class OrderCreatorView(generics.CreateAPIView):
         for d in products:
             p = Product.objects.get(id=d.get("pid"))
             q = d.get("quantity")
-            prd = p.get_object
+            prd = p.get_object()
             if isinstance(prd, Design):
                 total_quantity = prd.yard * q
                 quantity = prd.material.quantity
                 prd.material.quantity = quantity - total_quantity
                 prd.save()
             else:
+                print(prd)
                 prd.quantity = prd.quantity - q
                 prd.save()
         data = {
@@ -66,7 +69,9 @@ class OrderCreatorView(generics.CreateAPIView):
             'creditcard': creditcard.id,
             "transportation": transportation.id,
             "products": products,
+            'total_product': len(products),
             "final_price": order_calculation.get('final_price'),
+            "address": address,
         }
 
         order_serializer = OrderCreateSerializer(data=data)
@@ -177,10 +182,11 @@ class OrderCalculateView(APIView):
 class HistoryView(ImpListByTokenView):
     queryset = Order.objects.all()
     serializer_class = HistorySerializer
-    id_str = 'customer_id'
+    key_id = 'customer_id'
 
-    def set_id(self, token):
-        self.uid = get_customer_by_uid(token.user_id).id
+    def get_id(self, token):
+        return get_customer_by_token(token).id
 
-    def get_queryset(self):
-        return super(HistoryView, self).get_queryset().filter(customer_id=self.uid)
+
+    def filter_queryset(self, queryset):
+        return queryset.filter(customer_id=self.kwargs[self.get_id_name()])
