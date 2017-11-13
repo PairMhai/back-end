@@ -41,7 +41,6 @@ class TokenView(views.APIView):
 
 
 class ImpDetailByTokenView(TokenView, generics.RetrieveAPIView):
-    lookup_field = ('token')
 
     def get(self, request, *args, **kwargs):
         self.update_kwargs(**kwargs)
@@ -50,7 +49,6 @@ class ImpDetailByTokenView(TokenView, generics.RetrieveAPIView):
 
 
 class ImpListByTokenView(TokenView, generics.ListAPIView):
-    lookup_field = ('token')
 
     def get(self, request, *args, **kwargs):
         self.update_kwargs(**kwargs)
