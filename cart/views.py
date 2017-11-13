@@ -12,9 +12,9 @@ from rest_framework.authtoken.models import Token
 
 from django.forms.models import model_to_dict
 
-from utilities.methods.database import get_customer_by_uid
-from utilities.classes.database import ImpListByTokenView
+from utilities.methods.database import get_customer_by_uid, get_customer_by_token
 from utilities.methods.other import round_money
+from utilities.classes.database import ImpListByTokenView
 
 
 class TransportationListView(generics.ListAPIView):
@@ -182,10 +182,11 @@ class OrderCalculateView(APIView):
 class HistoryView(ImpListByTokenView):
     queryset = Order.objects.all()
     serializer_class = HistorySerializer
-    id_str = 'customer_id'
+    key_id = 'customer_id'
 
-    def set_id(self, token):
-        self.uid = get_customer_by_uid(token.user_id).id
+    def get_id(self, token):
+        return get_customer_by_token(token).id
 
-    def get_queryset(self):
-        return super(HistoryView, self).get_queryset().filter(customer_id=self.uid)
+
+    def filter_queryset(self, queryset):
+        return queryset.filter(customer_id=self.kwargs[self.get_id_name()])
