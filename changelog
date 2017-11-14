@@ -1,3 +1,13 @@
+
+v1.3.1 / 2017-11-14
+===================
+
+  * :white_check_mark: Update test, Add more...
+  * :bug: Clean code, and fix bug #108
+  * :bug: remove dup code, and fix bug #107
+  * :card_file_box: update fixture, discounting and event
+  * :memo: update document #34
+
 v1.3.0 / 2017-11-13
 ===================
 
