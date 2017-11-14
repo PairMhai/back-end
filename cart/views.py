@@ -116,23 +116,15 @@ class OrderCalculateView(APIView):
             for d in products:
                 p = d.get('product')
                 q = d.get('quantity')
-                a = p.get_object()
-                if isinstance(a, Design):
-                    total_yard = a.yard * q
-                    mat = a.material
-                    if total_yard > mat.quantity:
-                        error_products.append(p)
-                else:
-                    if q > a.quantity:
-                        error_products.append(p)
-
+                if q > p.get_quantity():
+                    error_products.append(p)
                 if (p.id in products_id):
                     products_id[p.id] += q
                 else:
                     products_id[p.id] = q
                 # get_discount_price
                 full_price += (p.get_price() * q)
-                product_event_price += p.get_discount_price()  # should be discounted price
+                product_event_price += p.get_discount_price() * q  # should be discounted price
             # calculate from full price
             customer_discount = full_price * (customer.classes.discount / 100)
             total_price = product_event_price - customer_discount

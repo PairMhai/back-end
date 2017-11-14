@@ -1,6 +1,13 @@
 # Catalog APIs list and description
 
-### Material List **(v0.12.0)**
+- [Catalog APIs list and description](#catalog-apis-list-and-description)
+    - [Material List **(v0.12.0)**](#material-list-v0120)
+    - [Material Detail **(v0.12.0)**](#material-detail-v0120)
+    - [Design List **(v0.12.0)**](#design-list-v0120)
+    - [Design Detail **(v0.12.0)**](#design-detail-v0120)
+    - [Promotion list **(v1.0.1)**](#promotion-list-v101)
+
+## Material List **(v0.12.0)**
 - Path: ^catalog/materials$
 - Description: List all materials
 1. **Request**
@@ -37,7 +44,7 @@
         ]
         ```
 
-### Material Detail **(v0.12.0)**
+## Material Detail **(v0.12.0)**
 - Path: ^catalog/material/(?P<pk>[0-9]+)$
 - Description: Get individual material by `material id`
 1. **Request**
@@ -70,7 +77,7 @@
         }
         ```
 
-### Design List **(v0.12.0)**
+## Design List **(v0.12.0)**
 - Path: ^catalog/designs$
 - Description: List all designs
 1. **Request**
@@ -147,7 +154,7 @@
         ]
         ```
 
-### Design Detail **(v0.12.0)**
+## Design Detail **(v0.12.0)**
 - Path: ^catalog/design/(?P<pk>[0-9]+)$
 - Description: Get individual design by `design id`
 1. **Request**
@@ -191,7 +198,7 @@
         }
         ```
 
-### Promotion list **(v1.0.1)**
+## Promotion list **(v1.0.1)**
 - Path: ^catalog/promotions$
 - Description: List all promotions
 1. **Request**

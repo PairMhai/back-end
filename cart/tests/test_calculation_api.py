@@ -92,7 +92,7 @@ class CalculationApiTestCase(CartTestCase):
         """ test. if order out of stock multiple times """
         self.add_transportation(self.buyer)
         pid1 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
-        pid2 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
+        self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
         pid3 = self.add_invalid_product_to_buy(self.buyer, wrong_id=False)
 
         response = self.run_calculate(self.buyer, self.bad_response)
@@ -114,4 +114,33 @@ class CalculationApiTestCase(CartTestCase):
         self.assertResponseErrorDetailListKey(
             response, 2, "name",
             Product.objects.get(pk=pid3).get_object().name
+        )
+
+    def test_calculation_total_price(self):
+        self.add_transportation(self.buyer)
+        for _ in range(0, 5):
+            self.add_valid_product_to_buy(self.buyer)
+
+        response = self.run_calculate(self.buyer, self.good_response)
+        expected = self.get_price_from(response, 'full_price') - self.get_price_from(
+            response, 'event_discount') - self.get_price_from(response, 'customer_discount')
+        self.assertEquals(
+            expected,
+            self.get_price_from(response, 'total_price')
+        )
+
+    def test_diff_cal_in_diff_request(self):
+        """When calculation first time and add more product, calculation again. The result should not be the same"""
+        self.add_transportation(self.buyer)
+        for _ in range(0, 3):
+            self.add_valid_product_to_buy(self.buyer)
+        response1 = self.run_calculate(self.buyer, self.good_response)
+
+        for _ in range(0, 5):
+            self.add_valid_product_to_buy(self.buyer)
+        response2 = self.run_calculate(self.buyer, self.good_response)
+
+        self.assertNotEquals(
+            self.get_price_from(response2, 'total_price'),
+            self.get_price_from(response1, 'total_price')
         )

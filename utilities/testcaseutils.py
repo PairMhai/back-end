@@ -255,6 +255,9 @@ class MembershipTestCase(ImpTestCase):
 class MembershipTestUtils:
     """Need `ImpTestCase`"""
 
+    def fix_token(self, user_id):
+        return Token.objects.get(user_id=user_id).key
+
     def random_token(self):
         tokens = []
         for t in Token.objects.all():
@@ -312,17 +315,21 @@ class CartTestCase(CatalogTestCase, MembershipTestUtils):
     def add_transportation(self, buyer):
         buyer['transportation'] = self.random_trans().id
 
-    def add_valid_product_to_buy(self, buyer):
+    def add_valid_product_to_buy(self, buyer, product_id=None, quantity=None):
         """ get buyer from random_buyer """
         p = self.random_product()  # random product
-        quantity = self.random_class.random_range(
-            1,
-            p.get_quantity()
-        )  # random quantity
+        if quantity is None: 
+            quantity = self.random_class.random_range(
+                1,
+                p.get_quantity()
+            )  # random quantity
         self.add_product(
             buyer,
-            self.gen_product_json(p.id, quantity)
+            self.gen_product_json(p.id if product_id is None else product_id, quantity)
         )
+
+    def get_price_from(self, response, title_name):
+        return response.data.get(title_name)
 
     def add_invalid_product_to_buy(self, buyer, wrong_id=False):
         """ add invalid product (This method will return product id) """

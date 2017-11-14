@@ -38,11 +38,11 @@ class Design(models.Model):
         return math.floor(self.material.quantity / self.yard)
 
     def get_discount_price(self):
-        sets = self.get_associate_promotion()
+        set = self.get_associate_promotion()
         price = self.get_price()
         discount = 0
-        for pro in sets:
-            discount = price * (pro.discount / 100)
+        for pro in set:
+            discount += price * (pro.discount / 100)
         return price - discount
 
     def get_associate_promotion(self):
@@ -115,16 +115,6 @@ class Product(models.Model):
 
     def get_object(self):
         return self.design if self.material is None else self.material
-
-    def get_quantity(self):
-        if self.material == None:
-            import math
-            return math.floor(self.design.material.quantity / self.design.yard)
-        else:
-            return self.material.quantity
-
-    def get_object(self):
-        return self.design if self.material == None else self.material
 
     def get_price(self):
         return self.design.get_price() if self.material is None else self.material.price

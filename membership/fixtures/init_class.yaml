@@ -10,33 +10,33 @@
   fields:
     name: Bronze
     price: 200
-    discount: 5
-    description: Discount 5% each time that purchase product.
+    discount: 3
+    description: Discount 3% each time that purchase product.
 - model: membership.class
   pk: 3
   fields:
     name: Silver
     price: 500
-    discount: 8
-    description: Discount 8% each time that purchase product.
+    discount: 5
+    description: Discount 5% each time that purchase product.
 - model: membership.class
   pk: 4
   fields:
     name: Gold
     price: 1200
-    discount: 15
-    description: Discount 15% each time that purchase product.
+    discount: 8
+    description: Discount 8% each time that purchase product.
 - model: membership.class
   pk: 5
   fields:
     name: Platinum
     price: 1500
-    discount: 20
-    description: Discount 20% each time that purchase product.
+    discount: 10
+    description: Discount 10% each time that purchase product.
 - model: membership.class
   pk: 6
   fields:
     name: Diamond
     price: 5000
-    discount: 35
-    description: Discount 35% each time that purchase product.
+    discount: 15
+    description: Discount 15% each time that purchase product.

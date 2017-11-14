@@ -3,22 +3,10 @@ from random import uniform, randrange
 
 from cart.models import Order, OrderInfo
 
+from utilities.fixtureutils import AllFixture
 
 class ModelsTestCase(ImpTestCase):
-    fixtures = [
-        # 'init_order.yaml',
-        # 'init_orderinfo.yaml',
-        # 'init_transportation.yaml',
-        'init_design.yaml',
-        'init_material.yaml',
-        'init_product.yaml',
-        'init_images.yaml',
-        'init_class.yaml',
-        'init_customer.yaml',
-        'init_email.yaml',
-        'init_user.yaml',
-        'init_creditcard.yaml'
-    ]
+    fixtures = AllFixture.fixtures
 
     # total_product = models.IntegerField(default=0)
     # final_price = models.DecimalField(
