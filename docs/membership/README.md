@@ -8,7 +8,7 @@
 - [Rest Password Change **(v1.0.1)**](#rest-password-change-v101)
 - [Rest Register **(v1.1.0)**](#rest-register-v110)
 - [Membership Customer Detail **(v1.0.1)**](#membership-customer-detail-v101)
-- [Membership User Detail **(v1.0.1)**](#membership-user-detail-v101)
+- [Membership User Detail **(v1.4.1)**](#membership-user-detail-v141)
 - [Membership Class **(v0.2.2)**](#membership-class-v022)
 
 ### Rest Password Reset **(v1.0.1)**
