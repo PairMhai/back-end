@@ -55,6 +55,18 @@ class ImpListByTokenView(TokenView, generics.ListAPIView):
         self.update_lookup_field()
         return self.list(request, *args, **kwargs)
 
+class ImpUpdateByTokenView(TokenView, generics.UpdateAPIView):
+    
+    def put(self, request, *args, **kwargs):
+        return Response({
+            "detail": "Method \"PUT\" not allowed."
+        }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def patch(self, request, *args, **kwargs):
+        self.update_kwargs(**kwargs)
+        self.update_lookup_field()
+        return self.partial_update(request, *args, **kwargs)
+
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
     """
