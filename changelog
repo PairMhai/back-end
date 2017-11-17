@@ -1,4 +1,12 @@
 
+v1.4.0 / 2017-11-18
+===================
+
+  * :lipstick: Update admin page, remove orderinfo
+  * :arrow_up: Update debug tool
+  * :sparkles: Add patch user in membership
+  * :sparkles: Add View token of update APIs
+
 v1.3.1 / 2017-11-14
 ===================
 
