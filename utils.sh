@@ -302,11 +302,14 @@ release() {
         S_VERSION="VERSION = \"$3-test.1\""
         P_VERSION="VERSION = \"$3\""
 
+        echo "branch must be dev"
+        git checkout dev || echo "change branch... dev"
+
         echo "run..."
-        echo "developing..."
-        printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
-        printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
-        cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
+        # echo "developing..."
+        # printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
+        # printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
+        # cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
 
         echo "staging..."
         printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
@@ -319,7 +322,7 @@ release() {
         cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
 
         echo "creating changelog..."
-        git changelog --no-merges --tag "$3"
+        git changelog --tag "$3"
 
         echo "git adding..."
         git add .
@@ -330,6 +333,15 @@ release() {
         echo "git pushing..."
         git push
         git push --tag
+
+        echo "setting pull-request"
+        git checkout master
+        git pull
+        git checkout dev
+        git merge --strategy into
+
+        echo "create pull-request"
+        git pull-request -m "Dump version: $P_VERSION" master
     else
         echo "stop!"
     fi

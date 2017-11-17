@@ -36,6 +36,7 @@ class User(AbstractUser):
             int((tod.month, tod.day) < (dob.month, dob.day))
         return my_age
 
+
     def get_email(self):
         from allauth.account.models import EmailAddress
         emails = EmailAddress.objects.filter(user_id=self.id, primary=True)

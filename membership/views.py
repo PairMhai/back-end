@@ -8,6 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from utilities.classes.database import ImpDetailByTokenView
+from utilities.classes.database import ImpUpdateByTokenView
 
 
 class CustomerDetail(ImpDetailByTokenView):
@@ -16,7 +17,7 @@ class CustomerDetail(ImpDetailByTokenView):
     user_id = 'user_id'
 
 
-class UserDetail(ImpDetailByTokenView):
+class UserDetail(ImpDetailByTokenView, ImpUpdateByTokenView):
     queryset = User.objects.all()
     serializer_class = FullUserSerializer
 
