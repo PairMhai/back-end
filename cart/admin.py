@@ -14,9 +14,9 @@ class OrderAdmin(admin.ModelAdmin):
         model = Order
 
 
-class OrderInfoAdmin(admin.ModelAdmin):
-    class Meta:
-        model = OrderInfo
+# class OrderInfoAdmin(admin.ModelAdmin):
+#     class Meta:
+#         model = OrderInfo
 
 
 class TransportationAdmin(admin.ModelAdmin):
@@ -25,5 +25,5 @@ class TransportationAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Order, OrderAdmin)
-admin.site.register(OrderInfo, OrderInfoAdmin)
+# admin.site.register(OrderInfo, OrderInfoAdmin)
 admin.site.register(Transportation, TransportationAdmin)
