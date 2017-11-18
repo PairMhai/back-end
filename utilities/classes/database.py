@@ -43,7 +43,9 @@ class TokenView(views.APIView):
 class ImpDetailByTokenView(TokenView, generics.RetrieveAPIView):
 
     def get(self, request, *args, **kwargs):
-        self.update_kwargs(**kwargs)
+        r = self.update_kwargs(**kwargs)
+        if r is not None:
+            return r
         self.update_lookup_field()
         return self.retrieve(request, *args, **kwargs)
 
@@ -51,7 +53,9 @@ class ImpDetailByTokenView(TokenView, generics.RetrieveAPIView):
 class ImpListByTokenView(TokenView, generics.ListAPIView):
 
     def get(self, request, *args, **kwargs):
-        self.update_kwargs(**kwargs)
+        r = self.update_kwargs(**kwargs)
+        if r is not None:
+            return r
         self.update_lookup_field()
         return self.list(request, *args, **kwargs)
 
@@ -64,7 +68,9 @@ class ImpUpdateByTokenView(TokenView, generics.UpdateAPIView):
         }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def patch(self, request, *args, **kwargs):
-        self.update_kwargs(**kwargs)
+        r = self.update_kwargs(**kwargs)
+        if r is not None:
+            return r
         self.update_lookup_field()
         return self.partial_update(request, *args, **kwargs)
 
@@ -72,7 +78,9 @@ class ImpUpdateByTokenView(TokenView, generics.UpdateAPIView):
 class ImpDestroyByTokenView(TokenView, generics.DestroyAPIView):
 
     def delete(self, request, *args, **kwargs):
-        self.update_kwargs(**kwargs)
+        r = self.update_kwargs(**kwargs)
+        if r is not None:
+            return r
         self.update_lookup_field()
         return self.destroy(request, *args, **kwargs)
 
