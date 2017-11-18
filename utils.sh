@@ -203,7 +203,7 @@ coverage_py() {
     [[ $type == "xml" ]] && [ -n "$directory" ] && result_file="-o $directory"
     [[ $type == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
 
-    coverage "$type" "$result_file"
+    coverage $type $result_file
 }
 
 test_ci() {
