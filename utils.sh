@@ -5,7 +5,7 @@
 if [[ $1 == "setup" ]]; then
     ! command -v conda &>/dev/null && echo "conda required to setup project!" && exit 1
 
-    if [ $(conda info --envs | grep pairmhai -q) ]; then
+    if conda info --envs | grep pairmhai -q; then
         source activate pairmhai
     else
         conda create --name pairmhai --file requirements_conda.txt
@@ -37,8 +37,8 @@ fi
 
 # uninstall project
 if [[ $1 == "teardown" ]]; then
-    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
-    for a in ${app[@]}; do
+    apps=($(tr '\n' ' ' < requirements.txt))
+    for a in ${apps[@]}; do
         echo "y" | pip uninstall "${a%%==*}"
     done
     exit 0
@@ -233,8 +233,8 @@ test_ci() {
         --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner \
         --verbosity=3 \
         --debug-sql \
-        "$setting"
-    [ $? -eq 0 ] && coverage xml # coverage report (run only test True)
+        "$setting" && 
+            coverage xml # coverage report (run only test True)
 }
 
 heroku_deploy() {
@@ -269,7 +269,7 @@ remove_all() {
     rm -r ./static/* 2>/dev/null && echo "remove static."
     rm -r .coverage* 2>/dev/null && echo "remove .coverage*."
     rm -r coverage* 2>/dev/null && echo "remove coverage*."
-    rm -r *htmlcov* 2>/dev/null && echo "remove htmlcov."
+    rm -r -- *htmlcov* 2>/dev/null && echo "remove htmlcov."
     return 0
 }
 
@@ -292,24 +292,16 @@ analyze() {
 }
 
 release() {
-    printf "update to => dev=%s       \n" "$2"
-    printf "          => pro=%s [Y|n] " "$3"
+    printf "          => pro=%s [Y|n] " "$2"
     read -rn 1 ans
     if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
-        DUMP=":bookmark: Dump version: $3"
+        DUMP=":bookmark: Dump version: $2"
         IMPORT="from .base import *"
-        D_VERSION="VERSION = \"$2-beta.1\""
-        S_VERSION="VERSION = \"$3-test.1\""
-        P_VERSION="VERSION = \"$3\""
+        S_VERSION="VERSION = \"$2-test.1\""
+        P_VERSION="VERSION = \"$2\""
 
         echo "branch must be dev"
         git checkout dev || echo "change branch... dev"
-
-        echo "run..."
-        # echo "developing..."
-        # printf "%s\n\n" "$IMPORT" > ./Backend/settings/develop.py
-        # printf "%s\n\n" "$D_VERSION" >> ./Backend/settings/develop.py
-        # cat ./Backend/settings/temp/dtemp.py >> ./Backend/settings/develop.py
 
         echo "staging..."
         printf "%s\n\n" "$IMPORT" > ./Backend/settings/staging.py
@@ -322,14 +314,14 @@ release() {
         cat ./Backend/settings/temp/ptemp.py >> ./Backend/settings/production.py
 
         echo "creating changelog..."
-        git changelog --tag "$3"
+        git changelog --tag "$2"
 
         echo "git adding..."
         git add .
         echo "git committing..."
         git commit -am "$DUMP"
         echo "git tagging..."
-        git tag "$3"
+        git tag "$2"
         echo "git pushing..."
         git push
         git push --tag
@@ -338,10 +330,12 @@ release() {
         git checkout master
         git pull
         git checkout dev
-        git merge --strategy into
+        git merge-into master
 
         echo "create pull-request"
-        git pull-request -m "Dump version: $P_VERSION" master
+        command -v hub &>/dev/null && 
+            hub pull-request -m "Dump version: $2" master || 
+            echo "error code: $?, cannot create pull-request.."
     else
         echo "stop!"
     fi

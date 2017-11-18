@@ -1,4 +1,25 @@
 
+v1.4.3 / 2017-11-18
+===================
+
+  * :bug: fix bug, error not returnable in delete payment
+  * :bug: fix coverage fail because of script
+  * :bug: fix error result in payment
+
+v1.4.2.001 / 2017-11-18
+=======================
+
+  * fix code error 
+
+v1.4.2 / 2017-11-18
+===================
+
+  * :bug: fix Table of Contents
+  * :memo: Update document of delete credit
+  * :memo: update document of user
+  * :sparkles: Add destroy creditcard of user
+  * :children_crossing: Improve code
+
 v1.4.1 / 2017-11-18
 ===================
 

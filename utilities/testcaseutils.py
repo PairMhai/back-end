@@ -155,8 +155,17 @@ class ImpTestCase(TestCase):
     def assertResponseCode400(self, response):
         self.assertResponseCode(response, status.HTTP_400_BAD_REQUEST)
 
+    def assertResponseCode401(self, response):
+        self.assertResponseCode(response, status.HTTP_401_UNAUTHORIZED)
+
     def run_get(self, reverse_path, args=None):
         return self.client.get(
+            reverse(reverse_path, args=args),
+            format="json"
+        )
+
+    def run_delete(self, reverse_path, args=None):
+        return self.client.delete(
             reverse(reverse_path, args=args),
             format="json"
         )
