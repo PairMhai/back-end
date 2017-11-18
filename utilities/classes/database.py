@@ -55,6 +55,7 @@ class ImpListByTokenView(TokenView, generics.ListAPIView):
         self.update_lookup_field()
         return self.list(request, *args, **kwargs)
 
+
 class ImpUpdateByTokenView(TokenView, generics.UpdateAPIView):
     
     def put(self, request, *args, **kwargs):
@@ -66,6 +67,14 @@ class ImpUpdateByTokenView(TokenView, generics.UpdateAPIView):
         self.update_kwargs(**kwargs)
         self.update_lookup_field()
         return self.partial_update(request, *args, **kwargs)
+
+
+class ImpDestroyByTokenView(TokenView, generics.DestroyAPIView):
+
+    def delete(self, request, *args, **kwargs):
+        self.update_kwargs(**kwargs)
+        self.update_lookup_field()
+        return self.destroy(request, *args, **kwargs)
 
 
 class DynamicFieldsModelSerializer(serializers.ModelSerializer):
