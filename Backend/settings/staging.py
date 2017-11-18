@@ -1,6 +1,6 @@
 from .base import *
 
-VERSION = "v1.4.3-test.1"
+VERSION = "v1.4.2.001-test.1"
 
 
 ACCOUNT_EMAIL_REQUIRED = 'true'

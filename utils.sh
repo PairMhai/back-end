@@ -321,7 +321,7 @@ release() {
         echo "git committing..."
         git commit -am "$DUMP"
         echo "git tagging..."
-        git tag "$3"
+        git tag "$2"
         echo "git pushing..."
         git push
         git push --tag
