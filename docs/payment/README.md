@@ -29,3 +29,14 @@
             "customer": "username: name surname"
         }
         ```
+
+### Payment Destroyer **(v1.4.2)**
+- Path: ^payment/delete/(?P<token>\w+)/(?P<ip>[0-9]+)$
+- Description: delete payment
+1. **Request**
+    - method: `DELETE`
+    - body: [none]
+2. **Response**
+    1. Successfully
+        - code: `204_NO_CONTENT`
+        - body: [none]
