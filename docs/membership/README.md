@@ -8,7 +8,7 @@
 - [Rest Password Change **(v1.0.1)**](#rest-password-change-v101)
 - [Rest Register **(v1.1.0)**](#rest-register-v110)
 - [Membership Customer Detail **(v1.0.1)**](#membership-customer-detail-v101)
-- [Membership User Detail **(v1.0.1)**](#membership-user-detail-v101)
+- [Membership User Detail **(v1.4.1)**](#membership-user-detail-v141)
 - [Membership Class **(v0.2.2)**](#membership-class-v022)
 
 ### Rest Password Reset **(v1.0.1)**
@@ -207,7 +207,7 @@
         }
         ```
 
-### Membership User Detail **(v1.0.1)**
+### Membership User Detail **(v1.4.1)**
 - Path: ^membership/user/(?P<token>\w+)$
 - Description: get user information by `user token`
 1. **Request**
@@ -231,7 +231,21 @@
             "telephone": "087-654-3210"
         }
         ```
-
+3. **Request**
+    - method: `PATCH`
+    - body: json of column that need changed
+    ```json
+        {
+            "email_address": "newemail@pairmhai.com",
+            "telephone": "099-999-9999"
+        }
+    ```
+4. **Response**
+        1. Successfully
+        - code: `200_OK`
+        - body: new detail of current user
+    
+    
 ### Membership Class **(v0.2.2)**
 - Path: ^membership/class/(?P<pk>[0-9]+)$
 - Description: get class of customer by `class id`
