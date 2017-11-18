@@ -5,7 +5,7 @@
 if [[ $1 == "setup" ]]; then
     ! command -v conda &>/dev/null && echo "conda required to setup project!" && exit 1
 
-    if [ $(conda info --envs | grep pairmhai -q) ]; then
+    if conda info --envs | grep pairmhai -q; then
         source activate pairmhai
     else
         conda create --name pairmhai --file requirements_conda.txt
@@ -37,8 +37,8 @@ fi
 
 # uninstall project
 if [[ $1 == "teardown" ]]; then
-    app=($(\cat requirements.txt | tr '\n' ' ')) # list of app
-    for a in ${app[@]}; do
+    apps=($(tr '\n' ' ' < requirements.txt))
+    for a in ${apps[@]}; do
         echo "y" | pip uninstall "${a%%==*}"
     done
     exit 0
@@ -203,7 +203,7 @@ coverage_py() {
     [[ $type == "xml" ]] && [ -n "$directory" ] && result_file="-o $directory"
     [[ $type == "html" ]] && [ -n "$directory" ] && result_file="--directory=$directory"
 
-    coverage $type $result_file
+    coverage "$type" "$result_file"
 }
 
 test_ci() {
@@ -233,8 +233,8 @@ test_ci() {
         --testrunner=xmlrunner.extra.djangotestrunner.XMLTestRunner \
         --verbosity=3 \
         --debug-sql \
-        "$setting"
-    [ $? -eq 0 ] && coverage xml # coverage report (run only test True)
+        "$setting" && 
+            coverage xml # coverage report (run only test True)
 }
 
 heroku_deploy() {
@@ -269,7 +269,7 @@ remove_all() {
     rm -r ./static/* 2>/dev/null && echo "remove static."
     rm -r .coverage* 2>/dev/null && echo "remove .coverage*."
     rm -r coverage* 2>/dev/null && echo "remove coverage*."
-    rm -r *htmlcov* 2>/dev/null && echo "remove htmlcov."
+    rm -r -- *htmlcov* 2>/dev/null && echo "remove htmlcov."
     return 0
 }
 
@@ -298,7 +298,7 @@ release() {
     if [[ "$ans" == "y" ]] || [[ "$ans" == "Y" ]]; then
         DUMP=":bookmark: Dump version: $3"
         IMPORT="from .base import *"
-        D_VERSION="VERSION = \"$2-beta.1\""
+        # D_VERSION="VERSION = \"$2-beta.1\""
         S_VERSION="VERSION = \"$3-test.1\""
         P_VERSION="VERSION = \"$3\""
 
@@ -341,7 +341,9 @@ release() {
         git merge --strategy into
 
         echo "create pull-request"
-        git pull-request -m "Dump version: $P_VERSION" master
+        command -v hub &>/dev/null && 
+            hub pull-request -m "Dump version: $P_VERSION" master || 
+            echo "error code: $?, cannot create pull-request.."
     else
         echo "stop!"
     fi
