@@ -1,4 +1,11 @@
 
+v1.4.3 / 2017-11-18
+===================
+
+  * :bug: fix bug, error not returnable in delete payment
+  * :bug: fix coverage fail because of script
+  * :bug: fix error result in payment
+
 v1.4.2.001 / 2017-11-18
 =======================
 
