@@ -2,6 +2,7 @@ from payment.models import CreditCard
 from payment.serializers import FullCreditCardSerializer
 
 from rest_framework import generics
+from rest_framework.exceptions import NotAcceptable
 from utilities.classes.database import ImpDestroyByTokenView
 from utilities.methods.database import get_customer_by_uid
 
@@ -16,13 +17,16 @@ class CreditCardDeleteAction(ImpDestroyByTokenView):
     credit_id = "credit_card_id"
 
     def update_kwargs(self, **kwargs):
-        super(CreditCardDeleteAction, self).update_kwargs(**kwargs)
-        self.kwargs[self.credit_id] = kwargs.get('id')
+        self.kwargs[self.credit_id] = kwargs.get('credit_id')
+        return super(CreditCardDeleteAction, self).update_kwargs(**kwargs)
     
     def get_object(self):
         obj = super(CreditCardDeleteAction, self).get_object()
         cust = get_customer_by_uid(obj.id)
-        return CreditCard.objects.get(
-            id=self.kwargs[self.credit_id],
-            customer=cust
-        )
+        try: 
+            return CreditCard.objects.get(
+                id=self.kwargs[self.credit_id],
+                customer=cust
+            )
+        except:
+            raise NotAcceptable(detail="your customer and creditcard not matches.")
