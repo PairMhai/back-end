@@ -323,7 +323,7 @@ release() {
         echo "git merge master..."
         git checkout master; git pull
         git checkout dev; git pull
-        g merge --strategy=ours master
+        git merge --strategy=ours master
         echo "git tagging..."
         git tag "$2"
         echo "git pushing..."
