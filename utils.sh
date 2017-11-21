@@ -320,19 +320,17 @@ release() {
         git add .
         echo "git committing..."
         git commit -am "$DUMP"
+        echo "git merge master..."
+        git checkout master; git pull
+        git checkout dev; git pull
+        g merge --strategy=ours master
         echo "git tagging..."
         git tag "$2"
         echo "git pushing..."
         git push
         git push --tag
 
-        echo "setting pull-request"
-        git checkout master
-        git pull
-        git checkout dev
-        git merge-into master
-
-        echo "create pull-request"
+        echo "git pull-request..."
         command -v hub &>/dev/null && 
             hub pull-request -m "Dump version: $2" master || 
             echo "error code: $?, cannot create pull-request.."
