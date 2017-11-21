@@ -3,77 +3,69 @@
   fields:
     name: Ash Dress
     description: Modern design which is available for all occasions.
-    # price: 2000
-    yard: 2
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 1
-- model: catalog.design
-  pk: 2
-  fields:
-    name: Browny Dress
-    description: Beautiful and elegant which could make you feel nobel.
-    # price: 1000
-    yard: 3
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 2
-- model: catalog.design
-  pk: 3
-  fields:
-    name: Cherry Blossom Dress
-    description: A good looking design which could make you feel delightful.
-    # price: 1500
-    yard: 1
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 3
-- model: catalog.design
-  pk: 4
-  fields:
-    name: Dark Blue Dress
-    description: This design seems to cotain an entire world and reflect the origin of the universe.
-    # price: 3000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
     material: 4
 - model: catalog.design
-  pk: 5
+  pk: 2
   fields:
-    name: Dark Orange Dress
-    description: The feeling of sunset and warm.
-    # price: 1200
-    yard: 2
+    name: Browny Dress
+    description: Beautiful and elegant which could make you feel nobel.
+    yard: 3
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 3
+- model: catalog.design
+  pk: 3
+  fields:
+    name: Cherry Blossom Dress
+    description: A good looking design which could make you feel delightful.
+    yard: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
     material: 5
 - model: catalog.design
-  pk: 6
+  pk: 4
   fields:
-    name: Dark Pink Dress
-    description: Charming and seductive which make you feel as the butterflies swarm around the flora.
-    # price: 1000
-    yard: 6
-    created_at: '2017-01-01 00:00:00.000000+07:00'
-    updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 6
-- model: catalog.design
-  pk: 7
-  fields:
-    name: Light Blue Dress
-    description: This design will make you feel like a bright and clear sky in winter.
-    # price: 2500
+    name: Dark Blue Dress
+    description: This design seems to cotain an entire world and reflect the origin of the universe.
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 7
+    material: 2
+- model: catalog.design
+  pk: 5
+  fields:
+    name: Dark Gold Dress
+    description: The feeling of sunset and warm.
+    yard: 2
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 15
+- model: catalog.design
+  pk: 6
+  fields:
+    name: Pinky Dress
+    description: Charming and seductive which make you feel as the butterflies swarm around the flora.
+    yard: 6
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 11
+- model: catalog.design
+  pk: 7
+  fields:
+    name: Dark Green Dress
+    description: This design will make you feel like a bright and fresh in summer.
+    yard: 2
+    created_at: '2017-01-01 00:00:00.000000+07:00'
+    updated_at: '2017-01-01 00:00:00.000000+07:00'
+    material: 10
 - model: catalog.design
   pk: 8
   fields:
     name: Light Green Dress
     description: The feeling of natural and fresh.
-    # price: 1000
     yard: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -83,57 +75,51 @@
   fields:
     name: Light Purple Dress
     description: The design which make you feel like the crytal clear water.
-    # price: 1500
     yard: 4.8
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 9
+    material: 7
 - model: catalog.design
   pk: 10
   fields:
-    name: Pink Dress
-    description: A good looking design which could make you feel lovely.
-    # price: 1000
+    name: Luxury Golden Dress
+    description: A good looking design which could make you feel classic & luxury.
     yard: 12
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 10
+    material: 12
 - model: catalog.design
   pk: 11
   fields:
     name: Purple Dress
     description: The design which make you feel mysterious.
-    # price: 1000
     yard: 5.9
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 11
+    material: 13
 - model: catalog.design
   pk: 12
   fields:
     name: Red Dress
     description: The design that give a feeling of fervent.
-    # price: 1000
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 12
+    material: 1
 - model: catalog.design
   pk: 13
   fields:
     name: Red Velvet Dress
     description: A sweet and lovely design which will make you enjoy and happy.
-    # price: 1000
     yard: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 13
+    material: 9
 - model: catalog.design
   pk: 14
   fields:
-    name: Light Pink Dress
+    name: Chiffon Dress
     description: A good looking design which could make you feel lovely.
-    # price: 1000
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -141,10 +127,9 @@
 - model: catalog.design
   pk: 15
   fields:
-    name: White And Blue Dress
-    description: A white and blue which make you feel like a clear water at the beach.
-    # price: 1000
+    name: Blue Sky Dress
+    description: A blue sky which make you feel like a clear water at the beach.
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
-    material: 15
+    material: 14
