@@ -5,8 +5,10 @@ from rest_framework.authtoken.models import Token
 
 from django.http import Http404
 from django.utils import timezone
+from django.contrib.admin.models import LogEntry
+from django.contrib.contenttypes.models import ContentType
 
-from membership.models import Customer
+from membership.models import User, Customer
 
 from utilities.methods.database import get_object_or_404, get_user_id_by_token
 
@@ -32,6 +34,14 @@ class TokenView(views.APIView):
     def update_kwargs(self, **kwargs):
         try:
             self.kwargs[self.get_id_name()] = self.get_id(kwargs.get('token'))
+
+            env = self.request._request.environ
+            obj = "{}".format(env.get("HOME"))
+            msg = "{} {}".format(env.get("REQUEST_METHOD"), env.get("PATH_INFO"))
+            LogEntry.objects.log_action(
+                self.kwargs[self.get_id_name()], ContentType.objects.get_for_model(User).id, 
+                self.kwargs, obj, 1, msg
+            )
         except Token.DoesNotExist:
             return Response({"detail": "get individual customer must have token"}, status=status.HTTP_401_UNAUTHORIZED)
 

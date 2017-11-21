@@ -21,6 +21,8 @@ from rest_framework.exceptions import (
 )
 
 from django.core.exceptions import ValidationError
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.admin.models import LogEntry
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
@@ -205,6 +207,14 @@ class LoginSerializer(DefaultLoginSerializer):
                         _('E-mail is not verified.'))
 
         attrs['user'] = user
+        LogEntry.objects.log_action(
+            user_id=user.id,
+            content_type_id=ContentType.objects.get_for_model(User).id,
+            object_id=user.id,
+            object_repr=repr(user),
+            action_flag=1,
+            change_message="login"
+        )
         return attrs
 
 
