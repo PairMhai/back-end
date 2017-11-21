@@ -6,15 +6,25 @@ from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
 from allauth.account.models import EmailAddress
 
 from payment.serializers import CreditCardSerializer, FullCreditCardSerializer
-from rest_auth.serializers import LoginSerializer as DefaultLoginSerializer
+
+from membership.forms import PasswordResetForm
+
+from rest_auth.serializers import (
+    LoginSerializer as DefaultLoginSerializer,
+    PasswordResetSerializer as DefaultPasswordResetSerializer
+)
 
 from rest_framework import serializers, exceptions
-from rest_framework.exceptions import ValidationError
+from rest_framework.exceptions import ( 
+    APIException, 
+    NotAcceptable
+)
 
+from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.hashers import make_password
 from django.conf import settings
-from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+
 from django.utils.translation import ugettext_lazy as _
 from django.db.utils import IntegrityError
 
@@ -196,3 +206,13 @@ class LoginSerializer(DefaultLoginSerializer):
 
         attrs['user'] = user
         return attrs
+
+
+class PasswordResetSerializer(DefaultPasswordResetSerializer):
+    password_reset_form_class = PasswordResetForm
+
+    def save(self):
+        try:
+            super(PasswordResetSerializer, self).save()
+        except ValidationError as e:
+            raise NotAcceptable(e.messages[0])
