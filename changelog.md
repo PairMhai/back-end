@@ -1,4 +1,17 @@
 
+v1.4.5 / 2017-11-21
+===================
+
+  * Merge branch 'master' into dev
+  * fix utils error
+
+v1.4.4 / 2017-11-21
+===================
+
+  * :bug: Fix forget password fails
+  * update design/materials
+  * Rename changelog to changelog.md
+
 v1.4.3 / 2017-11-18
 ===================
 

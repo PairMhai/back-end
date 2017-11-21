@@ -88,6 +88,7 @@ REST_AUTH_REGISTER_SERIALIZERS = {
 
 REST_AUTH_SERIALIZERS = {
     'LOGIN_SERIALIZER': 'membership.serializers.LoginSerializer',
+    'PASSWORD_RESET_SERIALIZER': 'membership.serializers.PasswordResetSerializer',
 }
 
 REST_FRAMEWORK = {
