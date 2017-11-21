@@ -11,6 +11,11 @@ from utilities.classes.database import ImpDetailByTokenView
 from utilities.classes.database import ImpUpdateByTokenView
 
 
+
+from django.utils.translation import ugettext_lazy as _
+from rest_auth.views import PasswordResetView
+
+
 class CustomerDetail(ImpDetailByTokenView):
     queryset = Customer.objects.all()
     serializer_class = FullCustomerSerializer

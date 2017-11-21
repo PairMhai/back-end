@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from membership.views import CustomerDetail, UserDetail, ClassDetail, ConfirmEmailView, completed_register  # , CustomerList
+from membership.views import CustomerDetail, UserDetail, ClassDetail, ConfirmEmailView, completed_register
 
 urlpatterns = [
     # url(r'^django-auth', include('django.contrib.auth.urls')),
