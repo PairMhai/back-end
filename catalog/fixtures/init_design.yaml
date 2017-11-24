@@ -1,7 +1,7 @@
 - model: catalog.design
   pk: 1
   fields:
-    name: Ash Dress
+    name: Black Dress
     description: Modern design which is available for all occasions.
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -10,7 +10,7 @@
 - model: catalog.design
   pk: 2
   fields:
-    name: Browny Dress
+    name: Rose Gold Dress
     description: Beautiful and elegant which could make you feel nobel.
     yard: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -19,7 +19,7 @@
 - model: catalog.design
   pk: 3
   fields:
-    name: Cherry Blossom Dress
+    name: Light Pink Dress
     description: A good looking design which could make you feel delightful.
     yard: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -37,7 +37,7 @@
 - model: catalog.design
   pk: 5
   fields:
-    name: Dark Gold Dress
+    name: Brocade Dress
     description: The feeling of sunset and warm.
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -46,7 +46,7 @@
 - model: catalog.design
   pk: 6
   fields:
-    name: Pinky Dress
+    name: Light Pinky Dress
     description: Charming and seductive which make you feel as the butterflies swarm around the flora.
     yard: 6
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -73,7 +73,7 @@
 - model: catalog.design
   pk: 9
   fields:
-    name: Light Purple Dress
+    name: Satin Purp Dress
     description: The design which make you feel like the crytal clear water.
     yard: 4.8
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -82,7 +82,7 @@
 - model: catalog.design
   pk: 10
   fields:
-    name: Luxury Golden Dress
+    name: Gold Damask Dress
     description: A good looking design which could make you feel classic & luxury.
     yard: 12
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -91,7 +91,7 @@
 - model: catalog.design
   pk: 11
   fields:
-    name: Purple Dress
+    name: Charme Purp Dress
     description: The design which make you feel mysterious.
     yard: 5.9
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -109,7 +109,7 @@
 - model: catalog.design
   pk: 13
   fields:
-    name: Red Velvet Dress
+    name: Velveties Dress
     description: A sweet and lovely design which will make you enjoy and happy.
     yard: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
@@ -118,7 +118,7 @@
 - model: catalog.design
   pk: 14
   fields:
-    name: Chiffon Dress
+    name: Chiffon Cream Dress
     description: A good looking design which could make you feel lovely.
     yard: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
