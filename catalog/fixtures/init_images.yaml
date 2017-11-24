@@ -1,21 +1,21 @@
 - model: catalog.image
   pk: 1
   fields:
-    file_name: ash-dress.jpg
+    file_name: black-dress.jpg
     design: 1
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 2
   fields:
-    file_name: browny-set.jpg
+    file_name: rosegold-dress.jpg
     design: 2
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 3
   fields:
-    file_name: cherryblossom-dress.jpg
+    file_name: lightpink-dress.jpg
     design: 3
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -29,21 +29,21 @@
 - model: catalog.image
   pk: 5
   fields:
-    file_name: darkorange-dress.jpg
+    file_name: brocade-dress.jpg
     design: 5
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 6
   fields:
-    file_name: darkpink-dress.jpg
+    file_name: lightpinky-dress.jpg
     design: 6
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 7
   fields:
-    file_name: lightblue-dress.jpg
+    file_name: darkgreen-dress.jpg
     design: 7
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -57,21 +57,21 @@
 - model: catalog.image
   pk: 9
   fields:
-    file_name: lightpurple-dress.jpg
+    file_name: satinpurp-dress.jpg
     design: 9
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 10
   fields:
-    file_name: pink-dress.jpg
+    file_name: gold_damask-dress.jpg
     design: 10
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 11
   fields:
-    file_name: purple-dress.jpg
+    file_name: charme-purp-dress.jpg
     design: 11
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -85,21 +85,21 @@
 - model: catalog.image
   pk: 13
   fields:
-    file_name: redvelvet-dress.jpg
+    file_name: velveties-dress.jpg
     design: 13
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 14
   fields:
-    file_name: verylightpink-dress.jpg
+    file_name: chiffon_cream-dress.jpg
     design: 14
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 15
   fields:
-    file_name: white-blue-dress.jpg
+    file_name: bluesky-dress.jpg
     design: 15
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
