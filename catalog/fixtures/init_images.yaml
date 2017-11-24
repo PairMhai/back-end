@@ -64,14 +64,14 @@
 - model: catalog.image
   pk: 10
   fields:
-    file_name: gold_damask-dress.jpg
+    file_name: golddamask-dress.jpg
     design: 10
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
 - model: catalog.image
   pk: 11
   fields:
-    file_name: charme-purp-dress.jpg
+    file_name: charmepurp-dress.jpg
     design: 11
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
@@ -92,7 +92,7 @@
 - model: catalog.image
   pk: 14
   fields:
-    file_name: chiffon_cream-dress.jpg
+    file_name: chiffoncream-dress.jpg
     design: 14
     created_at: '2017-01-01 00:00:00.000000+07:00'
     updated_at: '2017-01-01 00:00:00.000000+07:00'
