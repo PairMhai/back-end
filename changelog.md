@@ -1,4 +1,11 @@
 
+v1.4.5.2 / 2017-11-30
+=====================
+
+  * update image fixture
+  * update promotion fixture 
+  * update color fixture
+
 v1.4.5.1 / 2017-11-21
 =====================
 
