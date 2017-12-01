@@ -38,14 +38,14 @@ FIXTURE_DIRS = (
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '$s4uyh96pf2bj^8fwri&v%sg6l9jhp=r5ri3hh0423qdbhk8*v'
 
-ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'ngrok.io', '.ngrok.io', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['pairmhai-api.herokuapp.com', 'ngrok.io', '.ngrok.io', 'localhost', '127.0.0.1', 'pairmhai.herokuapp.com']
 
 # test runner
 # TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = 'test-reports'
 TEST_OUTPUT_VERBOSE = 2
 
-CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000')
+CORS_ORIGIN_WHITELIST = ('localhost:8080', '127.0.0.1:3000', 'localhost:3000', 'pairmhai.herokuapp.com')
 
 # Application definition
 
